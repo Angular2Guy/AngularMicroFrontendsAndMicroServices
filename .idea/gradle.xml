@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/angularShell" />
+            <option value="$PROJECT_DIR$/flightSelection-backend" />
+            <option value="$PROJECT_DIR$/flightSelection-frontend" />
+            <option value="$PROJECT_DIR$/hotelSelection-backend" />
+            <option value="$PROJECT_DIR$/hotelSelection-frontend" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
