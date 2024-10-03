@@ -10,14 +10,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package de.xxx.hotelselection
+package de.xxx.hotelselection.usecase.service
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
+import de.xxx.hotelselection.domain.model.entity.Hotel
+import org.springframework.stereotype.Service
 
-@SpringBootApplication
-class HotelselectionApplication
-
-fun main(args: Array<String>) {
-	runApplication<HotelselectionApplication>(*args)
+@Service
+class HotelService {
+    fun findHotelsInCity(city: String): List<Hotel> {
+        return listOf()
+    }
 }

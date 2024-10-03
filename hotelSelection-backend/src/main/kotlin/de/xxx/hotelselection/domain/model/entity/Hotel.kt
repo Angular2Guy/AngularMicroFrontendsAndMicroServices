@@ -10,14 +10,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package de.xxx.hotelselection
+package de.xxx.hotelselection.domain.model.entity
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
+import jakarta.persistence.Entity
+import java.util.UUID
 
-@SpringBootApplication
-class HotelselectionApplication
-
-fun main(args: Array<String>) {
-	runApplication<HotelselectionApplication>(*args)
-}
+@Entity
+class Hotel(val id: UUID?, val hotelName: String, val city: String) { }
