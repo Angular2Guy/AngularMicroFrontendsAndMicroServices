@@ -10,15 +10,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package de.xxx.hotelselection.usecase.service
+package de.xxx.hotelselection.domain.model.entity
 
-import de.xxx.hotelselection.domain.model.entity.Hotel
-import de.xxx.hotelselection.domain.model.entity.HotelRepository
-import org.springframework.stereotype.Service
 
-@Service
-class HotelService(val hotelRepository: HotelRepository) {
-    fun findHotelsInCity(city: String): List<Hotel> {
-        return this.hotelRepository.findByCity(city.trim().lowercase())
-    }
+interface HotelRepository {
+    fun findByCity(city: String): List<Hotel>
 }

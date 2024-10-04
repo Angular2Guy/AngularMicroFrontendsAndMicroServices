@@ -10,15 +10,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package de.xxx.hotelselection.usecase.service
+package de.xxx.hotelselection.adapter.repository
 
 import de.xxx.hotelselection.domain.model.entity.Hotel
-import de.xxx.hotelselection.domain.model.entity.HotelRepository
-import org.springframework.stereotype.Service
+import org.springframework.data.jpa.repository.Query
+import org.springframework.data.repository.CrudRepository
+import org.springframework.data.repository.PagingAndSortingRepository
+import org.springframework.data.repository.query.Param
 
-@Service
-class HotelService(val hotelRepository: HotelRepository) {
-    fun findHotelsInCity(city: String): List<Hotel> {
-        return this.hotelRepository.findByCity(city.trim().lowercase())
-    }
+interface JpaHotelRepository: PagingAndSortingRepository<Hotel, Long>, CrudRepository<Hotel, Long> {
+    @Query("select h from Hotel h where lower(h.city) like lower(concat('%', :city,'%'))")
+    fun findByCity(@Param("city") city: String): List<Hotel>
 }

@@ -10,15 +10,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package de.xxx.hotelselection.usecase.service
+package de.xxx.hotelselection.adapter.repository
 
 import de.xxx.hotelselection.domain.model.entity.Hotel
 import de.xxx.hotelselection.domain.model.entity.HotelRepository
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Repository
 
-@Service
-class HotelService(val hotelRepository: HotelRepository) {
-    fun findHotelsInCity(city: String): List<Hotel> {
-        return this.hotelRepository.findByCity(city.trim().lowercase())
+@Repository
+class HotelRepositoryBean(var jpaHotelRepository: JpaHotelRepository): HotelRepository {
+    override fun findByCity(city: String): List<Hotel> {
+        return this.jpaHotelRepository.findByCity(city)
     }
 }

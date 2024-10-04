@@ -13,8 +13,10 @@ limitations under the License.
 package de.xxx.hotelselection.domain.model.entity
 
 import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import java.util.UUID
 
 @Entity
-class Hotel(@Id val id: UUID?, val hotelName: String, val city: String) { }
+class Hotel(@Id @GeneratedValue(strategy = GenerationType.UUID) val id: UUID?, val hotelName: String, val city: String) { }
