@@ -12,7 +12,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet id="1" author="angular2guy">
-        <createTable tableName="vector_store">
+        <createTable tableName="hotel">
             <column name="id" type="uuid">
                 <constraints primaryKey="true"/>
             </column>
