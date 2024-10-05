@@ -12,18 +12,10 @@ limitations under the License.
  */
 package de.xxx.hotelselection.adapter.repository
 
-import de.xxx.hotelselection.domain.model.entity.Hotel
-import de.xxx.hotelselection.domain.model.entity.HotelRepository
-import org.springframework.stereotype.Repository
+import de.xxx.hotelselection.domain.model.entity.Booking
+import org.springframework.data.repository.CrudRepository
+import org.springframework.data.repository.PagingAndSortingRepository
 import java.util.*
 
-@Repository
-class HotelRepositoryBean(var jpaHotelRepository: JpaHotelRepository): HotelRepository {
-    override fun findByCity(city: String): List<Hotel> {
-        return this.jpaHotelRepository.findByCity(city)
-    }
-
-    override fun findById(id: UUID): Optional<Hotel> {
-        return this.jpaHotelRepository.findById(id)
-    }
+interface JpaBookingRepository: PagingAndSortingRepository<Booking, UUID>, CrudRepository<Booking, UUID> {
 }

@@ -20,12 +20,12 @@ import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-class HotelMapper {
-    fun toDto(hotel: Hotel): HotelDto {
+class CommonMapper {
+    fun toHotelDto(hotel: Hotel): HotelDto {
         return HotelDto(hotel.id.toString(), hotel.hotelName, hotel.city, this.bookingsToDto(hotel.bookings))
     }
 
-    fun toEntity(hotelDto: HotelDto): Hotel {
+    fun toHotelDto(hotelDto: HotelDto): Hotel {
         val myHotel = Hotel(Optional.ofNullable(hotelDto.id).stream().map { UUID.fromString(it) }.findFirst().orElse(null), hotelDto.hotelName, hotelDto.city, mutableSetOf())
         val myBookings = this.bookingsToEntity(hotelDto.bookings, myHotel)
         myHotel.bookings.plus(myBookings)

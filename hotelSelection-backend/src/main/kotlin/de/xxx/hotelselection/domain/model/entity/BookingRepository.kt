@@ -12,10 +12,6 @@ limitations under the License.
  */
 package de.xxx.hotelselection.domain.model.entity
 
-import java.util.*
-
-
-interface HotelRepository {
-    fun findByCity(city: String): List<Hotel>
-    fun findById(id: UUID): Optional<Hotel>
+interface BookingRepository {
+    fun save(booking: Booking): Booking
 }

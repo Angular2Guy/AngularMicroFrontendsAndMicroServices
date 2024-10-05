@@ -12,19 +12,13 @@ limitations under the License.
  */
 package de.xxx.hotelselection.usecase.service
 
-import de.xxx.hotelselection.domain.model.entity.Hotel
-import de.xxx.hotelselection.domain.model.entity.HotelRepository
+import de.xxx.hotelselection.domain.model.entity.Booking
+import de.xxx.hotelselection.domain.model.entity.BookingRepository
 import org.springframework.stereotype.Service
-import java.util.Optional
-import java.util.UUID
 
 @Service
-class HotelService(val hotelRepository: HotelRepository) {
-    fun findHotelsInCity(city: String): List<Hotel> {
-        return this.hotelRepository.findByCity(city.trim().lowercase())
-    }
-
-    fun findHotelById(id: UUID): Optional<Hotel> {
-        return this.hotelRepository.findById(id)
+class BookingService(val bookingRepository: BookingRepository) {
+    fun saveBooking(booking: Booking): Booking {
+        return this.bookingRepository.save(booking)
     }
 }

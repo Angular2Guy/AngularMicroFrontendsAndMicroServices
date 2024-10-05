@@ -17,8 +17,9 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.data.repository.query.Param
+import java.util.UUID
 
-interface JpaHotelRepository: PagingAndSortingRepository<Hotel, Long>, CrudRepository<Hotel, Long> {
+interface JpaHotelRepository: PagingAndSortingRepository<Hotel, UUID>, CrudRepository<Hotel, UUID> {
     @Query("select h from Hotel h where lower(h.city) like lower(concat('%', :city,'%'))")
     fun findByCity(@Param("city") city: String): List<Hotel>
 }
