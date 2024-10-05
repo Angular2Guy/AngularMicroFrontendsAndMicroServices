@@ -12,8 +12,14 @@ limitations under the License.
  */
 package de.xxx.hotelselection.domain.model.entity
 
-import jakarta.persistence.*
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.ManyToOne
+import java.time.LocalDate
 import java.util.UUID
 
 @Entity
-class Hotel(@Id @GeneratedValue(strategy = GenerationType.UUID) val id: UUID?, val hotelName: String, val city: String, @OneToMany(mappedBy="hotel") var bookings: Set<Booking>) { }
+class Booking(@Id @GeneratedValue(strategy = GenerationType.UUID) val id: UUID, @ManyToOne val hotel: Hotel, val from: LocalDate, val to: LocalDate) {
+}

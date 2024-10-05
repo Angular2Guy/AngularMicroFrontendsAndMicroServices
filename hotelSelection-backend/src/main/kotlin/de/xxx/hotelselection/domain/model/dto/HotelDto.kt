@@ -12,4 +12,4 @@ limitations under the License.
  */
 package de.xxx.hotelselection.domain.model.dto
 
-data class HotelDto(val id: String?, val hotelName: String, val city: String) { }
+data class HotelDto(val id: String?, val hotelName: String, val city: String, val bookings: Set<BookingDto>) { }

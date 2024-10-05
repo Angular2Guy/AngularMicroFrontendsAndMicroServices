@@ -12,7 +12,9 @@ limitations under the License.
  */
 package de.xxx.hotelselection.usecase.mapper
 
+import de.xxx.hotelselection.domain.model.dto.BookingDto
 import de.xxx.hotelselection.domain.model.dto.HotelDto
+import de.xxx.hotelselection.domain.model.entity.Booking
 import de.xxx.hotelselection.domain.model.entity.Hotel
 import org.springframework.stereotype.Component
 import java.util.*
@@ -20,10 +22,21 @@ import java.util.*
 @Component
 class HotelMapper {
     fun toDto(hotel: Hotel): HotelDto {
-        return HotelDto(hotel.id.toString(), hotel.hotelName, hotel.city)
+        return HotelDto(hotel.id.toString(), hotel.hotelName, hotel.city, this.bookingsToDto(hotel.bookings))
     }
 
     fun toEntity(hotelDto: HotelDto): Hotel {
-        return Hotel(Optional.ofNullable(hotelDto.id).stream().map { UUID.fromString(it) }.findFirst().orElse(null), hotelDto.hotelName, hotelDto.city)
+        val myHotel = Hotel(Optional.ofNullable(hotelDto.id).stream().map { UUID.fromString(it) }.findFirst().orElse(null), hotelDto.hotelName, hotelDto.city, mutableSetOf())
+        val myBookings = this.bookingsToEntity(hotelDto.bookings, myHotel)
+        myHotel.bookings.plus(myBookings)
+        return myHotel
+    }
+
+    fun bookingsToDto(bookings: Set<Booking>): Set<BookingDto> {
+        return bookings.map { it -> BookingDto(it.id, it.from, it.to) }.toSet()
+    }
+
+    fun bookingsToEntity(bookingDtos: Set<BookingDto>, hotel: Hotel): Set<Booking> {
+        return bookingDtos.map { it -> Booking(it.id, hotel, it.from, it.to ) }.toSet()
     }
 }

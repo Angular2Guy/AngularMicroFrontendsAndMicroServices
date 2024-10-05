@@ -39,6 +39,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.liquibase:liquibase-core")
+	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 	implementation("net.javacrumbs.shedlock:shedlock-spring:5.2.0")
 	implementation("net.javacrumbs.shedlock:shedlock-provider-jdbc-template:5.2.0")
 	runtimeOnly("org.postgresql:postgresql")

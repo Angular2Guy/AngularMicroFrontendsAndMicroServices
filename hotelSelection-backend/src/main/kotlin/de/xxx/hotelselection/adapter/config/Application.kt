@@ -10,10 +10,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package de.xxx.hotelselection.domain.model.entity
+package de.xxx.hotelselection.adapter.config
 
-import jakarta.persistence.*
-import java.util.UUID
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 
-@Entity
-class Hotel(@Id @GeneratedValue(strategy = GenerationType.UUID) val id: UUID?, val hotelName: String, val city: String, @OneToMany(mappedBy="hotel") var bookings: Set<Booking>) { }
+
+@Configuration
+class Application {
+
+    @Bean
+    fun createObjectMapper(): ObjectMapper? {
+        val objectMapper = ObjectMapper()
+        objectMapper.registerModule(JavaTimeModule())
+        return objectMapper
+    }
+}

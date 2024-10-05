@@ -10,10 +10,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package de.xxx.hotelselection.domain.model.entity
+package de.xxx.hotelselection.domain.model.dto
 
-import jakarta.persistence.*
+import java.time.LocalDate
 import java.util.UUID
 
-@Entity
-class Hotel(@Id @GeneratedValue(strategy = GenerationType.UUID) val id: UUID?, val hotelName: String, val city: String, @OneToMany(mappedBy="hotel") var bookings: Set<Booking>) { }
+data class BookingDto(val id: UUID, val from: LocalDate, val to: LocalDate) {
+}

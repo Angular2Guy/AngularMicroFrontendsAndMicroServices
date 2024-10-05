@@ -11,28 +11,14 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet id="1" author="angular2guy">
-        <createTable tableName="hotel">
+    <changeSet id="3" author="angular2guy">
+        <createTable tableName="booking">
             <column name="id" type="uuid">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="hotel_name" type="varchar(255)"/>
-            <column name="city" type="varchar(255)"/>
-        </createTable>
-    </changeSet>
-    <changeSet id="2" author="angular2guy">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="shedlock" />
-            </not>
-        </preConditions>
-        <createTable tableName="shedlock">
-            <column name="name" type="varchar(64)">
-                <constraints primaryKey="true" />
-            </column>
-            <column name="lock_until" type="timestamp" />
-            <column name="locked_at" type="timestamp" />
-            <column name="locked_by" type="varchar(255)" />
+            <column name="hotel_id" type="uuid"/>
+            <column name="from" type="date"/>
+            <column name="to" type="date"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>
