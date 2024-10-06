@@ -22,4 +22,7 @@ import java.util.UUID
 interface JpaHotelRepository: PagingAndSortingRepository<Hotel, UUID>, CrudRepository<Hotel, UUID> {
     @Query("select h from Hotel h where lower(h.city) like lower(concat('%', :city,'%'))")
     fun findByCity(@Param("city") city: String): List<Hotel>
+
+    @Query("select distinct h.city from Hotel h")
+    fun findCitiesWithHotels(): List<String>
 }

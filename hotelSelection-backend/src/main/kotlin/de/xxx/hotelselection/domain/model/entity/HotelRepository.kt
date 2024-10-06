@@ -18,4 +18,5 @@ import java.util.*
 interface HotelRepository {
     fun findByCity(city: String): List<Hotel>
     fun findById(id: UUID): Optional<Hotel>
+    fun findCitiesWithHotels(): List<String>
 }

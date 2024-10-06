@@ -28,4 +28,9 @@ class HotelController(val hotelService: HotelService, val hotelMapper: HotelMapp
     fun getHotelsForCity(@PathVariable city: String): List<HotelDto> {
         return this.hotelService.findHotelsInCity(city).map { this.hotelMapper.toHotelDto(it) }
     }
+
+    @GetMapping("/cities")
+    fun getCitiesWithHotels(): List<String> {
+        return this.hotelService.findCitiesWithHotels()
+    }
 }

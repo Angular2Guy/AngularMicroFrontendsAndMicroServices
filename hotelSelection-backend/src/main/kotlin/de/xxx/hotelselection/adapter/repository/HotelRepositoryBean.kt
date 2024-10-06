@@ -26,4 +26,8 @@ class HotelRepositoryBean(var jpaHotelRepository: JpaHotelRepository): HotelRepo
     override fun findById(id: UUID): Optional<Hotel> {
         return this.jpaHotelRepository.findById(id)
     }
+
+    override fun findCitiesWithHotels(): List<String> {
+        return this.jpaHotelRepository.findCitiesWithHotels()
+    }
 }

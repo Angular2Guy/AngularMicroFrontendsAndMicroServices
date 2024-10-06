@@ -27,4 +27,8 @@ class HotelService(val hotelRepository: HotelRepository) {
     fun findHotelById(id: UUID): Optional<Hotel> {
         return this.hotelRepository.findById(id)
     }
+
+    fun findCitiesWithHotels(): List<String> {
+        return listOf()
+    }
 }
