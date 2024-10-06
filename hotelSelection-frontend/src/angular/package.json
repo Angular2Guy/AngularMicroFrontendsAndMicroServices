@@ -3,10 +3,20 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve --hmr --proxy-config proxy.conf.js",
+    "build": "ng build --localize --configuration production",
+    "build-stats": "ng build --localize --configuration production --stats-json",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "analyse": "webpack-bundle-analyzer dist/manager/de/stats.json",
+    "test": "ng test --browsers ChromeHeadless --watch=false --code-coverage=true",
+    "test-chromium": "ng test --browsers ChromiumHeadless --watch=false --code-coverage=true",
+    "test-local": "ng test --browsers Chromium --watch=true",
+    "prebuild": "rimraf ./dist && mkdirp ./dist",
+    "postbuild": "npm run deploy",
+    "predeploy": "rimraf ../../../src/main/resources/static/*",
+    "deploy": "cpy 'dist/flight-selection/browser/**' ../../../hotelSelection-backend/src/main/resources/static/",
+    "prettier": "npx prettier --write 'src/**/*.{ts,html,scss,json}'",
+    "extract-i18n": "ng extract-i18n --format=json"
   },
   "private": true,
   "dependencies": {
@@ -18,6 +28,12 @@
     "@angular/platform-browser": "^18.0.0",
     "@angular/platform-browser-dynamic": "^18.0.0",
     "@angular/router": "^18.0.0",
+    "@angular/cdk": "^18.0.0",
+    "@angular/localize": "^18.0.0",
+    "@angular/material": "^18.0.0",
+    "@angular/material-luxon-adapter": "^18.0.0",
+    "luxon": "^3.2.1",
+    "material-icons": "^1.11.11",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
@@ -27,12 +43,20 @@
     "@angular/cli": "^18.0.2",
     "@angular/compiler-cli": "^18.0.0",
     "@types/jasmine": "~5.1.0",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/luxon": "^2.0.0",
+    "@types/node": "^14.0.0",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.4.2"
+    "typescript": "~5.4.2",
+    "cpy-cli": "^4.2.0",
+    "mkdirp": "^1.0.4",
+    "rimraf": "^4.0.2",
+    "prettier": "^3.0.0",
+    "webpack-bundle-analyzer": "^4.5.0"
   }
 }
