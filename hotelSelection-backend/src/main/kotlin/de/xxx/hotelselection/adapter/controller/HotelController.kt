@@ -13,7 +13,7 @@ limitations under the License.
 package de.xxx.hotelselection.adapter.controller
 
 import de.xxx.hotelselection.domain.model.dto.HotelDto
-import de.xxx.hotelselection.usecase.mapper.CommonMapper
+import de.xxx.hotelselection.usecase.mapper.HotelMapper
 import de.xxx.hotelselection.usecase.service.HotelService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 @RestController
 @RequestMapping("rest/hotel")
-class HotelController(val hotelService: HotelService, val commonMapper: CommonMapper) {
+class HotelController(val hotelService: HotelService, val hotelMapper: HotelMapper) {
 
     @GetMapping("/city/{city}")
     fun getHotelsForCity(@PathVariable city: String): List<HotelDto> {
-        return this.hotelService.findHotelsInCity(city).map { this.commonMapper.toHotelDto(it) }
+        return this.hotelService.findHotelsInCity(city).map { this.hotelMapper.toHotelDto(it) }
     }
 }

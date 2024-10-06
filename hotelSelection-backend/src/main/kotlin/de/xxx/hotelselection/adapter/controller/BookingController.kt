@@ -13,7 +13,7 @@ limitations under the License.
 package de.xxx.hotelselection.adapter.controller
 
 import de.xxx.hotelselection.domain.model.dto.BookingDto
-import de.xxx.hotelselection.usecase.mapper.CommonMapper
+import de.xxx.hotelselection.usecase.mapper.BookingMapper
 import de.xxx.hotelselection.usecase.service.BookingService
 import de.xxx.hotelselection.usecase.service.HotelService
 import org.springframework.web.bind.annotation.*
@@ -22,16 +22,16 @@ import java.util.*
 @RestController
 @RequestMapping("rest/booking")
 class BookingController(
-    val commonMapper: CommonMapper,
+    val bookingMapper: BookingMapper,
     val hotelService: HotelService,
     val bookingService: BookingService
 ) {
 
     @PostMapping("/hotel/{id}")
     fun postBooking(@PathVariable("id") id: String, @RequestBody bookingDto: BookingDto): BookingDto {
-        return this.commonMapper.bookingToDto(
+        return this.bookingMapper.toDto(
             this.bookingService.saveBooking(
-                this.commonMapper.bookingToEntity(
+                this.bookingMapper.toEntity(
                     bookingDto,
                     this.hotelService.findHotelById(UUID.fromString(id)).orElseThrow()
                 )
@@ -41,6 +41,6 @@ class BookingController(
 
     @GetMapping("/hotel/{id}")
     fun getBookingsForHotel(@PathVariable("id") id: String): Set<BookingDto> {
-        return this.commonMapper.bookingsToDto(this.bookingService.findByHotelId(UUID.fromString(id)))
+        return this.bookingMapper.toDtos(this.bookingService.findByHotelId(UUID.fromString(id)))
     }
 }
