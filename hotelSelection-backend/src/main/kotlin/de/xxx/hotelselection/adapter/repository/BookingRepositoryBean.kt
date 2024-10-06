@@ -15,10 +15,15 @@ package de.xxx.hotelselection.adapter.repository
 import de.xxx.hotelselection.domain.model.entity.Booking
 import de.xxx.hotelselection.domain.model.entity.BookingRepository
 import org.springframework.stereotype.Repository
+import java.util.*
 
 @Repository
 class BookingRepositoryBean(val jpaBookingRepository: JpaBookingRepository): BookingRepository {
     override fun save(booking: Booking): Booking {
         return this.jpaBookingRepository.save(booking)
+    }
+
+    override fun findByHotelId(hotelId: UUID): Set<Booking> {
+        return this.jpaBookingRepository.findByHotelId(hotelId)
     }
 }

@@ -15,10 +15,15 @@ package de.xxx.hotelselection.usecase.service
 import de.xxx.hotelselection.domain.model.entity.Booking
 import de.xxx.hotelselection.domain.model.entity.BookingRepository
 import org.springframework.stereotype.Service
+import java.util.UUID
 
 @Service
 class BookingService(val bookingRepository: BookingRepository) {
     fun saveBooking(booking: Booking): Booking {
         return this.bookingRepository.save(booking)
+    }
+
+    fun findByHotelId(hotelId: UUID): Set<Booking> {
+        return this.bookingRepository.findByHotelId(hotelId)
     }
 }

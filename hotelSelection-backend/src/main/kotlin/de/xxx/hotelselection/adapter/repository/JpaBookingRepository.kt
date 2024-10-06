@@ -13,9 +13,13 @@ limitations under the License.
 package de.xxx.hotelselection.adapter.repository
 
 import de.xxx.hotelselection.domain.model.entity.Booking
+import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.PagingAndSortingRepository
+import org.springframework.data.repository.query.Param
 import java.util.*
 
 interface JpaBookingRepository: PagingAndSortingRepository<Booking, UUID>, CrudRepository<Booking, UUID> {
+    @Query("select b from Booking b where b.hotel.id = :hotelId")
+    fun findByHotelId(@Param("hotelId")  hotelId: UUID): Set<Booking>
 }

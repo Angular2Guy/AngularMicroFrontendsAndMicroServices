@@ -12,6 +12,9 @@ limitations under the License.
  */
 package de.xxx.hotelselection.domain.model.entity
 
+import java.util.*
+
 interface BookingRepository {
     fun save(booking: Booking): Booking
+    fun findByHotelId(id: UUID): Set<Booking>
 }

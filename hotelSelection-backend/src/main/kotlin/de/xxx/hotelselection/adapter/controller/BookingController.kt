@@ -16,12 +16,7 @@ import de.xxx.hotelselection.domain.model.dto.BookingDto
 import de.xxx.hotelselection.usecase.mapper.CommonMapper
 import de.xxx.hotelselection.usecase.service.BookingService
 import de.xxx.hotelselection.usecase.service.HotelService
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
-import java.time.LocalDate
+import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
@@ -34,13 +29,18 @@ class BookingController(
 
     @PostMapping("/hotel/{id}")
     fun postBooking(@PathVariable("id") id: String, @RequestBody bookingDto: BookingDto): BookingDto {
-        return this.commonMapper.bookingsToDto(
-            setOf(
-                this.bookingService.saveBooking(
-                    this.commonMapper.bookingsToEntity(
-                        setOf(BookingDto(UUID.randomUUID(), LocalDate.now(), LocalDate.now())),
-                        this.hotelService.findHotelById(UUID.fromString(id)).orElseThrow()
-                    ).first()
-                ))).first()
+        return this.commonMapper.bookingToDto(
+            this.bookingService.saveBooking(
+                this.commonMapper.bookingToEntity(
+                    bookingDto,
+                    this.hotelService.findHotelById(UUID.fromString(id)).orElseThrow()
+                )
+            )
+        )
+    }
+
+    @GetMapping("/hotel/{id}")
+    fun getBookingsForHotel(@PathVariable("id") id: String): Set<BookingDto> {
+        return this.commonMapper.bookingsToDto(this.bookingService.findByHotelId(UUID.fromString(id)))
     }
 }

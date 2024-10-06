@@ -25,18 +25,31 @@ class CommonMapper {
         return HotelDto(hotel.id.toString(), hotel.hotelName, hotel.city, this.bookingsToDto(hotel.bookings))
     }
 
-    fun toHotelDto(hotelDto: HotelDto): Hotel {
-        val myHotel = Hotel(Optional.ofNullable(hotelDto.id).stream().map { UUID.fromString(it) }.findFirst().orElse(null), hotelDto.hotelName, hotelDto.city, mutableSetOf())
+    fun toHotelEntity(hotelDto: HotelDto): Hotel {
+        val myHotel = Hotel(
+            Optional.ofNullable(hotelDto.id).stream().map { UUID.fromString(it) }.findFirst().orElse(null),
+            hotelDto.hotelName,
+            hotelDto.city,
+            mutableSetOf()
+        )
         val myBookings = this.bookingsToEntity(hotelDto.bookings, myHotel)
         myHotel.bookings.plus(myBookings)
         return myHotel
     }
 
     fun bookingsToDto(bookings: Set<Booking>): Set<BookingDto> {
-        return bookings.map { it -> BookingDto(it.id, it.from, it.to) }.toSet()
+        return bookings.map { this.bookingToDto(it) }.toSet()
+    }
+
+    fun bookingToDto(booking: Booking): BookingDto {
+        return BookingDto(booking.id, booking.from, booking.to)
     }
 
     fun bookingsToEntity(bookingDtos: Set<BookingDto>, hotel: Hotel): Set<Booking> {
-        return bookingDtos.map { it -> Booking(it.id, hotel, it.from, it.to ) }.toSet()
+        return bookingDtos.map { this.bookingToEntity(it, hotel) }.toSet()
+    }
+
+    fun bookingToEntity(bookingDto: BookingDto, hotel: Hotel): Booking {
+        return Booking(bookingDto.id, hotel, bookingDto.from, bookingDto.to)
     }
 }
