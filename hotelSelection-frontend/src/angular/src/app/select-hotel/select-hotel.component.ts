@@ -10,9 +10,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
+import { Component } from '@angular/core';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+@Component({
+  selector: 'app-select-hotel',
+  standalone: true,
+  imports: [],
+  templateUrl: './select-hotel.component.html',
+  styleUrl: './select-hotel.component.scss'
+})
+export class SelectHotelComponent {
+
+}
