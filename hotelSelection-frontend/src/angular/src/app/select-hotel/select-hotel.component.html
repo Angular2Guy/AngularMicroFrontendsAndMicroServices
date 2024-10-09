@@ -14,7 +14,7 @@
         <mat-label i18n="@@selectHotelHotel">Hotel</mat-label>
         <mat-select formControlName="hotel">          
           @for (myHotel of hotels; track myHotel) {
-        <mat-option [value]="myHotel">{{myHotel}}</mat-option>
+        <mat-option [value]="myHotel.id">{{myHotel.hotelName}}</mat-option>
       }
         </mat-select>        
     </mat-form-field>

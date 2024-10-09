@@ -10,23 +10,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Hotel } from '../model/hotel';
+import { Booking } from "./booking";
 
-@Injectable({
-  providedIn: 'root'
-})
-export class HotelService {
-
-  constructor(private httpClient: HttpClient) { }
-
-  getCities(): Observable<String[]> {
-    return this.httpClient.get<String[]>('/rest/hotel/cities');
-  }
-
-  getHotels(city: String): Observable<Hotel[]> {
-    return this.httpClient.get<Hotel[]>(`/rest/hotel/city/${city}`);
-  }
+export interface Hotel {
+    id: string,
+    hotelName: string;
+    city: string;
+    bookings: Booking[];
 }

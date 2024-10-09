@@ -10,10 +10,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select'; 
 import {MatButtonModule} from '@angular/material/button'; 
+import { HotelService } from '../services/hotel.service';
+import { debounceTime, switchMap } from 'rxjs';
+import { Hotel } from '../model/hotel';
 
 @Component({
   selector: 'app-select-hotel',
@@ -22,11 +25,18 @@ import {MatButtonModule} from '@angular/material/button';
   templateUrl: './select-hotel.component.html',
   styleUrl: './select-hotel.component.scss'
 })
-export class SelectHotelComponent {
+export class SelectHotelComponent implements OnInit {  
   protected formGroup = new FormGroup({
     city: new FormControl(''),
     hotel: new FormControl('')
   });
   protected cities: String[] = [];
-  protected hotels: String[] = [];
+  protected hotels: Hotel[] = [];
+
+  constructor(private hotelService: HotelService) { }
+
+  ngOnInit(): void {
+    this.hotelService.getCities().subscribe(result => this.cities = result);
+    this.formGroup.controls['city'].valueChanges.pipe(debounceTime(300), switchMap(value => this.hotelService.getHotels(value || ''))).subscribe(result => this.hotels = result);
+  }
 }
