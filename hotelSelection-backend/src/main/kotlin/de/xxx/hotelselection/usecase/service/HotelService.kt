@@ -29,6 +29,6 @@ class HotelService(val hotelRepository: HotelRepository) {
     }
 
     fun findCitiesWithHotels(): List<String> {
-        return listOf()
+        return this.hotelRepository.findCitiesWithHotels()
     }
 }
