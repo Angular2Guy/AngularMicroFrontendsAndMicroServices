@@ -1,13 +1,27 @@
 <div>
-    <h2>Select city and hotel</h2>
+    <h2 i18n="@@selectHotelHeading">Select city and hotel</h2>
     <form [formGroup]="formGroup">
-    <mat-form-field>
-        <mat-label>Cities</mat-label>
+    <mat-form-field class="form-field">
+        <mat-label i18n="@@selectHotelCity">City</mat-label>
         <mat-select formControlName="city">          
           @for (myCity of cities; track myCity) {
         <mat-option [value]="myCity">{{myCity}}</mat-option>
       }
-        </mat-select>
+        </mat-select>        
     </mat-form-field>
+    <br/>
+    <mat-form-field class="form-field">
+        <mat-label i18n="@@selectHotelHotel">Hotel</mat-label>
+        <mat-select formControlName="hotel">          
+          @for (myHotel of hotels; track myHotel) {
+        <mat-option [value]="myHotel">{{myHotel}}</mat-option>
+      }
+        </mat-select>        
+    </mat-form-field>
+    <br/>
+    <div class="buttons">
+    <button mat-raised-button [disabled]="formGroup.invalid || formGroup.pristine" i18n="@@book">Book</button>
+    <button mat-raised-button i18n="@@cancel">Cancel</button>
+</div>
 </form>  
 </div>

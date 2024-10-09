@@ -13,11 +13,12 @@ limitations under the License.
 import { Component } from '@angular/core';
 import {FormGroup, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select'; 
+import {MatButtonModule} from '@angular/material/button'; 
 
 @Component({
   selector: 'app-select-hotel',
   standalone: true,
-  imports: [ReactiveFormsModule,MatSelectModule],
+  imports: [ReactiveFormsModule,MatSelectModule,MatButtonModule],
   templateUrl: './select-hotel.component.html',
   styleUrl: './select-hotel.component.scss'
 })

@@ -11,3 +11,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+}
+
+.form-field {
+    width: 20%;
+}
