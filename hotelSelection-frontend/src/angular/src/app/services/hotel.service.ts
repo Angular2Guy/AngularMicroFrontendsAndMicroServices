@@ -10,17 +10,22 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { Component } from '@angular/core';
-import {FormGroup, FormControl, ReactiveFormsModule} from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-
-@Component({
-  selector: 'app-book-hotel',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './book-hotel.component.html',
-  styleUrl: './book-hotel.component.scss'
+@Injectable({
+  providedIn: 'root'
 })
-export class BookHotelComponent {
+export class HotelService {
 
+  constructor(private httpClient: HttpClient) { }
+
+  getCities(): Observable<String[]> {
+    return this.httpClient.get<String[]>('/rest/hotel/cities');
+  }
+
+  getHotels(city: String): Observable<String[]> {
+    return this.httpClient.get<String[]>(`/rest/hotel/city/${city}`);
+  }
 }

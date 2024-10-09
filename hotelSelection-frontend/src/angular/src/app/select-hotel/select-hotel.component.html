@@ -1,1 +1,13 @@
-<p>select-hotel works!</p>
+<div>
+    <h2>Select city and hotel</h2>
+    <form [formGroup]="formGroup">
+    <mat-form-field>
+        <mat-label>Cities</mat-label>
+        <mat-select formControlName="city">          
+          @for (myCity of cities; track myCity) {
+        <mat-option [value]="myCity">{{myCity}}</mat-option>
+      }
+        </mat-select>
+    </mat-form-field>
+</form>  
+</div>

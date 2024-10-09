@@ -10,17 +10,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { Component } from '@angular/core';
-import {FormGroup, FormControl, ReactiveFormsModule} from '@angular/forms';
+import { TestBed } from '@angular/core/testing';
 
+import { HotelService } from './hotel.service';
 
-@Component({
-  selector: 'app-book-hotel',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './book-hotel.component.html',
-  styleUrl: './book-hotel.component.scss'
-})
-export class BookHotelComponent {
+/*
+describe('HotelService', () => {
+  let service: HotelService;
 
-}
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(HotelService);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+});
+*/

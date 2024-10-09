@@ -11,14 +11,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 import { Component } from '@angular/core';
+import {FormGroup, FormControl, ReactiveFormsModule} from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select'; 
 
 @Component({
   selector: 'app-select-hotel',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule,MatSelectModule],
   templateUrl: './select-hotel.component.html',
   styleUrl: './select-hotel.component.scss'
 })
 export class SelectHotelComponent {
-
+  protected formGroup = new FormGroup({
+    city: new FormControl(''),
+    hotel: new FormControl('')
+  });
+  protected cities: String[] = [];
+  protected hotels: String[] = [];
 }
