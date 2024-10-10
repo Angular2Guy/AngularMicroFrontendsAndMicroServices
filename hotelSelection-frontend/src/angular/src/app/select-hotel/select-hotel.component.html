@@ -3,7 +3,7 @@
     <form [formGroup]="formGroup">
     <mat-form-field class="form-field">
         <mat-label i18n="@@selectHotelCity">City</mat-label>
-        <mat-select formControlName="city">          
+        <mat-select [formControlName]="ControlName.City">          
           @for (myCity of cities; track myCity) {
         <mat-option [value]="myCity">{{myCity}}</mat-option>
       }
@@ -12,7 +12,7 @@
     <br/>
     <mat-form-field class="form-field">
         <mat-label i18n="@@selectHotelHotel">Hotel</mat-label>
-        <mat-select formControlName="hotel">          
+        <mat-select [formControlName]="ControlName.Hotel">          
           @for (myHotel of hotels; track myHotel) {
         <mat-option [value]="myHotel.id">{{myHotel.hotelName}}</mat-option>
       }

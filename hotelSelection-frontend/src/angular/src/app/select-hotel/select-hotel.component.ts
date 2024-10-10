@@ -19,6 +19,8 @@ import { debounceTime, switchMap } from 'rxjs';
 import { Hotel } from '../model/hotel';
 import { Router } from '@angular/router';
 
+enum ControlName {City = "city", Hotel="hotel"}
+
 @Component({
   selector: 'app-select-hotel',
   standalone: true,
@@ -28,20 +30,21 @@ import { Router } from '@angular/router';
 })
 export class SelectHotelComponent implements OnInit {  
   protected formGroup = new FormGroup({
-    city: new FormControl(''),
-    hotel: new FormControl('')
+    [ControlName.City]: new FormControl(''),
+    [ControlName.Hotel]: new FormControl('')
   });
   protected cities: String[] = [];
   protected hotels: Hotel[] = [];
+  protected ControlName = ControlName;
 
   constructor(private hotelService: HotelService, private router: Router) { }
 
   ngOnInit(): void {
     this.hotelService.getCities().subscribe(result => this.cities = result);
-    this.formGroup.controls['city'].valueChanges.pipe(debounceTime(300), switchMap(value => this.hotelService.getHotels(value || ''))).subscribe(result => this.hotels = result);
+    this.formGroup.controls[ControlName.City].valueChanges.pipe(debounceTime(300), switchMap(value => this.hotelService.getHotels(value || ''))).subscribe(result => this.hotels = result);
   }
 
   bookHotel(): void {
-    this.router.navigate(['bookhotel', this.formGroup.controls['hotel'].value]);
+    this.router.navigate(['bookhotel', this.formGroup.controls[ControlName.Hotel].value]);
   }
 }

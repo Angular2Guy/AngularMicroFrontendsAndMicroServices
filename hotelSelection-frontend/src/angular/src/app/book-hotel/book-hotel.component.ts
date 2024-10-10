@@ -20,26 +20,33 @@ import { Hotel } from '../model/hotel';
 import { BookingService } from '../services/booking.service';
 import { ActivatedRoute } from '@angular/router';
 import { JsonPipe } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
+enum ControlName {From = 'from',To='to'};
 
 @Component({
   selector: 'app-book-hotel',
   standalone: true,
-  imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe],
+  imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe,MatButtonModule],
   providers: [provideNativeDateAdapter()],
   templateUrl: './book-hotel.component.html',
   styleUrl: './book-hotel.component.scss'
 })
 export class BookHotelComponent implements OnInit {
   protected selHotel: Hotel | null = null;
-  protected readonly range = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
+  protected readonly formGroup = new FormGroup({
+    [ControlName.From]: new FormControl<Date | null>(null),
+    [ControlName.To]: new FormControl<Date | null>(null),
   });
+  protected ControlName = ControlName;
 
   constructor(private hotelService: HotelService, private bookingService: BookingService,private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.hotelService.getHotel(this.activatedRoute.snapshot.params['id']).subscribe(result => this.selHotel = result);
+  }
+
+  protected bookHotel(): void {
+    console.log('book');
   }
 }
