@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.RequestMapping
+import java.util.*
 
 @RestController
 @RequestMapping("rest/hotel")
@@ -32,5 +33,10 @@ class HotelController(val hotelService: HotelService, val hotelMapper: HotelMapp
     @GetMapping("/cities")
     fun getCitiesWithHotels(): List<String> {
         return this.hotelService.findCitiesWithHotels()
+    }
+
+    @GetMapping("/id/{id}")
+    fun getHotelById(@PathVariable id: String): HotelDto {
+        return this.hotelService.findHotelById(UUID.fromString(id)).map { this.hotelMapper.toHotelDto(it) }.orElseThrow()
     }
 }
