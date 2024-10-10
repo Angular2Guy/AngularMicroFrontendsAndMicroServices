@@ -18,19 +18,11 @@ import { Hotel } from '../model/hotel';
 @Injectable({
   providedIn: 'root'
 })
-export class HotelService {
+export class BookingService {
 
   constructor(private httpClient: HttpClient) { }
-
-  getCities(): Observable<String[]> {
-    return this.httpClient.get<String[]>('/rest/hotel/cities');
-  }
-
-  getHotels(city: String): Observable<Hotel[]> {
-    return this.httpClient.get<Hotel[]>(`/rest/hotel/city/${city}`);
-  }
-
+  
   getHotel(id: String): Observable<Hotel> {
-    return this.httpClient.get<Hotel>(`/rest/hotel/id/${id}`);
+    return this.httpClient.get<Hotel>(`/rest/booking/hotel/${id}`);
   }
 }

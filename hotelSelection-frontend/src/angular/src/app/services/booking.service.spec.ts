@@ -10,3 +10,20 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+import { TestBed } from '@angular/core/testing';
+
+import { BookingService } from './booking.service';
+/*
+describe('BookingService', () => {
+  let service: BookingService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(BookingService);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+});
+*/
