@@ -21,6 +21,7 @@ import { BookingService } from '../services/booking.service';
 import { ActivatedRoute } from '@angular/router';
 import { JsonPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { Booking } from '../model/booking';
 
 enum ControlName {From = 'from',To='to'};
 
@@ -34,6 +35,7 @@ enum ControlName {From = 'from',To='to'};
 })
 export class BookHotelComponent implements OnInit {
   protected selHotel: Hotel | null = null;
+  protected bookings: Booking[] = [];
   protected readonly formGroup = new FormGroup({
     [ControlName.From]: new FormControl<Date | null>(null),
     [ControlName.To]: new FormControl<Date | null>(null),
@@ -44,6 +46,7 @@ export class BookHotelComponent implements OnInit {
 
   ngOnInit(): void {
     this.hotelService.getHotel(this.activatedRoute.snapshot.params['id']).subscribe(result => this.selHotel = result);
+    this.bookingService.getBookings(this.activatedRoute.snapshot.params['id']).subscribe(result => this.bookings = result);
   }
 
   protected bookHotel(): void {

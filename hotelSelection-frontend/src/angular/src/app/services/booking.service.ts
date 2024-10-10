@@ -13,7 +13,7 @@ limitations under the License.
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Hotel } from '../model/hotel';
+import { Booking } from '../model/booking';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class BookingService {
 
   constructor(private httpClient: HttpClient) { }
   
-  getHotel(id: String): Observable<Hotel> {
-    return this.httpClient.get<Hotel>(`/rest/booking/hotel/${id}`);
+  getBookings(id: String): Observable<Booking[]> {
+    return this.httpClient.get<Booking[]>(`/rest/booking/hotel/${id}`);
   }
 }
