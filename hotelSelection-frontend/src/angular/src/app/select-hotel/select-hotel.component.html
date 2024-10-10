@@ -20,7 +20,7 @@
     </mat-form-field>
     <br/>
     <div class="buttons">
-    <button mat-raised-button [disabled]="formGroup.invalid || formGroup.pristine" i18n="@@book">Book</button>
+    <button mat-raised-button (click)="bookHotel()" [disabled]="formGroup.invalid || formGroup.pristine" i18n="@@book">Book</button>
     <button mat-raised-button i18n="@@cancel">Cancel</button>
 </div>
 </form>  

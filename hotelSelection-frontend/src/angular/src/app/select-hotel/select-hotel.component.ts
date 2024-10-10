@@ -17,6 +17,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { HotelService } from '../services/hotel.service';
 import { debounceTime, switchMap } from 'rxjs';
 import { Hotel } from '../model/hotel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-select-hotel',
@@ -33,10 +34,14 @@ export class SelectHotelComponent implements OnInit {
   protected cities: String[] = [];
   protected hotels: Hotel[] = [];
 
-  constructor(private hotelService: HotelService) { }
+  constructor(private hotelService: HotelService, private router: Router) { }
 
   ngOnInit(): void {
     this.hotelService.getCities().subscribe(result => this.cities = result);
     this.formGroup.controls['city'].valueChanges.pipe(debounceTime(300), switchMap(value => this.hotelService.getHotels(value || ''))).subscribe(result => this.hotels = result);
+  }
+
+  bookHotel(): void {
+    this.router.navigate(['bookhotel', this.formGroup.controls['hotel'].value]);
   }
 }

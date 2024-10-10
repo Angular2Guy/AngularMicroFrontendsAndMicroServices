@@ -18,7 +18,7 @@ export const routes: Routes = [
     loadChildren: () => import('./select-hotel').then((mod) => mod.SELECTHOTEL),
   },
   {
-    path: 'bookhotel',
+    path: 'bookhotel/:id',
     loadChildren: () => import('./book-hotel').then((mod) => mod.BOOKHOTEL),
   },
 { path: '**', redirectTo: 'selecthotel' },
