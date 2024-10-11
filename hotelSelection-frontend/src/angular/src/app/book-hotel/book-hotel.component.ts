@@ -23,6 +23,7 @@ import { JsonPipe, DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { map, mergeMap, Observable } from 'rxjs';
 import { Booking } from '../model/booking';
+import {MatIconModule} from '@angular/material/icon'; 
 
 interface HotelBooking {
   id: string;
@@ -35,7 +36,7 @@ enum ControlName {From = 'from',To='to'};
 @Component({
   selector: 'app-book-hotel',
   standalone: true,
-  imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe,MatButtonModule, DatePipe],
+  imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe,MatButtonModule, DatePipe,MatIconModule],
   providers: [provideNativeDateAdapter()],
   templateUrl: './book-hotel.component.html',
   styleUrl: './book-hotel.component.scss'
@@ -62,5 +63,9 @@ export class BookHotelComponent implements OnInit {
 
   protected bookHotel(): void {
     !!this.selHotel?.id && this.formGroup.valid && this.bookingService.postBooking(this.selHotel?.id || '', {id: null, from: this.formGroup.controls[ControlName.From]?.value?.toISOString(), to: this.formGroup.controls[ControlName.To]?.value?.toISOString() } as Booking).pipe(mergeMap(() => this.readBookings(this.selHotel?.id || ''))).subscribe(result => this.bookings = result)
+  }
+
+  protected deleteBooking(booking: HotelBooking): void {
+    !!booking.id && this.bookingService.deleteBooking(booking.id).pipe(mergeMap(() => this.readBookings(this.selHotel?.id || ''))).subscribe(result => this.bookings = result);
   }
 }

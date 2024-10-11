@@ -26,7 +26,10 @@
         @for(booking of bookings;track booking) {
           <div>
             <span i18n="@@bookHotelFrom">From: {{ booking.from | date: 'shortDate' }} </span>
-            <span i18n="@@bookHotelTo">To: {{ booking.to | date: 'shortDate' }}</span>
+            <span i18n="@@bookHotelTo">To: {{ booking.to | date: 'shortDate' }} </span> 
+            <button mat-icon-button (click)="deleteBooking(booking)">
+              <mat-icon>remove</mat-icon>
+            </button>
           </div>
         }
       </div>

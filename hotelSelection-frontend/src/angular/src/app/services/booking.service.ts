@@ -29,4 +29,8 @@ export class BookingService {
   postBooking(id: string, booking: Booking): Observable<Booking> {
     return this.httpClient.post<Booking>(`/rest/booking/hotel/${id}`, booking);
   }
+
+  deleteBooking(id: string): Observable<boolean> {
+    return this.httpClient.delete<boolean>(`/rest/booking/id/${id}`);
+  }
 }
