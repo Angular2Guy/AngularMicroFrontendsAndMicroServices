@@ -11,7 +11,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 export interface Booking {
-    id?: string,
+    id: string | null,
     from: string,
     to: string
 }
