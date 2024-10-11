@@ -19,23 +19,29 @@ import { HotelService } from '../services/hotel.service';
 import { Hotel } from '../model/hotel';
 import { BookingService } from '../services/booking.service';
 import { ActivatedRoute } from '@angular/router';
-import { JsonPipe } from '@angular/common';
+import { JsonPipe, DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { Booking } from '../model/booking';
+import { map } from 'rxjs';
+
+interface HotelBooking {
+  id: string;
+  from: Date;
+  to: Date;
+}
 
 enum ControlName {From = 'from',To='to'};
 
 @Component({
   selector: 'app-book-hotel',
   standalone: true,
-  imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe,MatButtonModule],
+  imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe,MatButtonModule, DatePipe],
   providers: [provideNativeDateAdapter()],
   templateUrl: './book-hotel.component.html',
   styleUrl: './book-hotel.component.scss'
 })
 export class BookHotelComponent implements OnInit {
   protected selHotel: Hotel | null = null;
-  protected bookings: Booking[] = [];
+  protected bookings: HotelBooking[] = [];
   protected readonly formGroup = new FormGroup({
     [ControlName.From]: new FormControl<Date | null>(null),
     [ControlName.To]: new FormControl<Date | null>(null),
@@ -44,9 +50,9 @@ export class BookHotelComponent implements OnInit {
 
   constructor(private hotelService: HotelService, private bookingService: BookingService,private activatedRoute: ActivatedRoute) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.hotelService.getHotel(this.activatedRoute.snapshot.params['id']).subscribe(result => this.selHotel = result);
-    this.bookingService.getBookings(this.activatedRoute.snapshot.params['id']).subscribe(result => this.bookings = result);
+    this.bookingService.getBookings(this.activatedRoute.snapshot.params['id']).pipe(map(myValue => myValue.map(value => ({id: value.id, from: new Date(value.from), to: new Date(value.to) } as HotelBooking)))).subscribe(result => this.bookings = result);
   }
 
   protected bookHotel(): void {

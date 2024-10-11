@@ -12,6 +12,6 @@ limitations under the License.
  */
 export interface Booking {
     id: string,
-    form: string,
+    from: string,
     to: string
 }
