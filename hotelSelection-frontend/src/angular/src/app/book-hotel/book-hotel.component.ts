@@ -21,7 +21,8 @@ import { BookingService } from '../services/booking.service';
 import { ActivatedRoute } from '@angular/router';
 import { JsonPipe, DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { map } from 'rxjs';
+import { map, mergeMap, Observable } from 'rxjs';
+import { Booking } from '../model/booking';
 
 interface HotelBooking {
   id: string;
@@ -52,10 +53,14 @@ export class BookHotelComponent implements OnInit {
 
   ngOnInit(): void {    
     this.hotelService.getHotel(this.activatedRoute.snapshot.params['id']).subscribe(result => this.selHotel = result);
-    this.bookingService.getBookings(this.activatedRoute.snapshot.params['id']).pipe(map(myValue => myValue.map(value => ({id: value.id, from: new Date(value.from), to: new Date(value.to) } as HotelBooking)))).subscribe(result => this.bookings = result);
+    this.readBookings(this.activatedRoute.snapshot.params['id']).subscribe(result => this.bookings = result);
+  }
+
+  private readBookings(id: string): Observable<HotelBooking[]> {
+    return this.bookingService.getBookings(id).pipe(map(myValue => myValue.map(value => ({id: value.id, from: new Date(value.from), to: new Date(value.to) } as HotelBooking))));
   }
 
   protected bookHotel(): void {
-    console.log('book');
+    !!this.selHotel?.id && this.formGroup.valid && this.bookingService.postBooking(this.selHotel?.id || '', {id: undefined, from: this.formGroup.controls[ControlName.From]?.value?.toISOString(), to: this.formGroup.controls[ControlName.To]?.value?.toISOString() } as Booking).pipe(mergeMap(() => this.readBookings(this.selHotel?.id || ''))).subscribe(result => this.bookings = result)
   }
 }

@@ -22,7 +22,11 @@ export class BookingService {
 
   constructor(private httpClient: HttpClient) { }
   
-  getBookings(id: String): Observable<Booking[]> {
+  getBookings(id: string): Observable<Booking[]> {
     return this.httpClient.get<Booking[]>(`/rest/booking/hotel/${id}`);
+  }
+
+  postBooking(id: string, booking: Booking): Observable<Booking> {
+    return this.httpClient.post<Booking>(`/rest/booking/hotel/${id}`, booking);
   }
 }
