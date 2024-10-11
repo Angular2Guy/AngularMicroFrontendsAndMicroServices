@@ -43,4 +43,9 @@ class BookingController(
     fun getBookingsForHotel(@PathVariable("id") id: String): Set<BookingDto> {
         return this.bookingMapper.toDtos(this.bookingService.findByHotelId(UUID.fromString(id)))
     }
+
+    @DeleteMapping("/id/{id}")
+    fun deleteBooking(@PathVariable("id") id: String): Boolean {
+        return this.bookingService.deleteBooking(UUID.fromString(id))
+    }
 }

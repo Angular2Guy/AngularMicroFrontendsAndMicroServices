@@ -26,4 +26,9 @@ class BookingService(val bookingRepository: BookingRepository) {
     fun findByHotelId(hotelId: UUID): Set<Booking> {
         return this.bookingRepository.findByHotelId(hotelId)
     }
+
+    fun deleteBooking(bookingId: UUID): Boolean {
+        this.bookingRepository.deleteBooking(bookingId)
+        return true
+    }
 }

@@ -26,4 +26,8 @@ class BookingRepositoryBean(val jpaBookingRepository: JpaBookingRepository): Boo
     override fun findByHotelId(hotelId: UUID): Set<Booking> {
         return this.jpaBookingRepository.findByHotelId(hotelId)
     }
+
+    override fun deleteBooking(id: UUID) {
+        return this.jpaBookingRepository.deleteById(id)
+    }
 }
