@@ -12,8 +12,13 @@ limitations under the License.
  */
 package de.xxx.hotelselection.domain.model.dto
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import java.time.LocalDate
-import java.util.UUID
 
-data class BookingDto(val id: UUID, val from: LocalDate, val to: LocalDate) {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+data class BookingDto(
+    val id: String? = null,
+    val from: LocalDate,
+    val to: LocalDate
+) {
 }

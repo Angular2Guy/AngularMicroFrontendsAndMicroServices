@@ -17,8 +17,8 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="hotel_id" type="uuid"/>
-            <column name="from" type="date"/>
-            <column name="to" type="date"/>
+            <column name="from_date" type="date"/>
+            <column name="to_date" type="date"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

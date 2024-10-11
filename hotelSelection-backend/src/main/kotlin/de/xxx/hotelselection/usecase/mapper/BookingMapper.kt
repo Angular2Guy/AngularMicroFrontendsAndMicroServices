@@ -16,6 +16,7 @@ import de.xxx.hotelselection.domain.model.dto.BookingDto
 import de.xxx.hotelselection.domain.model.entity.Booking
 import de.xxx.hotelselection.domain.model.entity.Hotel
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class BookingMapper {
@@ -24,7 +25,7 @@ class BookingMapper {
     }
 
     fun toDto(booking: Booking): BookingDto {
-        return BookingDto(booking.id, booking.from, booking.to)
+        return BookingDto(booking.id.toString(), booking.from, booking.to)
     }
 
     fun toEntities(bookingDtos: Set<BookingDto>, hotel: Hotel): Set<Booking> {
@@ -32,6 +33,6 @@ class BookingMapper {
     }
 
     fun toEntity(bookingDto: BookingDto, hotel: Hotel): Booking {
-        return Booking(bookingDto.id, hotel, bookingDto.from, bookingDto.to)
+        return Booking(Optional.ofNullable(bookingDto.id).map { UUID.fromString(it) }.orElse(null), hotel, bookingDto.from, bookingDto.to)
     }
 }

@@ -14,6 +14,7 @@ package de.xxx.hotelselection.adapter.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -24,7 +25,7 @@ class Application {
     @Bean
     fun createObjectMapper(): ObjectMapper? {
         val objectMapper = ObjectMapper()
-        objectMapper.registerModule(JavaTimeModule())
+        objectMapper.registerModule(JavaTimeModule()).registerModule(KotlinModule.Builder().build())
         return objectMapper
     }
 }
