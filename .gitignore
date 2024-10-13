@@ -4,3 +4,4 @@
 # Ignore Gradle build output directory
 build
 /hotelSelection-backend/src/main/resources/static/
+/flightSelection-backend/src/main/resources/static/
