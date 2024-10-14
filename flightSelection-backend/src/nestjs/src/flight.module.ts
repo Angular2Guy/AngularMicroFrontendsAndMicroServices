@@ -10,18 +10,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Module } from '@nestjs/common';
+import { FlightController } from './adapter/controller/flight.controller';
+import { FlightService } from './usecase/service/flight.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Flight } from './domain/entity/booking';
 
-@Entity()
-export class Flight {
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
-    @Column()
-    flightNumber: string;
-    @Column()
-    airline: string;
-    @Column()
-    fromCity: string;
-    @Column()
-    toCity: string;
-}
+@Module({
+  imports: [TypeOrmModule.forFeature([Flight])],
+  exports: [TypeOrmModule],
+  controllers: [FlightController],
+  providers: [FlightService],
+})
+export class FlightModule {}

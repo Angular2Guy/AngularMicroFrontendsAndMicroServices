@@ -11,12 +11,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 import { Module } from '@nestjs/common';
-import { FlightController } from './adapter/controller/flight.controller';
-import { FlightService } from './usecase/service/flight.service';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { FlightModule } from './flight.module';
 
 @Module({
-  imports: [],
-  controllers: [FlightController],
-  providers: [FlightService],
+  imports: [TypeOrmModule.forRoot({
+    type: 'postgres',
+    host: 'localhost',
+    port: 5433,
+    username: 'sven1',
+    password: 'sven1',
+    database: 'flight_selection',
+    entities: [],
+    autoLoadEntities: true,
+    synchronize: true,
+  }), FlightModule,ConfigModule.forRoot()],  
 })
 export class AppModule {}
