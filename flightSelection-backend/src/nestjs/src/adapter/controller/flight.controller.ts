@@ -10,13 +10,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { Module } from '@nestjs/common';
-import { FlightController } from './adapter/controller/flight.controller';
-import { FlightService } from './usecase/service/flight.service';
+import { Controller, Get } from '@nestjs/common';
+import { FlightService } from '../../usecase/service/flight.service';
 
-@Module({
-  imports: [],
-  controllers: [FlightController],
-  providers: [FlightService],
-})
-export class AppModule {}
+@Controller('rest/flights')
+export class FlightController {
+  constructor(private readonly appService: FlightService) {}
+
+  @Get('/all')
+  getAllFlights(): string {
+    return this.appService.getHello();
+  }
+}

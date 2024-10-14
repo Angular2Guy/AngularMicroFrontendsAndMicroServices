@@ -11,27 +11,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { FlightController } from './flight.controller';
+import { FlightService } from '../../usecase/service/flight.service';
+
 /*
-describe('AppController (e2e)', () => {
-  let app: INestApplication;
+describe('AppController', () => {
+  let appController: AppController;
 
   beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+    const app: TestingModule = await Test.createTestingModule({
+      controllers: [AppController],
+      providers: [AppService],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
+    appController = app.get<AppController>(AppController);
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+  describe('root', () => {
+    it('should return "Hello World!"', () => {
+      expect(appController.getHello()).toBe('Hello World!');
+    });
   });
 });
 */
