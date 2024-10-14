@@ -16,12 +16,12 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 export class Flight {
     @PrimaryGeneratedColumn("uuid")
     id: string;
-    @Column()
+    @Column({name: "flight_number"})
     flightNumber: string;
     @Column()
     airline: string;
-    @Column()
+    @Column({name: "from_city"})
     fromCity: string;
-    @Column()
+    @Column({name: "to_city"})
     toCity: string;
 }
