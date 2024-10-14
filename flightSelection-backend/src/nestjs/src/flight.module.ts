@@ -14,7 +14,7 @@ import { Module } from '@nestjs/common';
 import { FlightController } from './adapter/controller/flight.controller';
 import { FlightService } from './usecase/service/flight.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Flight } from './domain/entity/booking';
+import { Flight } from './domain/entity/flight';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Flight])],

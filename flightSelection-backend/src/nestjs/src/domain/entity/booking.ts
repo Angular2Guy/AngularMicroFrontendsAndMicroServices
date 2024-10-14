@@ -13,15 +13,7 @@ limitations under the License.
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Flight {
+export class Booking {
     @PrimaryGeneratedColumn("uuid")
-    id: string;
-    @Column()
-    flightNumber: string;
-    @Column()
-    airline: string;
-    @Column()
-    fromCity: string;
-    @Column()
-    toCity: string;
+    id: string;    
 }

@@ -11,10 +11,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Flight } from 'src/domain/entity/flight';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class FlightService {
-  getHello(): string {
-    return 'Hello World!';
+  constructor(
+    @InjectRepository(Flight)
+    private flightRepository: Repository<Flight>,
+  ) {}
+  
+  getAllFlights(): Promise<Flight[]> {
+    return this.flightRepository.find();
   }
 }
