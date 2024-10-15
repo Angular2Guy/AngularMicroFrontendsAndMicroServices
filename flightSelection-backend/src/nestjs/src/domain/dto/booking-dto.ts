@@ -10,17 +10,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { Module } from '@nestjs/common';
-import { FlightController } from './adapter/controller/flight.controller';
-import { FlightService } from './usecase/service/flight.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Flight } from './domain/entity/flight';
-import { FlightMapper } from './usecase/mapper/flight-mapper.service';
-
-@Module({
-  imports: [TypeOrmModule.forFeature([Flight])],
-  exports: [TypeOrmModule],
-  controllers: [FlightController],
-  providers: [FlightService, FlightMapper],
-})
-export class FlightModule {}
+export class BookingDto { 
+    constructor(public id: string) {}    
+}

@@ -9,3 +9,4 @@ docker run --name flight-selection-postgres -e POSTGRES_PASSWORD=sven1 -e POSTGR
 # docker stop flight-selection-postgres
 # docker exec -it hotel-selection-postgres bash
 # docker exec -it flight-selection-postgres bash
+# psql -h localhost -U sven1 -d flight-selection-postgres < initDB.sql

@@ -25,4 +25,5 @@ export class FlightService {
   getAllFlights(): Promise<Flight[]> {
     return this.flightRepository.find();
   }
+
 }

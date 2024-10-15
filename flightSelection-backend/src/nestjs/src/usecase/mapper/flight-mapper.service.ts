@@ -10,17 +10,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { Module } from '@nestjs/common';
-import { FlightController } from './adapter/controller/flight.controller';
-import { FlightService } from './usecase/service/flight.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Flight } from './domain/entity/flight';
-import { FlightMapper } from './usecase/mapper/flight-mapper.service';
+import { Injectable } from "@nestjs/common";
+import { FlightDto } from "src/domain/dto/flight-dto";
+import { Flight } from "src/domain/entity/flight";
 
-@Module({
-  imports: [TypeOrmModule.forFeature([Flight])],
-  exports: [TypeOrmModule],
-  controllers: [FlightController],
-  providers: [FlightService, FlightMapper],
-})
-export class FlightModule {}
+@Injectable()
+export class FlightMapper {
+    public toDto(flight: Flight): FlightDto {
+        return new FlightDto(flight.id, flight.flightNumber, flight.airline, flight.fromCity, flight.toCity);
+    }
+}

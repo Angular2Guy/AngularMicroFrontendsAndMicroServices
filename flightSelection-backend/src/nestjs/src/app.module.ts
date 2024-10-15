@@ -14,6 +14,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FlightModule } from './flight.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -26,6 +28,9 @@ import { FlightModule } from './flight.module';
     entities: [],
     autoLoadEntities: true,
     synchronize: true,
+  }), ServeStaticModule.forRoot({
+    rootPath: join(__dirname, '..', 'static'),
+    exclude: ['/rest/(.*)'],
   }), FlightModule,ConfigModule.forRoot()],  
 })
 export class AppModule {}

@@ -12,14 +12,15 @@ limitations under the License.
  */
 import { Controller, Get } from '@nestjs/common';
 import { FlightService } from '../../usecase/service/flight.service';
-import { Flight } from 'src/domain/entity/flight';
+import { FlightMapper } from 'src/usecase/mapper/flight-mapper.service';
+import { FlightDto } from 'src/domain/dto/flight-dto';
 
 @Controller('rest/flights')
 export class FlightController {
-  constructor(private readonly flightService: FlightService) {}
+  constructor(private readonly flightService: FlightService, private readonly flightMapper: FlightMapper) {}
 
   @Get('/all')
-  getAllFlights(): Promise<Flight[]> {
-    return this.flightService.getAllFlights();
+  getAllFlights(): Promise<FlightDto[]> {
+    return this.flightService.getAllFlights().then(entities => entities.map(entity => this.flightMapper.toDto(entity)));
   }
 }

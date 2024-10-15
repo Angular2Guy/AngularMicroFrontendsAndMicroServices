@@ -13,8 +13,8 @@
     "test-local": "ng test --browsers Chromium --watch=true",
     "prebuild": "rimraf ./dist && mkdirp ./dist",
     "postbuild": "npm run deploy",
-    "predeploy": "rimraf ../../../src/main/resources/static/*",
-    "deploy": "cpy 'dist/flightselection/browser/**' ../../../flightSelection-backend/src/main/resources/static/",
+    "predeploy": "rimraf ../../../flightSelection-backend/src/nestjs/static/*",
+    "deploy": "cpy 'public/*' ../../../flightSelection-backend/src/nestjs/static/ && cpy 'dist/flightselection/browser/**' ../../../flightSelection-backend/src/nestjs/static/",
     "prettier": "npx prettier --write 'src/**/*.{ts,html,scss,json}'",
     "extract-i18n": "ng extract-i18n --format=json"
   },
