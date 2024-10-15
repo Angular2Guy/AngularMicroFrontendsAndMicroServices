@@ -10,7 +10,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { FlightService } from '../../usecase/service/flight.service';
 import { FlightMapper } from 'src/usecase/mapper/flight-mapper.service';
 import { FlightDto } from 'src/domain/dto/flight-dto';
@@ -22,5 +22,10 @@ export class FlightController {
   @Get('/all')
   getAllFlights(): Promise<FlightDto[]> {
     return this.flightService.getAllFlights().then(entities => entities.map(entity => this.flightMapper.toDto(entity)));
+  }
+
+  @Get('/id/:id')
+  getFlightById(@Param('id') id: string): Promise<FlightDto | null> {
+    return this.flightService.getFlightById(id).then(flight => !!flight ? this.flightMapper.toDto(flight) : null);
   }
 }

@@ -26,4 +26,8 @@ export class FlightService {
     return this.flightRepository.find();
   }
 
+  getFlightById(id: string): Promise<Flight | null> {
+    return this.flightRepository.findOneBy({ id: id});
+  }
+
 }

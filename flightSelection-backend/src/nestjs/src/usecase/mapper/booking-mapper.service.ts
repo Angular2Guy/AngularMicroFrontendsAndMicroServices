@@ -1,5 +1,3 @@
-import { Flight } from "../entity/flight";
-
 /**
  *    Copyright 2019 Sven Loesekann
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,6 +10,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-export class BookingDto { 
-    constructor(public id: string, public flightDate: Date,public flight: Flight) {}  
+import { Injectable } from "@nestjs/common";
+import { BookingDto } from "src/domain/dto/booking-dto";
+import { Booking } from "src/domain/entity/booking";
+import { FlightMapper } from "./flight-mapper.service";
+
+@Injectable()
+export class BookingMapper {
+    constructor(private flightMapper: FlightMapper) { }
+
+    public toDto(booking: Booking): BookingDto {
+        return new BookingDto(booking.id, booking.flightDate, this.flightMapper.toDto(booking.flight));
+    }
 }

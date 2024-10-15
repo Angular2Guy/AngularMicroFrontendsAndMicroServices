@@ -10,10 +10,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Flight } from "./flight";
 
 @Entity()
 export class Booking {
     @PrimaryGeneratedColumn("uuid")
-    id: string;    
+    id: string;  
+    @Column({type: 'date' ,name: 'flight_date'})
+    flightDate: Date;  
+    @ManyToOne(() => Flight, flight => flight.id)
+    @JoinColumn({name: 'flight_id'})
+    flight: Flight;
 }
