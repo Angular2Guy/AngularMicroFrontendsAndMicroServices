@@ -19,4 +19,14 @@ export class FlightMapper {
     public toDto(flight: Flight): FlightDto {
         return new FlightDto(flight.id, flight.flightNumber, flight.airline, flight.fromCity, flight.toCity);
     }
+
+    public toEntity(flightDto: FlightDto): Flight {
+        const entity = new Flight();
+        entity.airline = flightDto.airline;
+        entity.flightNumber = flightDto.flightNumber;
+        entity.fromCity = flightDto.fromCity;
+        entity.id = flightDto.id;
+        entity.toCity = flightDto.toCity;
+        return entity;
+    }
 }

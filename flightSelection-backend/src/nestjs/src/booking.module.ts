@@ -17,9 +17,10 @@ import { BookingController } from './adapter/controller/booking.controller';
 import { BookingService } from './usecase/service/booking.service';
 import { BookingMapper } from './usecase/mapper/booking-mapper.service';
 import { FlightMapper } from './usecase/mapper/flight-mapper.service';
+import { Flight } from './domain/entity/flight';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Booking])],
+  imports: [TypeOrmModule.forFeature([Booking]),TypeOrmModule.forFeature([Flight])],
   exports: [TypeOrmModule],
   controllers: [BookingController],
   providers: [BookingService, BookingMapper, FlightMapper],

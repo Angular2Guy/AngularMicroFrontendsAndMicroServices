@@ -13,6 +13,7 @@ limitations under the License.
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Booking } from 'src/domain/entity/booking';
+import { Flight } from 'src/domain/entity/flight';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -20,10 +21,18 @@ export class BookingService {
   constructor(
     @InjectRepository(Booking)
     private bookingRepository: Repository<Booking>,
+    @InjectRepository(Flight)
+    private flightRepository: Repository<Flight>
   ) {}
   
   getAllBookings(): Promise<Booking[]> {
     return this.bookingRepository.find();
   }
 
+  saveBooking(booking: Booking): Promise<Booking> {
+    return this.flightRepository.findBy({id: booking.flight.id}).then(myFlight => {
+      booking.flight = myFlight?.length > 0 ? myFlight[0] : booking.flight;      
+      return this.bookingRepository.save(booking);
+    });    
+  }
 }

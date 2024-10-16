@@ -22,4 +22,12 @@ export class BookingMapper {
     public toDto(booking: Booking): BookingDto {
         return new BookingDto(booking.id, booking.flightDate, this.flightMapper.toDto(booking.flight));
     }
+
+    public toEntity(bookingDto: BookingDto): Booking {
+        const entity = new Booking();
+        entity.flightDate = bookingDto.flightDate;
+        entity.id = bookingDto.id;
+        entity.flight = this.flightMapper.toEntity(bookingDto.flightDto);
+        return entity;
+    }
 }
