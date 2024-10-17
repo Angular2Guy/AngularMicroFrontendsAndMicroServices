@@ -18,7 +18,7 @@ export const routes: Routes = [
         loadChildren: () => import('./select-flight').then((mod) => mod.SELECTFLIGHT),
       },
       {
-        path: 'bookflight',
+        path: 'bookflight/:id',
         loadChildren: () => import('./book-flight').then((mod) => mod.BOOKFLIGHT),
       },
       { path: '**', redirectTo: 'selectflight' },

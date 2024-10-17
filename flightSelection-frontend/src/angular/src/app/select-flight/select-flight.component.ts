@@ -14,20 +14,35 @@ import { Component, OnInit } from '@angular/core';
 import { FlightService } from '../services/flight.service';
 import { Flight } from '../model/flight';
 import { JsonPipe } from '@angular/common';
+import {FormGroup, FormControl, ReactiveFormsModule} from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select'; 
+import {MatButtonModule} from '@angular/material/button';
+import { Router } from '@angular/router';
+
+enum ControlName {FromTo = "fromTo"}
 
 @Component({
   selector: 'app-select-flight',
   standalone: true,
-  imports: [JsonPipe],
+  imports: [ReactiveFormsModule,MatSelectModule,MatButtonModule,JsonPipe],
   templateUrl: './select-flight.component.html',
   styleUrl: './select-flight.component.scss'
 })
 export class SelectFlightComponent implements OnInit{
-  constructor(private flightService: FlightService) { }
+  protected formGroup = new FormGroup({
+    [ControlName.FromTo]: new FormControl('')    
+  });
   protected flights: Flight[] = [];
+  protected ControlName = ControlName;
+
+  constructor(private flightService: FlightService, private router: Router) { }
   
   ngOnInit(): void {
     this.flightService.getAllFlights().subscribe(result => this.flights = result);
   }
 
+  bookFlight(): void {
+    console.log(this.formGroup.controls[ControlName.FromTo].value);
+    this.router.navigate(['bookflight', this.formGroup.controls[ControlName.FromTo].value])
+  }
 }

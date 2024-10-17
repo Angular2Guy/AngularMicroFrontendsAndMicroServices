@@ -1,2 +1,18 @@
-<p>select-flight works!</p>
-{{ flights | json}}
+<div>
+<h2 i18n="@@selectFlightHeading">Select flight</h2>
+<form [formGroup]="formGroup">
+    <mat-form-field class="form-field">
+        <mat-label i18n="@@selectFlightFromTo">From-To</mat-label>
+        <mat-select [formControlName]="ControlName.FromTo">          
+          @for (flight of flights; track flight) {
+        <mat-option [value]="flight.id">{{flight.fromCity}} -> {{flight.toCity}}</mat-option>
+      }
+        </mat-select>        
+    </mat-form-field>
+    <br/>
+    <div class="buttons">
+    <button mat-raised-button (click)="bookFlight()" [disabled]="formGroup.invalid || formGroup.pristine" i18n="@@book">Book</button>
+    <button mat-raised-button i18n="@@cancel">Cancel</button>
+    </div>
+</form>
+</div>
