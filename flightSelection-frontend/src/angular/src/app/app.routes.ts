@@ -12,4 +12,14 @@ limitations under the License.
  */
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+    {
+        path: 'selectflight',
+        loadChildren: () => import('./select-flight').then((mod) => mod.SELECTFLIGHT),
+      },
+      {
+        path: 'bookflight',
+        loadChildren: () => import('./book-flight').then((mod) => mod.BOOKFLIGHT),
+      },
+      { path: '**', redirectTo: 'selectflight' },
+];
