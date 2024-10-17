@@ -10,14 +10,20 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-const PROXY_CONFIG = [
-    {
-        context: [
-            "/rest"
-        ],
-        target: "http://localhost:3000",
-        secure: false
-    }
-]
+import { TestBed } from '@angular/core/testing';
 
-module.exports = PROXY_CONFIG;
+import { FlightService } from './flight.service';
+/*
+describe('FlightService', () => {
+  let service: FlightService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(FlightService);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+});
+*/

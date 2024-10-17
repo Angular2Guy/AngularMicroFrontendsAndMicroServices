@@ -10,14 +10,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-const PROXY_CONFIG = [
-    {
-        context: [
-            "/rest"
-        ],
-        target: "http://localhost:3000",
-        secure: false
-    }
-]
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Flight } from '../model/flight';
 
-module.exports = PROXY_CONFIG;
+@Injectable({
+  providedIn: 'root'
+})
+export class FlightService {
+
+  constructor(private httpClient: HttpClient) { }
+
+  getAllFlights(): Observable<Flight[]> {
+    return this.httpClient.get<Flight[]>('rest/flights/all');
+  }
+}

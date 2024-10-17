@@ -10,14 +10,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-const PROXY_CONFIG = [
-    {
-        context: [
-            "/rest"
-        ],
-        target: "http://localhost:3000",
-        secure: false
-    }
-]
 
-module.exports = PROXY_CONFIG;
+export interface Flight {
+    id: string;
+    flightNumber: string;
+    airline: string;
+    fromCity: string;
+    toCity: string;
+}

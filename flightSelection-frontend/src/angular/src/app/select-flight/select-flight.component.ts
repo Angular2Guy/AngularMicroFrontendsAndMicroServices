@@ -10,15 +10,24 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FlightService } from '../services/flight.service';
+import { Flight } from '../model/flight';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-select-flight',
   standalone: true,
-  imports: [],
+  imports: [JsonPipe],
   templateUrl: './select-flight.component.html',
   styleUrl: './select-flight.component.scss'
 })
-export class SelectFlightComponent {
+export class SelectFlightComponent implements OnInit{
+  constructor(private flightService: FlightService) { }
+  protected flights: Flight[] = [];
+  
+  ngOnInit(): void {
+    this.flightService.getAllFlights().subscribe(result => this.flights = result);
+  }
 
 }
