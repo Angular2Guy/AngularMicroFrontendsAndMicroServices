@@ -15,6 +15,10 @@
       </mat-form-field>
       <br/>
       <br/>
+      <div>
+        {{ bookings | json}}
+      </div>
+      <br/>
       <div class="buttons">
         <button mat-raised-button (click)="bookFlight()" [disabled]="!selFlight || formGroup.invalid || formGroup.pristine" i18n="@@book">Book</button>
         <button mat-raised-button i18n="@@cancel">Cancel</button>

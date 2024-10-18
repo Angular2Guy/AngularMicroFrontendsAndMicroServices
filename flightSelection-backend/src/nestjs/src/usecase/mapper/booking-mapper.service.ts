@@ -26,7 +26,9 @@ export class BookingMapper {
     public toEntity(bookingDto: BookingDto): Booking {
         const entity = new Booking();
         entity.flightDate = bookingDto.flightDate;
+        if(!!bookingDto.id) {
         entity.id = bookingDto.id;        
+        }
         return entity;
     }
 }
