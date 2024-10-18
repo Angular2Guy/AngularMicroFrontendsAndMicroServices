@@ -13,20 +13,19 @@ limitations under the License.
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Flight } from '../model/flight';
+import { Booking } from '../model/booking';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FlightService {
-
+export class BookingService {
   constructor(private httpClient: HttpClient) { }
 
-  getAllFlights(): Observable<Flight[]> {
-    return this.httpClient.get<Flight[]>('rest/flights/all');
+  getAllBookings(): Observable<Booking[]> {
+    return this.httpClient.get<Booking[]>('rest/bookings/all');
   }
 
-  getFlightById(id: string): Observable<Flight> {
-    return this.httpClient.get<Flight>(`rest/flights/id/${id}`);
+  postBooking(booking: Booking): Observable<Booking> {
+    return this.httpClient.post<Booking>('rest/bookings/book', booking);
   }
 }

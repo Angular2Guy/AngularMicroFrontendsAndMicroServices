@@ -10,23 +10,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Flight } from '../model/flight';
+import { Flight } from "./flight";
 
-@Injectable({
-  providedIn: 'root'
-})
-export class FlightService {
-
-  constructor(private httpClient: HttpClient) { }
-
-  getAllFlights(): Observable<Flight[]> {
-    return this.httpClient.get<Flight[]>('rest/flights/all');
-  }
-
-  getFlightById(id: string): Observable<Flight> {
-    return this.httpClient.get<Flight>(`rest/flights/id/${id}`);
-  }
+export interface Booking {
+    id: string;
+    flightDate: string;
+    flight: Flight;
 }
