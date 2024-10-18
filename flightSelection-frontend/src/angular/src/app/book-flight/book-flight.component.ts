@@ -16,18 +16,32 @@ import { FlightService } from '../services/flight.service';
 import { ActivatedRoute } from '@angular/router';
 import { Booking } from '../model/booking';
 import { BookingService } from '../services/booking.service';
-import { JsonPipe } from '@angular/common';
+import { DatePipe, JsonPipe } from '@angular/common';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import {MatDatepickerModule} from '@angular/material/datepicker'; 
+import {MatIconModule} from '@angular/material/icon'; 
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+
+enum ControlName {Day = 'day'};
 
 @Component({
   selector: 'app-book-flight',
   standalone: true,
-  imports: [JsonPipe],
+  imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe,MatButtonModule, DatePipe,MatIconModule,MatInputModule],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './book-flight.component.html',
   styleUrl: './book-flight.component.scss'
 })
 export class BookFlightComponent implements OnInit {
   protected selFlight: Flight | null = null;
   protected bookings: Booking[] = [];
+  protected ControlName = ControlName;
+  protected readonly formGroup = new FormGroup({
+    [ControlName.Day]: new FormControl<Date | null>(null)
+  });
 
   constructor(private bookingService: BookingService, private flightService: FlightService, private activatedRoute: ActivatedRoute) {  }
   
@@ -36,5 +50,7 @@ export class BookFlightComponent implements OnInit {
     this.bookingService.getAllBookings().subscribe(result => this.bookings = result);
   }
 
-
+  protected bookFlight(): void {
+    console.log(this.formGroup.value);
+  }
 }

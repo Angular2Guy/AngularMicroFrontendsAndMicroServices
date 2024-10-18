@@ -24,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { map, mergeMap, Observable } from 'rxjs';
 import { Booking } from '../model/booking';
 import {MatIconModule} from '@angular/material/icon'; 
+import {MatInputModule} from '@angular/material/input';
 
 interface HotelBooking {
   id: string;
@@ -36,7 +37,7 @@ enum ControlName {From = 'from',To='to'};
 @Component({
   selector: 'app-book-hotel',
   standalone: true,
-  imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe,MatButtonModule, DatePipe,MatIconModule],
+  imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe,MatButtonModule, DatePipe,MatIconModule, MatInputModule,],
   providers: [provideNativeDateAdapter()],
   templateUrl: './book-hotel.component.html',
   styleUrl: './book-hotel.component.scss'

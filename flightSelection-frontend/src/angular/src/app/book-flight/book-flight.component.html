@@ -1,2 +1,23 @@
-<p>book-flight works!</p>
-{{selFlight | json}}
+<div>
+    <h2 i18n="@@bookFlightHeading">Book flight</h2>
+    <div i18n="@@bookFlightAirline">Airline: {{selFlight?.airline}}</div>
+    <div i18n="@@bookFlightNumber">Flight number: {{selFlight?.flightNumber}}</div>
+    <div i18n="@@bookFlightFrom">Flight from: {{selFlight?.fromCity}}</div>
+    <div i18n="@@bookFlightTo">Flight to: {{selFlight?.toCity}}</div>
+    <br/>
+    <form [formGroup]="formGroup">
+    <mat-form-field class="example-full-width">
+        <mat-label i18n="@@bookFlightChooseDate">Choose flight date</mat-label>
+        <input matInput [matDatepicker]="picker" [formControlName]="ControlName.Day">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <br/>
+      <br/>
+      <div class="buttons">
+        <button mat-raised-button (click)="bookFlight()" [disabled]="formGroup.invalid || formGroup.pristine" i18n="@@book">Book</button>
+        <button mat-raised-button i18n="@@cancel">Cancel</button>
+      </div>
+    </form>
+</div>
