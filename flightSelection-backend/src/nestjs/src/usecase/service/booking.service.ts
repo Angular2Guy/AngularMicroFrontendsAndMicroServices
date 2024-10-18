@@ -29,8 +29,8 @@ export class BookingService {
     return this.bookingRepository.find();
   }
 
-  saveBooking(booking: Booking): Promise<Booking> {
-    return this.flightRepository.findBy({id: booking.flight.id}).then(myFlight => {
+  saveBooking(flightId: string, booking: Booking): Promise<Booking> {
+    return this.flightRepository.findBy({id: flightId}).then(myFlight => {
       booking.flight = myFlight?.length > 0 ? myFlight[0] : booking.flight;      
       return this.bookingRepository.save(booking);
     });    

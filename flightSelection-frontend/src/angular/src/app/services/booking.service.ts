@@ -25,7 +25,7 @@ export class BookingService {
     return this.httpClient.get<Booking[]>('rest/bookings/all');
   }
 
-  postBooking(booking: Booking): Observable<Booking> {
-    return this.httpClient.post<Booking>('rest/bookings/book', booking);
+  postBooking(flightId: string, booking: Booking): Observable<Booking> {
+    return this.httpClient.post<Booking>(`rest/bookings/book/${flightId}`, booking);
   }
 }

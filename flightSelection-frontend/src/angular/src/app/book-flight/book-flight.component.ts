@@ -51,6 +51,6 @@ export class BookFlightComponent implements OnInit {
   }
 
   protected bookFlight(): void {
-    console.log(this.formGroup.value);
+    this.bookingService.postBooking(this.selFlight?.id || '', {id: null, flightDate: this.formGroup.controls[ControlName.Day].value?.toISOString() } as Booking).subscribe(result => console.log(result));
   }
 }

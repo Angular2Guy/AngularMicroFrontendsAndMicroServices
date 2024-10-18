@@ -13,7 +13,7 @@ limitations under the License.
 import { Flight } from "./flight";
 
 export interface Booking {
-    id: string;
+    id: string | null;
     flightDate: string;
-    flight: Flight;
+    flight?: Flight;
 }
