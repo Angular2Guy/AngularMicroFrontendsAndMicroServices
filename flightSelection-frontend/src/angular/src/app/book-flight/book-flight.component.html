@@ -16,7 +16,18 @@
       <br/>
       <br/>
       <div>
-        {{ bookings | json}}
+        @for(booking of bookings;track booking) {
+            <div>
+              <span i18n="@@bookFlightAt">At: {{ booking.flightDate | date: 'shortDate' }}, </span>
+              <span i18n="@@bookFlightNumber">Flight number: {{selFlight?.flightNumber}}, </span> 
+              <span i18n="@@bookFlightFrom">Flight from: {{selFlight?.fromCity}}, </span> 
+              <span i18n="@@bookFlightTo">Flight to: {{selFlight?.toCity}}, </span> 
+              <span i18n="@@bookFlightAirline">Airline: {{selFlight?.airline}} </span> 
+              <button mat-icon-button (click)="deleteBooking(booking)">
+                <mat-icon>remove</mat-icon>
+              </button>
+            </div>
+          }
       </div>
       <br/>
       <div class="buttons">

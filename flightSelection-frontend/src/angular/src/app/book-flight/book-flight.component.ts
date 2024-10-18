@@ -24,6 +24,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatIconModule} from '@angular/material/icon'; 
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import { mergeMap } from 'rxjs';
 
 enum ControlName {Day = 'day'};
 
@@ -51,6 +52,10 @@ export class BookFlightComponent implements OnInit {
   }
 
   protected bookFlight(): void {
-    this.bookingService.postBooking(this.selFlight?.id || '', {id: null, flightDate: this.formGroup.controls[ControlName.Day].value?.toISOString() } as Booking).subscribe(result => console.log(result));
+    this.bookingService.postBooking(this.selFlight?.id || '', {id: null, flightDate: this.formGroup.controls[ControlName.Day].value?.toISOString() } as Booking).pipe(mergeMap(() => this.bookingService.getAllBookings())).subscribe(result => this.bookings = result);
+  }
+
+  protected deleteBooking(booking: Booking): void {
+    this.bookingService.deleteBooking(booking?.id || '').pipe(mergeMap(() => this.bookingService.getAllBookings())).subscribe(result => this.bookings = result);
   }
 }

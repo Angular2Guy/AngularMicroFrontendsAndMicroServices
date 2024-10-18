@@ -10,7 +10,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { BookingService } from 'src/usecase/service/booking.service';
 import { BookingMapper } from 'src/usecase/mapper/booking-mapper.service';
 import { BookingDto } from 'src/domain/dto/booking-dto';
@@ -27,5 +27,10 @@ export class BookingController {
   @Post('/book/:id')
   postBooking(@Param('id') flightId: string, @Body() bookingDto: BookingDto): Promise<BookingDto> {
     return this.bookingService.saveBooking(flightId, this.bookingMapper.toEntity(bookingDto)).then(myEntity => this.bookingMapper.toDto(myEntity));
+  }
+
+  @Delete('/id/:id')
+  deleteBooking(@Param('id') bookingId: string): Promise<boolean> {
+    return this.bookingService.deleteBooking(bookingId);
   }
 }

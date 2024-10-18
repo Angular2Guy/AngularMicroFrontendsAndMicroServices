@@ -35,4 +35,8 @@ export class BookingService {
       return this.bookingRepository.save(booking);
     });    
   }
+
+  deleteBooking(bookingId: string): Promise<boolean> {
+    return this.bookingRepository.delete(bookingId).then(result => !!result);
+  }
 }
