@@ -13,7 +13,7 @@ limitations under the License.
 import { Component, OnInit } from '@angular/core';
 import { Flight } from '../model/flight';
 import { FlightService } from '../services/flight.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Booking } from '../model/booking';
 import { BookingService } from '../services/booking.service';
 import { DatePipe, JsonPipe } from '@angular/common';
@@ -44,7 +44,7 @@ export class BookFlightComponent implements OnInit {
     [ControlName.Day]: new FormControl<Date | null>(null)
   });
 
-  constructor(private bookingService: BookingService, private flightService: FlightService, private activatedRoute: ActivatedRoute) {  }
+  constructor(private bookingService: BookingService, private flightService: FlightService, private activatedRoute: ActivatedRoute, private router: Router) {  }
   
   ngOnInit(): void {
     this.flightService.getFlightById(this.activatedRoute.snapshot.params['id']).subscribe(result => this.selFlight = result);
@@ -52,10 +52,14 @@ export class BookFlightComponent implements OnInit {
   }
 
   protected bookFlight(): void {
-    this.bookingService.postBooking(this.selFlight?.id || '', {id: null, flightDate: this.formGroup.controls[ControlName.Day].value?.toISOString() } as Booking).pipe(mergeMap(() => this.bookingService.getAllBookings())).subscribe(result => this.bookings = result);
+    !!this.selFlight?.id && this.bookingService.postBooking(this.selFlight.id, {id: null, flightDate: this.formGroup.controls[ControlName.Day].value?.toISOString() } as Booking).pipe(mergeMap(() => this.bookingService.getAllBookings())).subscribe(result => this.bookings = result);
   }
 
   protected deleteBooking(booking: Booking): void {
-    this.bookingService.deleteBooking(booking?.id || '').pipe(mergeMap(() => this.bookingService.getAllBookings())).subscribe(result => this.bookings = result);
+    !!booking?.id && this.bookingService.deleteBooking(booking.id).pipe(mergeMap(() => this.bookingService.getAllBookings())).subscribe(result => this.bookings = result);
+  }
+
+  protected cancel(): void {
+    this.router.navigate(['/']);
   }
 }

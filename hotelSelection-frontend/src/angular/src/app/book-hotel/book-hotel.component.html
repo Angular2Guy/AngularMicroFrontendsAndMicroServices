@@ -36,6 +36,6 @@
       <br/>
       <div class="buttons">
         <button mat-raised-button (click)="bookHotel()" [disabled]="!selHotel || formGroup.invalid || formGroup.pristine" i18n="@@book">Book</button>
-        <button mat-raised-button i18n="@@cancel">Cancel</button>
+        <button mat-raised-button (click)="cancel()" i18n="@@cancel">Cancel</button>
       </div>
 </div>

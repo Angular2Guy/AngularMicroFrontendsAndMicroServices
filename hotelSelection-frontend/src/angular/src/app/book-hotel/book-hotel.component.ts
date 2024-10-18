@@ -18,7 +18,7 @@ import {provideNativeDateAdapter} from '@angular/material/core';
 import { HotelService } from '../services/hotel.service';
 import { Hotel } from '../model/hotel';
 import { BookingService } from '../services/booking.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JsonPipe, DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { map, mergeMap, Observable } from 'rxjs';
@@ -37,7 +37,7 @@ enum ControlName {From = 'from',To='to'};
 @Component({
   selector: 'app-book-hotel',
   standalone: true,
-  imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe,MatButtonModule, DatePipe,MatIconModule, MatInputModule,],
+  imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe,MatButtonModule, DatePipe,MatIconModule, MatInputModule],
   providers: [provideNativeDateAdapter()],
   templateUrl: './book-hotel.component.html',
   styleUrl: './book-hotel.component.scss'
@@ -51,7 +51,7 @@ export class BookHotelComponent implements OnInit {
   });
   protected ControlName = ControlName;
 
-  constructor(private hotelService: HotelService, private bookingService: BookingService,private activatedRoute: ActivatedRoute) { }
+  constructor(private hotelService: HotelService, private bookingService: BookingService,private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {    
     this.hotelService.getHotel(this.activatedRoute.snapshot.params['id']).subscribe(result => this.selHotel = result);
@@ -68,5 +68,9 @@ export class BookHotelComponent implements OnInit {
 
   protected deleteBooking(booking: HotelBooking): void {
     !!booking.id && this.bookingService.deleteBooking(booking.id).pipe(mergeMap(() => this.readBookings(this.selHotel?.id || ''))).subscribe(result => this.bookings = result);
+  }
+
+  protected cancel(): void {
+    this.router.navigate(['/']);
   }
 }
