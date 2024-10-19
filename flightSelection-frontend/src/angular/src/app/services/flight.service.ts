@@ -23,10 +23,10 @@ export class FlightService {
   constructor(private httpClient: HttpClient) { }
 
   getAllFlights(): Observable<Flight[]> {
-    return this.httpClient.get<Flight[]>('rest/flights/all');
+    return this.httpClient.get<Flight[]>('/rest/flights/all');
   }
 
   getFlightById(id: string): Observable<Flight> {
-    return this.httpClient.get<Flight>(`rest/flights/id/${id}`);
+    return this.httpClient.get<Flight>(`/rest/flights/id/${id}`);
   }
 }

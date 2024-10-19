@@ -22,14 +22,14 @@ export class BookingService {
   constructor(private httpClient: HttpClient) { }
 
   getAllBookings(): Observable<Booking[]> {
-    return this.httpClient.get<Booking[]>('rest/bookings/all');
+    return this.httpClient.get<Booking[]>('/rest/bookings/all');
   }
 
   postBooking(flightId: string, booking: Booking): Observable<Booking> {
-    return this.httpClient.post<Booking>(`rest/bookings/book/${flightId}`, booking);
+    return this.httpClient.post<Booking>(`/rest/bookings/book/${flightId}`, booking);
   }
 
   deleteBooking(bookingId: string): Observable<boolean> {
-    return this.httpClient.delete<boolean>(`rest/bookings/id/${bookingId}`);
+    return this.httpClient.delete<boolean>(`/rest/bookings/id/${bookingId}`);
   }
 }
