@@ -1,8 +1,8 @@
 <div>
-<h2 i18n="@@selectFlightHeading">Select flight</h2>
+<h2>{{'select-flight.heading' | transloco}}</h2>
 <form [formGroup]="formGroup">
     <mat-form-field class="form-field">
-        <mat-label i18n="@@selectFlightFromTo">From-To</mat-label>
+        <mat-label>{{'select-flight.from-to' | transloco}}</mat-label>
         <mat-select [formControlName]="ControlName.FromTo">          
           @for (flight of flights; track flight) {
         <mat-option [value]="flight.id">{{flight.fromCity}} -> {{flight.toCity}}</mat-option>
@@ -11,8 +11,8 @@
     </mat-form-field>
     <br/>
     <div class="buttons">
-    <button mat-raised-button (click)="bookFlight()" [disabled]="formGroup.invalid || formGroup.pristine" i18n="@@book">Book</button>
-    <button mat-raised-button i18n="@@cancel">Cancel</button>
+    <button mat-raised-button (click)="bookFlight()" [disabled]="formGroup.invalid || formGroup.pristine">{{'book' | transloco}}</button>
+    <button mat-raised-button i18n="@@cancel">{{'cancel' | transloco}}</button>
     </div>
 </form>
 </div>

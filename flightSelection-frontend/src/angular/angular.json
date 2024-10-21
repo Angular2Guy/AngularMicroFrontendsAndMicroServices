@@ -34,12 +34,10 @@
 						"target": "flightselection:serve-original:development",
 						"rebuildDelay": 0,
 						"dev": true,
-						"port": 0
+						"port": 0,
+						"proxyConfig": "proxy.config.js"
 					}
-				},
-				"extract-i18n": {
-					"builder": "@angular-devkit/build-angular:extract-i18n"
-				},
+				},				
 				"test": {
 					"builder": "@angular-devkit/build-angular:karma",
 					"options": {

@@ -1,1 +1,7 @@
-{}
+{   "book": "Book",
+    "cancel": "Cancel",
+    "select-flight": {
+    "heading":"Heading",
+    "from-to": "From-To"
+    }
+}
