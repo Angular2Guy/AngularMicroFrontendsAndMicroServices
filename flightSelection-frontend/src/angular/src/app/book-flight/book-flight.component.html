@@ -1,13 +1,13 @@
 <div>
-    <h2 i18n="@@bookFlightHeading">Book flight</h2>
-    <div i18n="@@bookFlightAirline">Airline: {{selFlight?.airline}}</div>
-    <div i18n="@@bookFlightNumber">Flight number: {{selFlight?.flightNumber}}</div>
-    <div i18n="@@bookFlightFrom">Flight from: {{selFlight?.fromCity}}</div>
-    <div i18n="@@bookFlightTo">Flight to: {{selFlight?.toCity}}</div>
+    <h2>{{'book-flight.heading' | transloco }}</h2>
+    <div>{{'book-flight.airline' | transloco}}: {{selFlight?.airline}}</div>
+    <div>{{'book-flight.flight-number' | transloco}}: {{selFlight?.flightNumber}}</div>
+    <div>{{'book-flight.flight-from' | transloco}}: {{selFlight?.fromCity}}</div>
+    <div>{{'book-flight.flight-to' | transloco}}: {{selFlight?.toCity}}</div>
     <br/>
     <form [formGroup]="formGroup">
     <mat-form-field class="example-full-width">
-        <mat-label i18n="@@bookFlightChooseDate">Choose flight date</mat-label>
+        <mat-label>{{'book-flight.choose-date'}}</mat-label>
         <input matInput [matDatepicker]="picker" [formControlName]="ControlName.Day">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -18,11 +18,11 @@
       <div>
         @for(booking of bookings;track booking) {
             <div>
-              <span i18n="@@bookFlightAt">At: {{ booking.flightDate | date: 'shortDate' }}, </span>
-              <span i18n="@@bookFlightNumber">Flight number: {{selFlight?.flightNumber}}, </span> 
-              <span i18n="@@bookFlightFrom">Flight from: {{selFlight?.fromCity}}, </span> 
-              <span i18n="@@bookFlightTo">Flight to: {{selFlight?.toCity}}, </span> 
-              <span i18n="@@bookFlightAirline">Airline: {{selFlight?.airline}} </span> 
+              <span>{{ 'at' | transloco}}: {{ booking.flightDate | translocoDate: { dateStyle:'short'} }}, </span>
+              <span>{{'book-flight.flight-number' | transloco}}: {{selFlight?.flightNumber}}, </span> 
+              <span>{{'book-flight.flight-from' | transloco}}: {{selFlight?.fromCity}}, </span> 
+              <span>{{'book-flight.flight-to' | transloco}}: {{selFlight?.toCity}}, </span> 
+              <span>{{'book-flight.airline'}}: {{selFlight?.airline}} </span> 
               <button mat-icon-button (click)="deleteBooking(booking)">
                 <mat-icon>remove</mat-icon>
               </button>
@@ -31,8 +31,8 @@
       </div>
       <br/>
       <div class="buttons">
-        <button mat-raised-button (click)="bookFlight()" [disabled]="!selFlight || formGroup.invalid || formGroup.pristine" i18n="@@book">Book</button>
-        <button mat-raised-button (click)="cancel()" i18n="@@cancel">Cancel</button>
+        <button mat-raised-button (click)="bookFlight()" [disabled]="!selFlight || formGroup.invalid || formGroup.pristine">{{'book' | transloco}}</button>
+        <button mat-raised-button (click)="cancel()">{{'cancel' | transloco}}</button>
       </div>
     </form>
 </div>

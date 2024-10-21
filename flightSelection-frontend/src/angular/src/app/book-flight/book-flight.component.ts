@@ -25,13 +25,15 @@ import {MatIconModule} from '@angular/material/icon';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { mergeMap } from 'rxjs';
+import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoLocaleModule } from '@jsverse/transloco-locale';
 
 enum ControlName {Day = 'day'};
 
 @Component({
   selector: 'app-book-flight',
   standalone: true,
-  imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe,MatButtonModule, DatePipe,MatIconModule,MatInputModule],
+  imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe,MatButtonModule, DatePipe,MatIconModule,MatInputModule, TranslocoPipe, TranslocoLocaleModule],
   providers: [provideNativeDateAdapter()],
   templateUrl: './book-flight.component.html',
   styleUrl: './book-flight.component.scss'
@@ -51,7 +53,7 @@ export class BookFlightComponent implements OnInit {
     this.bookingService.getAllBookings().subscribe(result => this.bookings = result);
   }
 
-  protected bookFlight(): void {
+  protected bookFlight(): void {    
     !!this.selFlight?.id && this.bookingService.postBooking(this.selFlight.id, {id: null, flightDate: this.formGroup.controls[ControlName.Day].value?.toISOString() } as Booking).pipe(mergeMap(() => this.bookingService.getAllBookings())).subscribe(result => this.bookings = result);
   }
 
@@ -63,3 +65,5 @@ export class BookFlightComponent implements OnInit {
     this.router.navigate(['/']);
   }
 }
+
+

@@ -2,6 +2,15 @@
     "cancel": "Cancel",
     "select-flight": {
     "heading":"Heading",
-    "from-to": "From-To"
+    "from-to": "From-To",
+    "at": "At"
+    },
+    "book-flight": {
+     "heading": "Book flight",
+        "airline": "Airline",
+        "flight-number": "Flight number",
+        "flight-from": "Flight from",
+        "flight-to": "Flight to",
+        "choose-date": "Choose flight date"
     }
 }
