@@ -1,1 +1,8 @@
-{}
+{"book": "Book",
+    "cancel": "Cancel",
+    "select-hotel": {
+    "heading":"Select city and hotel",
+    "city": "City",
+    "hotel": "Hotel"
+    }
+}

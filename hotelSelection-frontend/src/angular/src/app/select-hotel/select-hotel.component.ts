@@ -18,13 +18,14 @@ import { HotelService } from '../services/hotel.service';
 import { debounceTime, switchMap } from 'rxjs';
 import { Hotel } from '../model/hotel';
 import { Router } from '@angular/router';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 enum ControlName {City = "city", Hotel="hotel"}
 
 @Component({
   selector: 'app-select-hotel',
   standalone: true,
-  imports: [ReactiveFormsModule,MatSelectModule,MatButtonModule],
+  imports: [ReactiveFormsModule,MatSelectModule,MatButtonModule,TranslocoPipe],
   templateUrl: './select-hotel.component.html',
   styleUrl: './select-hotel.component.scss'
 })
