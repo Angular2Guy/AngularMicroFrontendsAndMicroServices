@@ -25,6 +25,8 @@ import { map, mergeMap, Observable } from 'rxjs';
 import { Booking } from '../model/booking';
 import {MatIconModule} from '@angular/material/icon'; 
 import {MatInputModule} from '@angular/material/input';
+import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoLocaleModule } from '@jsverse/transloco-locale';
 
 interface HotelBooking {
   id: string;
@@ -37,7 +39,7 @@ enum ControlName {From = 'from',To='to'};
 @Component({
   selector: 'app-book-hotel',
   standalone: true,
-  imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe,MatButtonModule, DatePipe,MatIconModule, MatInputModule],
+  imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe,MatButtonModule, DatePipe,MatIconModule, MatInputModule, TranslocoPipe, TranslocoLocaleModule],
   providers: [provideNativeDateAdapter()],
   templateUrl: './book-hotel.component.html',
   styleUrl: './book-hotel.component.scss'

@@ -1,1 +1,17 @@
-{}
+{"book": "Book",
+    "cancel": "Cancel",
+    "hotel": "Hotel",
+    "city": "City",
+    "select-hotel": {
+    "heading":"Stadt und Hotel Auswahl"    
+    },
+    "book-hotel": {
+        "heading": "Hotel Buchung",
+        "date-range": "Enter a date range",
+        "date-format": "MM/DD/YYYY – MM/DD/YYYY",
+        "invalid-date-from": "Invalid start date",
+        "invalid-date-to": " Invalid end date",
+        "to": "To",
+        "from": "From"
+    }
+}

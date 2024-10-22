@@ -2,7 +2,7 @@
     <h2>{{'select-hotel.heading' | transloco}}</h2>
     <form [formGroup]="formGroup">
     <mat-form-field class="form-field">
-        <mat-label>{{'select-hotel.city' | transloco}}</mat-label>
+        <mat-label>{{'city' | transloco}}</mat-label>
         <mat-select [formControlName]="ControlName.City">          
           @for (myCity of cities; track myCity) {
         <mat-option [value]="myCity">{{myCity}}</mat-option>
@@ -11,7 +11,7 @@
     </mat-form-field>
     <br/>
     <mat-form-field class="form-field">
-        <mat-label>{{'select-hotel.hotel' | transloco}}</mat-label>
+        <mat-label>{{'hotel' | transloco}}</mat-label>
         <mat-select [formControlName]="ControlName.Hotel">          
           @for (myHotel of hotels; track myHotel) {
         <mat-option [value]="myHotel.id">{{myHotel.hotelName}}</mat-option>

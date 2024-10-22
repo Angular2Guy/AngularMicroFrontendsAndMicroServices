@@ -1,23 +1,23 @@
 <div>
-    <h2 i18n="@@bookHotelHeading">Book Hotel</h2>
-    <div i18n="@@bookHotelHotel">Hotel: {{selHotel?.hotelName}}</div>
-    <div i18n="@@bookHotelCity">City: {{selHotel?.city}}</div>    
+    <h2>{{'book-hotel.heading' | transloco}}</h2>
+    <div>{{'hotel' | transloco}}: {{selHotel?.hotelName}}</div>
+    <div>{{'city' | transloco}}: {{selHotel?.city}}</div>    
     <br/>
     <mat-form-field>
-        <mat-label i18n="@@bookHotelDateRange">Enter a date range</mat-label>
+        <mat-label>{{'book-hotel.date-range'}}</mat-label>
         <mat-date-range-input [formGroup]="formGroup" [rangePicker]="picker">
           <input matStartDate [formControlName]="ControlName.From" placeholder="Start date">
           <input matEndDate [formControlName]="ControlName.To" placeholder="End date">
         </mat-date-range-input>
-        <mat-hint i18n="@@bookHotelDateFormat">MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-hint>{{ 'book-hotel.date-format' | transloco}}</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
       
         @if (formGroup.controls[ControlName.From].hasError('matStartDateInvalid')) {
-          <mat-error i18n="@@bookHotelInvalidStart">Invalid start date</mat-error>
+          <mat-error>{{'book-hotel.invalid-date-from' | transloco}}</mat-error>
         }
         @if (formGroup.controls[ControlName.To].hasError('matEndDateInvalid')) {
-          <mat-error i18n="@@bookHotelInvalidEnd">Invalid end date</mat-error>
+          <mat-error>{{'book-hotel.invalid-date-to' | transloco}}</mat-error>
         }
       </mat-form-field>
       <br/>
@@ -25,8 +25,8 @@
       <div>
         @for(booking of bookings;track booking) {
           <div>
-            <span i18n="@@bookHotelFrom">From: {{ booking.from | date: 'shortDate' }} </span>
-            <span i18n="@@bookHotelTo">To: {{ booking.to | date: 'shortDate' }} </span> 
+            <span>{{'book-hotel.from' | transloco}}: {{ booking.from | translocoDate: { dateStyle:'short'} }} </span>
+            <span>{{'book-hotel.to' | transloco}}: {{ booking.to | translocoDate: { dateStyle:'short'} }} </span> 
             <button mat-icon-button (click)="deleteBooking(booking)">
               <mat-icon>remove</mat-icon>
             </button>
@@ -35,7 +35,7 @@
       </div>
       <br/>
       <div class="buttons">
-        <button mat-raised-button (click)="bookHotel()" [disabled]="!selHotel || formGroup.invalid || formGroup.pristine" i18n="@@book">Book</button>
-        <button mat-raised-button (click)="cancel()" i18n="@@cancel">Cancel</button>
+        <button mat-raised-button (click)="bookHotel()" [disabled]="!selHotel || formGroup.invalid || formGroup.pristine">{{'book' | transloco}}</button>
+        <button mat-raised-button (click)="cancel()">{{'cancel' | transloco}}</button>
       </div>
 </div>
