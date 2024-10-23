@@ -1,9 +1,9 @@
 {
-  "name": "flight-selection",
+  "name": "hotelselection",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --hmr --proxy-config proxy.conf.js",
+    "start": "ng serve",
     "build": "ng build --configuration production",
     "build-stats": "ng build --configuration production --stats-json",
     "watch": "ng build --watch --configuration development",
@@ -14,7 +14,7 @@
     "prebuild": "rimraf ./dist && mkdirp ./dist",
     "postbuild": "npm run deploy",
     "predeploy": "rimraf ../../../src/main/resources/static/*",
-    "deploy": "cpy 'dist/flight-selection/browser/**' ../../../hotelSelection-backend/src/main/resources/static/",
+    "deploy": "cpy 'dist/hotelselection/browser/**' ../../../hotelSelection-backend/src/main/resources/static/",
     "prettier": "npx prettier --write 'src/**/*.{ts,html,scss,json}'",
     "extract-i18n": "ng extract-i18n --format=json"
   },
