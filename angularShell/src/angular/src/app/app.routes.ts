@@ -17,7 +17,12 @@ export const routes: Routes = [
   {
     path: 'flights',    
     loadChildren: () =>
-      loadRemoteModule('flights', './routes').then((m) => m.APP_ROUTES),
+      loadRemoteModule('flightselection', './routes').then((m) => m.APP_ROUTES),
+  },
+  {
+    path: 'hotels',    
+    loadChildren: () =>
+      loadRemoteModule('hotelselection', './routes').then((m) => m.APP_ROUTES),
   },
   {path: '**', redirectTo: '/'}
 ];
