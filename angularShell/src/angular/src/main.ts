@@ -11,8 +11,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 import { initFederation } from '@angular-architects/native-federation';
+import { isDevMode } from '@angular/core';
 
-initFederation('/assets/federation.manifest.json')
+initFederation(isDevMode() ? '/federation.manifest.json': '/assets/federation.manifest.json')
   .catch(err => console.error(err))
   .then(_ => import('./bootstrap'))
   .catch(err => console.error(err));
