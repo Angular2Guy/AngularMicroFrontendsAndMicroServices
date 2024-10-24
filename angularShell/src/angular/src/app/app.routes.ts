@@ -10,19 +10,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { loadRemoteModule } from '@angular-architects/native-federation';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [    
   {
-    path: 'flights',    
-    loadChildren: () =>
-      loadRemoteModule('flightselection', './routes').then((m) => m.APP_ROUTES),
+    path: 'booking',
+    loadChildren: () => import('./booking').then((mod) => mod.BOOKING),
   },
   {
-    path: 'hotels',    
-    loadChildren: () =>
-      loadRemoteModule('hotelselection', './routes').then((m) => m.APP_ROUTES),
-  },
-  {path: '**', redirectTo: ''}
+    path: 'payment',
+    loadChildren: () => import('./payment').then((mod) => mod.PAYMENT),
+  },  
+  {path: '**', redirectTo: 'booking'}
 ];
