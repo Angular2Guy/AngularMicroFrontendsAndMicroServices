@@ -24,5 +24,5 @@ export const routes: Routes = [
     loadChildren: () =>
       loadRemoteModule('hotelselection', './routes').then((m) => m.APP_ROUTES),
   },
-  {path: '**', redirectTo: '/'}
+  {path: '**', redirectTo: ''}
 ];
