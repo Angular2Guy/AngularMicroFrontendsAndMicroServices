@@ -11,11 +11,12 @@
    limitations under the License.
  */
 import { Component } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-booking',
   standalone: true,
-  imports: [],
+  imports: [RouterOutlet,RouterLink],
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.scss'
 })
