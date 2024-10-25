@@ -11,15 +11,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 import { Routes } from '@angular/router';
+import { SelectHotelComponent } from './select-hotel/select-hotel.component';
+import { BookHotelComponent } from './book-hotel/book-hotel.component';
 
 export const routes: Routes = [
   {
     path: 'selecthotel',
-    loadChildren: () => import('./select-hotel').then((mod) => mod.SELECTHOTEL),
+    component: SelectHotelComponent
+    // loadChildren: () => import('./select-hotel').then((mod) => mod.SELECTHOTEL),
   },
   {
     path: 'bookhotel/:id',
-    loadChildren: () => import('./book-hotel').then((mod) => mod.BOOKHOTEL),
+    component: BookHotelComponent
+    // loadChildren: () => import('./book-hotel').then((mod) => mod.BOOKHOTEL),
   },
 { path: '**', redirectTo: 'selecthotel' },
 ];

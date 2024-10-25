@@ -14,7 +14,7 @@ const { withNativeFederation, shareAll } = require('@angular-architects/native-f
 
 module.exports = withNativeFederation({
 
-  name: 'flightSelection',
+  name: 'hotelselection',
 
   exposes: {
     './routes': './src/app/app.routes.ts',
