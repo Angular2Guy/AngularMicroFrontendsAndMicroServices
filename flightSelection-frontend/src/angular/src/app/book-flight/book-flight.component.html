@@ -7,7 +7,7 @@
     <br/>
     <form [formGroup]="formGroup">
     <mat-form-field class="example-full-width">
-        <mat-label>{{'book-flight.choose-date'}}</mat-label>
+        <mat-label>{{'book-flight.choose-date' | transloco}}</mat-label>
         <input matInput [matDatepicker]="picker" [formControlName]="ControlName.Day">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -22,7 +22,7 @@
               <span>{{'book-flight.flight-number' | transloco}}: {{selFlight?.flightNumber}}, </span> 
               <span>{{'book-flight.flight-from' | transloco}}: {{selFlight?.fromCity}}, </span> 
               <span>{{'book-flight.flight-to' | transloco}}: {{selFlight?.toCity}}, </span> 
-              <span>{{'book-flight.airline'}}: {{selFlight?.airline}} </span> 
+              <span>{{'book-flight.airline' | transloco}}: {{selFlight?.airline}} </span> 
               <button mat-icon-button (click)="deleteBooking(booking)">
                 <mat-icon>remove</mat-icon>
               </button>

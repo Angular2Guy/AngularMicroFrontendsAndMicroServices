@@ -11,19 +11,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 import { Routes } from '@angular/router';
-import { SelectFlightComponent } from './select-flight/select-flight.component';
-import { BookFlightComponent } from './book-flight/book-flight.component';
+// import { SelectFlightComponent } from './select-flight/select-flight.component';
+// import { BookFlightComponent } from './book-flight/book-flight.component';
 
 export const routes: Routes = [
     {
         path: 'selectflight',
-        component: SelectFlightComponent
-        // loadChildren: () => import('./select-flight').then((mod) => mod.SELECTFLIGHT),
+        // component: SelectFlightComponent
+        loadChildren: () => import('./select-flight').then((mod) => mod.SELECTFLIGHT),
       },
       {
         path: 'bookflight/:id',
-        component: BookFlightComponent
-        // loadChildren: () => import('./book-flight').then((mod) => mod.BOOKFLIGHT),
+        // component: BookFlightComponent
+        loadChildren: () => import('./book-flight').then((mod) => mod.BOOKFLIGHT),
       },
       { path: '**', redirectTo: 'selectflight' },
 ];

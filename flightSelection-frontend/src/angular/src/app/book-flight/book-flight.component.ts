@@ -34,7 +34,6 @@ enum ControlName {Day = 'day'};
   selector: 'app-book-flight',
   standalone: true,
   imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe,MatButtonModule, DatePipe,MatIconModule,MatInputModule, TranslocoPipe, TranslocoLocaleModule],
-  providers: [provideNativeDateAdapter()],
   templateUrl: './book-flight.component.html',
   styleUrl: './book-flight.component.scss'
 })
