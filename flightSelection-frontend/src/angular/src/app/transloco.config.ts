@@ -15,7 +15,7 @@ import {
   Translation,
   TranslocoLoader
 } from '@jsverse/transloco';
-import { Injectable, isDevMode } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TranslocoGlobalConfig } from '@jsverse/transloco-utils';
 
@@ -24,7 +24,7 @@ export class TranslocoHttpLoader implements TranslocoLoader {
   constructor(private http: HttpClient) {}
 
   getTranslation(lang: string): Observable<Translation> {
-    return this.http.get<Translation>(isDevMode() ? `/i18n/${lang}.json` : `/assets/i18n/${lang}.json`);
+    return this.http.get<Translation>(`/i18n/${lang}.json`);
   }
 }
 
