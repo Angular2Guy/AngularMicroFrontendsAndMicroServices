@@ -23,9 +23,10 @@
       <br/>
       <br/>
       <div>
+        <div>{{'book-hotel.bookings' | transloco}}: </div>
         @for(booking of bookings;track booking) {
           <div>
-            <span>booking.</span>
+            <span>{{selHotel?.hotelName}}: &nbsp;</span>
             <span>{{'book-hotel.from' | transloco}}: {{ booking.from | translocoDate: { dateStyle:'short'} }} </span>
             <span>{{'book-hotel.to' | transloco}}: {{ booking.to | translocoDate: { dateStyle:'short'} }} </span>
             <button mat-icon-button (click)="deleteBooking(booking)">

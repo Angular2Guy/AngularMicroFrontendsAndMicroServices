@@ -30,7 +30,6 @@ import { TranslocoLocaleModule } from '@jsverse/transloco-locale';
 
 interface HotelBooking {
   id: string;
-  name: string;
   from: Date;
   to: Date;
 }
@@ -62,11 +61,11 @@ export class BookHotelComponent implements OnInit {
   }
 
   private readBookings(id: string): Observable<HotelBooking[]> {
-    return this.bookingService.getBookings(id).pipe(map(myValue => myValue.map(value => ({id: value.id, from: new Date(value.from), to: new Date(value.to), name: '' } as HotelBooking))));
+    return this.bookingService.getBookings(id).pipe(map(myValue => myValue.map(value => ({id: value.id, from: new Date(value.from), to: new Date(value.to) } as HotelBooking))));
   }
 
   protected bookHotel(): void {
-    !!this.selHotel?.id && this.formGroup.valid && this.bookingService.postBooking(this.selHotel?.id || '', {id: null, from: this.formGroup.controls[ControlName.From]?.value?.toISOString(), to: this.formGroup.controls[ControlName.To]?.value?.toISOString(), name: '' } as Booking).pipe(mergeMap(() => this.readBookings(this.selHotel?.id || ''))).subscribe(result => this.bookings = result)
+    !!this.selHotel?.id && this.formGroup.valid && this.bookingService.postBooking(this.selHotel?.id || '', {id: null, from: this.formGroup.controls[ControlName.From]?.value?.toISOString(), to: this.formGroup.controls[ControlName.To]?.value?.toISOString() } as Booking).pipe(mergeMap(() => this.readBookings(this.selHotel?.id || ''))).subscribe(result => this.bookings = result)
   }
 
   protected deleteBooking(booking: HotelBooking): void {
