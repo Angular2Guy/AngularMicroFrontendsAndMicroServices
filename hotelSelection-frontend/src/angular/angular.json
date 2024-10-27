@@ -3,160 +3,109 @@
 	"version": 1,
 	"newProjectRoot": "projects",
 	"projects": {
-		"hotelselection": {
-			"projectType": "application",
-			"schematics": {
-				"@schematics/angular:component": {
-					"style": "scss"
+	  "flightSelection": {
+		"projectType": "application",
+		"schematics": {
+		  "@schematics/angular:component": {
+			"style": "scss"
+		  }
+		},
+		"root": "",
+		"sourceRoot": "src",
+		"prefix": "app",		
+		"architect": {
+		  "build": {
+			"builder": "@angular-devkit/build-angular:application",
+			"options": {
+			  "outputPath": "dist/flight-selection",
+			  "index": "src/index.html",
+			  "browser": "src/main.ts",
+			  "polyfills": [
+				"zone.js"
+			  ],
+			  "tsConfig": "tsconfig.app.json",
+			  "inlineStyleLanguage": "scss",
+			  "assets": [
+				{
+				  "glob": "**/*",
+				  "input": "public"
 				}
+			  ],
+			  "styles": [
+				"@angular/material/prebuilt-themes/indigo-pink.css",
+				"src/styles.scss"
+			  ],
+			  "scripts": []
 			},
-			"root": "",
-			"sourceRoot": "src",
-			"prefix": "app",			
-			"architect": {
-				"build": {
-					"builder": "@angular-architects/native-federation:build",
-					"options": {},
-					"configurations": {
-						"production": {
-							"target": "hotelselection:esbuild:production"
-						},
-						"development": {
-							"target": "hotelselection:esbuild:development",
-							"dev": true
-						}
-					},
-					"defaultConfiguration": "production"
-				},
-				"serve": {
-					"builder": "@angular-architects/native-federation:build",
-					"options": {
-						"target": "hotelselection:serve-original:development",
-						"rebuildDelay": 0,
-						"dev": true,
-						"port": 0,
-						"proxyConfig": "proxy.config.js"
-					}
-				},
-				"extract-i18n": {
-					"builder": "@angular-devkit/build-angular:extract-i18n"
-				},
-				"test": {
-					"builder": "@angular-devkit/build-angular:karma",
-					"options": {
-						"polyfills": [
-							"zone.js",
-							"zone.js/testing"
-						],
-						"tsConfig": "tsconfig.spec.json",
-						"inlineStyleLanguage": "scss",
-						"assets": [
-							{
-								"glob": "**/*",
-								"input": "public"
-							}
-						],
-						"styles": [
-							"src/styles.scss"
-						],
-						"scripts": []
-					}
-				},
-				"esbuild": {
-					"builder": "@angular-devkit/build-angular:application",
-					"options": {
-						"outputPath": "dist/hotelselection",
-						"index": "src/index.html",
-						"browser": "src/main.ts",
-						"polyfills": [
-							"zone.js",
-							"es-module-shims"
-						],
-						"tsConfig": "tsconfig.app.json",
-						"inlineStyleLanguage": "scss",
-						"assets": [
-							{
-								"glob": "**/*",
-								"input": "public"
-							}
-						],
-						"styles": [
-							"@angular/material/prebuilt-themes/indigo-pink.css",
-							"src/styles.scss"
-						],
-						"scripts": []
-					},
-					"configurations": {
-						"production": {
-							"budgets": [
-								{
-									"type": "initial",
-									"maximumWarning": "500kB",
-									"maximumError": "1MB"
-								},
-								{
-									"type": "anyComponentStyle",
-									"maximumWarning": "2kB",
-									"maximumError": "4kB"
-								}
-							],
-							"outputHashing": "all",
-							"optimization": false,
-							"extractLicenses": false,
-							"sourceMap": true,
-							"namedChunks": true							
-						},
-						"development": {
-							"optimization": false,
-							"extractLicenses": false,
-							"sourceMap": true,
-							"namedChunks": true
-						},
-						"production-ori": {
-							"budgets": [
-								{
-									"type": "initial",
-									"maximumWarning": "500kB",
-									"maximumError": "1MB"
-								},
-								{
-									"type": "anyComponentStyle",
-									"maximumWarning": "2kB",
-									"maximumError": "4kB"
-								}
-							],
-							"optimization": true,
-							"outputHashing": "all",
-							"sourceMap": false,
-							"extractLicenses": true
-						},
-						"development-ori": {
-							"optimization": false,
-							"extractLicenses": false,
-							"sourceMap": true
-						}
-					},
-					"defaultConfiguration": "production"
-				},
-				"serve-original": {
-					"builder": "@angular-devkit/build-angular:dev-server",
-					"configurations": {
-						"production": {
-							"buildTarget": "hotelselection:esbuild:production"
-						},
-						"development": {
-							"buildTarget": "hotelselection:esbuild:development"
-						}
-					},
-					"defaultConfiguration": "development",
-					"options": {
-						"port": 4200
-					}
+			"configurations": {
+			  "production": {
+				"budgets": [
+				  {
+					"type": "initial",
+					"maximumWarning": "500kB",
+					"maximumError": "1MB"
+				  },
+				  {
+					"type": "anyComponentStyle",
+					"maximumWarning": "2kB",
+					"maximumError": "4kB"
+				  }
+				],
+				"optimization": true,
+				"outputHashing": "all",
+				"sourceMap": false,
+				"localize": true,
+				"extractLicenses": true
+			  },
+			  "development": {
+				"optimization": false,
+				"extractLicenses": false,
+				"sourceMap": true
+			  }
+			},
+			"defaultConfiguration": "production"
+		  },
+		  "serve": {
+			"builder": "@angular-devkit/build-angular:dev-server",
+			"options": {             
+				"proxyConfig": "proxy.conf.js"              
+			  }, 
+			"configurations": {
+			  "production": {
+				"buildTarget": "flightSelection:build:production"
+			  },
+			  "development": {
+				"buildTarget": "flightSelection:build:development"
+			  }
+			},
+			"defaultConfiguration": "development"
+		  },
+		  "test": {
+			"builder": "@angular-devkit/build-angular:karma",
+			"options": {
+			  "polyfills": [
+				"zone.js",
+				"zone.js/testing"
+			  ],
+			  "tsConfig": "tsconfig.spec.json",
+			  "inlineStyleLanguage": "scss",
+			  "assets": [
+				{
+				  "glob": "**/*",
+				  "input": "public"
 				}
+			  ],
+			  "styles": [
+				"src/styles.scss"
+			  ],
+			  "scripts": []
 			}
+		  }
 		}
+	  }
 	},
 	"cli": {
-		"analytics": "7395c14c-b3b1-4de8-a682-252d4f3e4e53"
+	  "analytics": "7395c14c-b3b1-4de8-a682-252d4f3e4e53"
 	}
-}
+  }
+  

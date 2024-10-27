@@ -13,7 +13,7 @@ limitations under the License.
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, ReactiveFormsModule} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatDatepickerModule} from '@angular/material/datepicker'; 
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import { HotelService } from '../services/hotel.service';
 import { Hotel } from '../model/hotel';
@@ -23,13 +23,14 @@ import { JsonPipe, DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { map, mergeMap, Observable } from 'rxjs';
 import { Booking } from '../model/booking';
-import {MatIconModule} from '@angular/material/icon'; 
+import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { TranslocoLocaleModule } from '@jsverse/transloco-locale';
 
 interface HotelBooking {
   id: string;
+  name: string;
   from: Date;
   to: Date;
 }
@@ -55,17 +56,17 @@ export class BookHotelComponent implements OnInit {
 
   constructor(private hotelService: HotelService, private bookingService: BookingService,private activatedRoute: ActivatedRoute, private router: Router) { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.hotelService.getHotel(this.activatedRoute.snapshot.params['id']).subscribe(result => this.selHotel = result);
     this.readBookings(this.activatedRoute.snapshot.params['id']).subscribe(result => this.bookings = result);
   }
 
   private readBookings(id: string): Observable<HotelBooking[]> {
-    return this.bookingService.getBookings(id).pipe(map(myValue => myValue.map(value => ({id: value.id, from: new Date(value.from), to: new Date(value.to) } as HotelBooking))));
+    return this.bookingService.getBookings(id).pipe(map(myValue => myValue.map(value => ({id: value.id, from: new Date(value.from), to: new Date(value.to), name: '' } as HotelBooking))));
   }
 
   protected bookHotel(): void {
-    !!this.selHotel?.id && this.formGroup.valid && this.bookingService.postBooking(this.selHotel?.id || '', {id: null, from: this.formGroup.controls[ControlName.From]?.value?.toISOString(), to: this.formGroup.controls[ControlName.To]?.value?.toISOString() } as Booking).pipe(mergeMap(() => this.readBookings(this.selHotel?.id || ''))).subscribe(result => this.bookings = result)
+    !!this.selHotel?.id && this.formGroup.valid && this.bookingService.postBooking(this.selHotel?.id || '', {id: null, from: this.formGroup.controls[ControlName.From]?.value?.toISOString(), to: this.formGroup.controls[ControlName.To]?.value?.toISOString(), name: '' } as Booking).pipe(mergeMap(() => this.readBookings(this.selHotel?.id || ''))).subscribe(result => this.bookings = result)
   }
 
   protected deleteBooking(booking: HotelBooking): void {
