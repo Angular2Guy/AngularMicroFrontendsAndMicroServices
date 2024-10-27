@@ -14,8 +14,8 @@
     "test-local": "ng test --browsers Chromium --watch=true",
     "prebuild": "rimraf ./dist && mkdirp ./dist",
     "postbuild": "npm run deploy",
-    "predeploy": "rimraf ../../../src/main/resources/static/*",
-    "deploy": "cpy 'dist/hotelselection/browser/**' ../../../hotelSelection-backend/src/main/resources/static/",
+    "predeploy": "rimraf ../../../hotelSelection-backend/src/main/resources/static/*",
+    "deploy": "cpy 'dist/hotel-selection/browser/en/**' '../../../hotelSelection-backend/src/main/resources/static/'",
     "prettier": "npx prettier --write 'src/**/*.{ts,html,scss,json}'",
     "extract-i18n": "ng extract-i18n --format=json"
   },

@@ -3,7 +3,7 @@
 	"version": 1,
 	"newProjectRoot": "projects",
 	"projects": {
-	  "flightSelection": {
+	  "hotelSelection": {
 		"projectType": "application",
 		"schematics": {
 		  "@schematics/angular:component": {
@@ -12,12 +12,15 @@
 		},
 		"root": "",
 		"sourceRoot": "src",
-		"prefix": "app",		
+		"prefix": "app",	
+		"i18n": {			
+			"sourceLocale": "en"
+		  },	
 		"architect": {
 		  "build": {
 			"builder": "@angular-devkit/build-angular:application",
 			"options": {
-			  "outputPath": "dist/flight-selection",
+			  "outputPath": "dist/hotel-selection",
 			  "index": "src/index.html",
 			  "browser": "src/main.ts",
 			  "polyfills": [
@@ -72,10 +75,10 @@
 			  }, 
 			"configurations": {
 			  "production": {
-				"buildTarget": "flightSelection:build:production"
+				"buildTarget": "hotelSelection:build:production"
 			  },
 			  "development": {
-				"buildTarget": "flightSelection:build:development"
+				"buildTarget": "hotelSelection:build:development"
 			  }
 			},
 			"defaultConfiguration": "development"
