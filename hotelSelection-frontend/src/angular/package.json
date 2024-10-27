@@ -14,8 +14,9 @@
     "test-local": "ng test --browsers Chromium --watch=true",
     "prebuild": "rimraf ./dist && mkdirp ./dist",
     "postbuild": "npm run deploy",
+    "mytest": "replace-in-file dist/hotel-selection/browser/en/index.html --configFile=replace.json",
     "predeploy": "rimraf ../../../hotelSelection-backend/src/main/resources/static/*",
-    "deploy": "cpy 'dist/hotel-selection/browser/en/**' '../../../hotelSelection-backend/src/main/resources/static/'",
+    "deploy": "replace-in-file dist/hotel-selection/browser/en/index.html --configFile=replace.json && cpy 'dist/hotel-selection/browser/en/**' '../../../hotelSelection-backend/src/main/resources/static/'",
     "prettier": "npx prettier --write 'src/**/*.{ts,html,scss,json}'",
     "extract-i18n": "ng extract-i18n --format=json"
   },
@@ -59,6 +60,7 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "mkdirp": "^1.0.4",
     "prettier": "^3.0.0",
+    "replace-in-file": "^8.2.0",
     "rimraf": "^4.0.2",
     "typescript": "~5.4.2",
     "webpack-bundle-analyzer": "^4.5.0"

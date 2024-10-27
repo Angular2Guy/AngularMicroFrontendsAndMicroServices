@@ -12,10 +12,10 @@
 		},
 		"root": "",
 		"sourceRoot": "src",
-		"prefix": "app",	
-		"i18n": {			
+		"prefix": "app",
+		"i18n": {
 			"sourceLocale": "en"
-		  },	
+		  },
 		"architect": {
 		  "build": {
 			"builder": "@angular-devkit/build-angular:application",
@@ -53,7 +53,7 @@
 					"maximumWarning": "2kB",
 					"maximumError": "4kB"
 				  }
-				],
+				],        
 				"optimization": true,
 				"outputHashing": "all",
 				"sourceMap": false,
@@ -70,9 +70,9 @@
 		  },
 		  "serve": {
 			"builder": "@angular-devkit/build-angular:dev-server",
-			"options": {             
-				"proxyConfig": "proxy.conf.js"              
-			  }, 
+			"options": {
+				"proxyConfig": "proxy.conf.js"
+			  },
 			"configurations": {
 			  "production": {
 				"buildTarget": "hotelSelection:build:production"
@@ -111,4 +111,3 @@
 	  "analytics": "7395c14c-b3b1-4de8-a682-252d4f3e4e53"
 	}
   }
-  
