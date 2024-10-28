@@ -16,7 +16,7 @@
     "postbuild": "npm run deploy",
     "mytest": "replace-in-file dist/hotel-selection/browser/en/index.html --configFile=replace.json",
     "predeploy": "rimraf ../../../hotelSelection-backend/src/main/resources/static/*",
-    "deploy": "cpy 'dist/hotel-selection/browser/en/**' '../../../hotelSelection-backend/src/main/resources/static/'",
+    "deploy": "cpy 'dist/hotel-selection/browser/**' '../../../hotelSelection-backend/src/main/resources/static/'",
     "prettier": "npx prettier --write 'src/**/*.{ts,html,scss,json}'",
     "extract-i18n": "ng extract-i18n --format=json"
   },

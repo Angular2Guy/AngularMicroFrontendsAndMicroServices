@@ -13,7 +13,7 @@
 import { Component } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button'; 
 import { Router } from '@angular/router';
-import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-booking',
@@ -23,16 +23,16 @@ import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
   styleUrl: './booking.component.scss'
 })
 export class BookingComponent {
-  protected iframeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl('https://svenloesekann.de');
+  protected iframeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl('http://localhost:3000/');
 
   constructor(private router: Router, private domSanitizer: DomSanitizer) { }
 
   protected showFlights(): void {    
-    this.iframeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl('https://svenloesekann.de:8453/carrental-web/');
+    this.iframeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl('http://localhost:3000/');
   }
 
   protected showHotels(): void {
-    this.iframeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl('https://svenloesekann.de');
+    this.iframeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/');
   }
 
   protected showPayment(): void {
