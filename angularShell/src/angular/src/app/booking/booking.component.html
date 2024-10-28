@@ -1,7 +1,7 @@
-<p>booking works!</p>
+<h2>Booking</h2>
 <div>
-    <a routerLink="flights/selectflight">Flights</a> &nbsp;
-    <a routerLink="hotels/selecthotel">Hotels</a> &nbsp;
-    <a routerLink="/payment">Payment</a> &nbsp;
-  </div>
-<router-outlet></router-outlet>
+  <button mat-button (click)="showFlights()">Flights</button> &nbsp;
+  <button mat-button (click)="showHotels()">Hotels</button> &nbsp;
+  <button mat-button (click)="showPayment()">Payment</button> &nbsp;
+</div>
+<iframe [src]="iframeUrl" class="app-container"></iframe>

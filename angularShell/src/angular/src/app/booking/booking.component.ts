@@ -11,15 +11,31 @@
    limitations under the License.
  */
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import {MatButtonModule} from '@angular/material/button'; 
+import { Router } from '@angular/router';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-booking',
   standalone: true,
-  imports: [RouterOutlet,RouterLink],
+  imports: [MatButtonModule],
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.scss'
 })
 export class BookingComponent {
+  protected iframeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl('https://svenloesekann.de');
 
+  constructor(private router: Router, private domSanitizer: DomSanitizer) { }
+
+  protected showFlights(): void {    
+    this.iframeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl('https://svenloesekann.de:8453/carrental-web/');
+  }
+
+  protected showHotels(): void {
+    this.iframeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl('https://svenloesekann.de');
+  }
+
+  protected showPayment(): void {
+    this.router.navigate(['/payment']);
+  }
 }
