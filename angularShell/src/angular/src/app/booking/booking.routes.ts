@@ -12,13 +12,14 @@
  */
    import { Routes } from '@angular/router';
    import { BookingComponent} from './booking.component';
-   import { loadRemoteModule } from '@angular-architects/native-federation';
+  //  import { loadRemoteModule } from '@angular-architects/native-federation';
    
    export const BOOKING: Routes = [
      {
        path: '',
        component: BookingComponent,
      },
+     /*
      {
         path: 'flights',    
         loadChildren: () =>
@@ -29,5 +30,6 @@
         loadChildren: () =>
           loadRemoteModule('hotelselection', './routes').then((m) => m.APP_ROUTES),
       },
+      */
      { path: '**', redirectTo: '' }
     ];

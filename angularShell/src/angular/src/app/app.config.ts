@@ -10,11 +10,27 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
+import { provideTransloco } from '@jsverse/transloco';
+import { TranslocoHttpLoader } from './transloco.config';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { provideTranslocoLocale } from '@jsverse/transloco-locale';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)]
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimations(), 
+    provideHttpClient(),provideNativeDateAdapter(), provideTranslocoLocale(),
+    provideTransloco({
+    config: {
+      availableLangs: ['en', 'de'],
+      defaultLang: 'en',
+      // Remove this option if your application doesn't support changing language in runtime.
+      reRenderOnLangChange: true,
+      prodMode: !isDevMode(),
+    },
+    loader: TranslocoHttpLoader,
+  })]
 };
