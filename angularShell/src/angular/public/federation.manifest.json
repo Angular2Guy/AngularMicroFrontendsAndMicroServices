@@ -1,4 +1,0 @@
-{
-	"flightselection": "http://localhost:3000/remoteEntry.json",
-	"hotelselection": "http://localhost:8080/remoteEntry.json"
-}
