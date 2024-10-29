@@ -20,7 +20,7 @@ import java.util.*
 @Component
 class HotelMapper(val bookingMapper: BookingMapper) {
     fun toHotelDto(hotel: Hotel): HotelDto {
-        return HotelDto(hotel.id.toString(), hotel.hotelName, hotel.city, this.bookingMapper.toDtos(hotel.bookings))
+        return HotelDto(hotel.id.toString(), hotel.hotelName, hotel.city, hotel.price, this.bookingMapper.toDtos(hotel.bookings))
     }
 
     fun toHotelEntity(hotelDto: HotelDto): Hotel {
@@ -28,6 +28,7 @@ class HotelMapper(val bookingMapper: BookingMapper) {
             Optional.ofNullable(hotelDto.id).stream().map { UUID.fromString(it) }.findFirst().orElse(null),
             hotelDto.hotelName,
             hotelDto.city,
+            hotelDto.price,
             mutableSetOf()
         )
         val myBookings = this.bookingMapper.toEntities(hotelDto.bookings, myHotel)

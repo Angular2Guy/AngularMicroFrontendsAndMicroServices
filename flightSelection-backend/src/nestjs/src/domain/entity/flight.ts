@@ -24,7 +24,6 @@ export class Flight {
     fromCity: string;
     @Column({name: "to_city"})
     toCity: string;
-    //scale and precision are switched by TypeOrm. -> scale=7,precision=4
-    @Column({type: "numeric", scale: 4, precision: 7})
+    @Column({type: "numeric", scale: 10, precision: 3})
     price: number;
 }

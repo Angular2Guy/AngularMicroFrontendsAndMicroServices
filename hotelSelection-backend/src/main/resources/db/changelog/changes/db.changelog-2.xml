@@ -21,4 +21,9 @@
             <column name="to_date" type="date"/>
         </createTable>
     </changeSet>
+    <changeSet id="4" author="angular2guy">
+        <addColumn tableName="hotel">
+            <column name="price" type="number(10,3)"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

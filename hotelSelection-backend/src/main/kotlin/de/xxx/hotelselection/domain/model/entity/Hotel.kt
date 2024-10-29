@@ -13,7 +13,14 @@ limitations under the License.
 package de.xxx.hotelselection.domain.model.entity
 
 import jakarta.persistence.*
+import java.math.BigDecimal
 import java.util.UUID
 
 @Entity
-class Hotel(@Id @GeneratedValue(strategy = GenerationType.UUID) val id: UUID?, val hotelName: String, val city: String, @OneToMany(mappedBy="hotel") var bookings: Set<Booking>) { }
+class Hotel(
+    @Id @GeneratedValue(strategy = GenerationType.UUID) val id: UUID?,
+    val hotelName: String,
+    val city: String,
+    val price: BigDecimal,
+    @OneToMany(mappedBy = "hotel") var bookings: Set<Booking>
+) {}

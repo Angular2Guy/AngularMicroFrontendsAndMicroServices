@@ -1,5 +1,5 @@
-id,hotel_name,city
-"568e0fc4-a620-46e1-bae6-c8f962f7b86e","Burj al Arab","Dubai"
-"ff9cbde3-f967-4764-9605-eaec381e493e","Atlantis The Palm","Dubai"
-"f058a784-3408-4ea3-b093-58a039463650","Raffles","Singapore"
-"6d02ba40-abd0-4f5c-bd75-09d3f5c119be","Marina Bay Sands","Singapore"
+id,hotel_name,city,price
+"568e0fc4-a620-46e1-bae6-c8f962f7b86e","Burj al Arab","Dubai",2200.0
+"ff9cbde3-f967-4764-9605-eaec381e493e","Atlantis The Palm","Dubai",1100.0
+"f058a784-3408-4ea3-b093-58a039463650","Raffles","Singapore",2000.0
+"6d02ba40-abd0-4f5c-bd75-09d3f5c119be","Marina Bay Sands","Singapore",1000.0

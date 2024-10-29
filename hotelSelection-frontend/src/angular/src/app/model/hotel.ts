@@ -16,5 +16,6 @@ export interface Hotel {
     id: string,
     hotelName: string;
     city: string;
+    price: number;
     bookings: Booking[];
 }
