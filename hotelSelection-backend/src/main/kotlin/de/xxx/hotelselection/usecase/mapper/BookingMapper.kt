@@ -16,6 +16,9 @@ import de.xxx.hotelselection.domain.model.dto.BookingDto
 import de.xxx.hotelselection.domain.model.entity.Booking
 import de.xxx.hotelselection.domain.model.entity.Hotel
 import org.springframework.stereotype.Component
+import java.math.BigDecimal
+import java.time.Duration
+import java.time.LocalDate
 import java.util.*
 
 @Component
@@ -25,7 +28,11 @@ class BookingMapper {
     }
 
     fun toDto(booking: Booking): BookingDto {
-        return BookingDto(booking.id.toString(), booking.from, booking.to)
+        return BookingDto(booking.id.toString(), booking.from, booking.to, this.calcPrice(booking.from, booking.to, booking.hotel))
+    }
+
+    private fun calcPrice(from: LocalDate, to: LocalDate, hotel: Hotel): BigDecimal {
+        return hotel.price.multiply(BigDecimal.valueOf(Duration.between(from.atStartOfDay(), to.atStartOfDay()).toDays()))
     }
 
     fun toEntities(bookingDtos: Set<BookingDto>, hotel: Hotel): Set<Booking> {

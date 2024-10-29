@@ -13,6 +13,7 @@
         "invalid-date-to": " Invalid end date",
         "to": "To",
         "from": "From",
-        "bookings": "Bookings"
+        "bookings": "Bookings",
+        "price": "Price"
     }
 }

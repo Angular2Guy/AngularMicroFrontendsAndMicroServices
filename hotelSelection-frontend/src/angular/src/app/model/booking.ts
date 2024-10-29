@@ -14,4 +14,5 @@ export interface Booking {
     id: string | null,
     from: string,
     to: string
+    price: number;
 }

@@ -13,12 +13,14 @@ limitations under the License.
 package de.xxx.hotelselection.domain.model.dto
 
 import com.fasterxml.jackson.annotation.JsonInclude
+import java.math.BigDecimal
 import java.time.LocalDate
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class BookingDto(
     val id: String? = null,
     val from: LocalDate,
-    val to: LocalDate
+    val to: LocalDate,
+    val price: BigDecimal?
 ) {
 }

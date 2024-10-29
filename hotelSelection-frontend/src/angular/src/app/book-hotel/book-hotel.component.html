@@ -29,6 +29,7 @@
             <span>{{selHotel?.hotelName}}: &nbsp;</span>
             <span>{{'book-hotel.from' | transloco}}: {{ booking.from | translocoDate: { dateStyle:'short'} }} </span>
             <span>{{'book-hotel.to' | transloco}}: {{ booking.to | translocoDate: { dateStyle:'short'} }} </span>
+            <span>{{'book-hotel.price' | transloco}}: {{ booking.price }} </span>
             <button mat-icon-button (click)="deleteBooking(booking)">
               <mat-icon>remove</mat-icon>
             </button>

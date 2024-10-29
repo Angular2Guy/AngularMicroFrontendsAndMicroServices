@@ -27,11 +27,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { TranslocoLocaleModule } from '@jsverse/transloco-locale';
+import { DateTime } from 'luxon';
 
 interface HotelBooking {
   id: string;
   from: Date;
   to: Date;
+  price?: number;
 }
 
 enum ControlName {From = 'from',To='to'};
@@ -60,12 +62,12 @@ export class BookHotelComponent implements OnInit {
     this.readBookings(this.activatedRoute.snapshot.params['id']).subscribe(result => this.bookings = result);
   }
 
-  private readBookings(id: string): Observable<HotelBooking[]> {
-    return this.bookingService.getBookings(id).pipe(map(myValue => myValue.map(value => ({id: value.id, from: new Date(value.from), to: new Date(value.to) } as HotelBooking))));
+  private readBookings(id: string): Observable<HotelBooking[]> {    
+    return this.bookingService.getBookings(id).pipe(map(myValue => myValue.map(value => ({id: value.id, from: new Date(value.from), to: new Date(value.to), price: !!value.price ? value.price : 0 } as HotelBooking))));
   }
 
   protected bookHotel(): void {
-    !!this.selHotel?.id && this.formGroup.valid && this.bookingService.postBooking(this.selHotel?.id || '', {id: null, from: this.formGroup.controls[ControlName.From]?.value?.toISOString(), to: this.formGroup.controls[ControlName.To]?.value?.toISOString() } as Booking).pipe(mergeMap(() => this.readBookings(this.selHotel?.id || ''))).subscribe(result => this.bookings = result)
+    !!this.selHotel?.id && this.formGroup.valid && this.bookingService.postBooking(this.selHotel?.id || '', {id: null, from: this.formGroup.controls[ControlName.From]?.value?.toISOString(), to: this.formGroup.controls[ControlName.To]?.value?.toISOString(), price: 0 } as Booking).pipe(mergeMap(() => this.readBookings(this.selHotel?.id || ''))).subscribe(result => this.bookings = result)
   }
 
   protected deleteBooking(booking: HotelBooking): void {
