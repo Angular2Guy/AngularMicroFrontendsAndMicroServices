@@ -17,7 +17,7 @@ import { Flight } from "src/domain/entity/flight";
 @Injectable()
 export class FlightMapper {
     public toDto(flight: Flight): FlightDto {
-        return new FlightDto(flight.id, flight.flightNumber, flight.airline, flight.fromCity, flight.toCity);
+        return new FlightDto(flight.id, flight.flightNumber, flight.airline, flight.fromCity, flight.toCity, flight.price);
     }
 
     public toEntity(flightDto: FlightDto): Flight {
@@ -27,6 +27,7 @@ export class FlightMapper {
         entity.fromCity = flightDto.fromCity;
         entity.id = flightDto.id;
         entity.toCity = flightDto.toCity;
+        entity.price = flightDto.price;
         return entity;
     }
 }

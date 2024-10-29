@@ -11,5 +11,5 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
 export class FlightDto {
-    constructor(public id: string, public flightNumber: string, public airline: string, public fromCity: string,public toCity: string) {}
+    constructor(public id: string, public flightNumber: string, public airline: string, public fromCity: string,public toCity: string, public price: number) {}
 }

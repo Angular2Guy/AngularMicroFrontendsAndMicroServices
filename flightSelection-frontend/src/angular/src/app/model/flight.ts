@@ -17,4 +17,5 @@ export interface Flight {
     airline: string;
     fromCity: string;
     toCity: string;
+    price: number;
 }

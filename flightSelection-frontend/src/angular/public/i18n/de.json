@@ -11,6 +11,7 @@
         "flight-number": "Flight number",
         "flight-from": "Flight from",
         "flight-to": "Flight to",
-        "choose-date": "Choose flight date"
+        "choose-date": "Choose flight date",
+        "price": "Price"
     }
 }
