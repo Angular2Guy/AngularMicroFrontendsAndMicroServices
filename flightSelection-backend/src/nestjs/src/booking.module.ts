@@ -18,11 +18,12 @@ import { BookingService } from './usecase/service/booking.service';
 import { BookingMapper } from './usecase/mapper/booking-mapper.service';
 import { FlightMapper } from './usecase/mapper/flight-mapper.service';
 import { Flight } from './domain/entity/flight';
+import { MqttProducerService } from './adapter/events/mqtt-producer.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Booking]),TypeOrmModule.forFeature([Flight])],
   exports: [TypeOrmModule],
   controllers: [BookingController],
-  providers: [BookingService, BookingMapper, FlightMapper],
+  providers: [BookingService, BookingMapper, FlightMapper, MqttProducerService],
 })
 export class BookingModule {}

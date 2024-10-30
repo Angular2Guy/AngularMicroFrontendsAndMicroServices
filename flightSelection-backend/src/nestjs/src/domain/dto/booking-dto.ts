@@ -13,5 +13,5 @@ limitations under the License.
 import { FlightDto } from "./flight-dto";
 
 export class BookingDto { 
-    constructor(public id: string, public flightDate: Date,public flightDto?: FlightDto) {}  
+    constructor(public id: string, public flightDate: Date, public flightDto?: FlightDto, public deleted: boolean = false,) {}  
 }
