@@ -24,6 +24,6 @@ export class Flight {
     fromCity: string;
     @Column({name: "to_city"})
     toCity: string;
-    @Column({type: "numeric", scale: 10, precision: 3})
+    @Column({type: "numeric", scale: 3, precision: 10})
     price: number;
 }
