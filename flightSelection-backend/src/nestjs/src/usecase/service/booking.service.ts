@@ -12,9 +12,10 @@ limitations under the License.
  */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { MqttProducerService } from 'src/adapter/events/mqtt-producer.service';
 import { Booking } from 'src/domain/entity/booking';
 import { Flight } from 'src/domain/entity/flight';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 
 @Injectable()
 export class BookingService {
@@ -22,7 +23,8 @@ export class BookingService {
     @InjectRepository(Booking)
     private bookingRepository: Repository<Booking>,
     @InjectRepository(Flight)
-    private flightRepository: Repository<Flight>
+    private flightRepository: Repository<Flight>,
+    private mqttProducerService: MqttProducerService
   ) {}
   
   getAllBookings(): Promise<Booking[]> {
@@ -32,11 +34,16 @@ export class BookingService {
   saveBooking(flightId: string, booking: Booking): Promise<Booking> {
     return this.flightRepository.findBy({id: flightId}).then(myFlight => {     
       booking.flight = myFlight?.length > 0 ? myFlight[0] : booking.flight;      
-      return this.bookingRepository.save(booking);
+      return this.bookingRepository.save(booking).then(value => {this.mqttProducerService.sendBooking(value); return value;});
     });    
   }
 
   deleteBooking(bookingId: string): Promise<boolean> {
-    return this.bookingRepository.delete(bookingId).then(result => !!result);
+    return this.bookingRepository.findBy({id: bookingId} as FindOptionsWhere<Booking>).then(value => {
+      if(!!value && !!value[0]) {
+      this.mqttProducerService.sendBooking(value[0],true);
+      }
+      return this.bookingRepository.delete(bookingId);
+    }).then(result => !!result);
   }
 }
