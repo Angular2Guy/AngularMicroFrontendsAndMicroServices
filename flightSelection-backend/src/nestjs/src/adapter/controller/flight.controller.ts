@@ -21,11 +21,11 @@ export class FlightController {
 
   @Get('/all')
   getAllFlights(): Promise<FlightDto[]> {
-    return this.flightService.getAllFlights().then(entities => entities.map(entity => this.flightMapper.toDto(entity)));
+    return this.flightService.getAllFlights().then(entities => !!entities ? entities.map(entity => this.flightMapper.toDto(entity) as FlightDto) : []);
   }
 
   @Get('/id/:id')
   getFlightById(@Param('id') id: string): Promise<FlightDto | null> {
-    return this.flightService.getFlightById(id).then(flight => !!flight ? this.flightMapper.toDto(flight) : null);
+    return this.flightService.getFlightById(id).then(flight => !!flight ? this.flightMapper.toDto(flight) || null : null);
   }
 }
