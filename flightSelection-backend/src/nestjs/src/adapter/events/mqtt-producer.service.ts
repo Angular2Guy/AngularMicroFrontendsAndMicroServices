@@ -13,10 +13,9 @@ limitations under the License.
 
 import { Injectable, OnModuleDestroy } from "@nestjs/common";
 import {connect, IClientOptions, MqttClient} from "mqtt";
-import { BookingDto } from "src/domain/dto/booking-dto";
 import { Booking } from "src/domain/entity/booking";
 import { BookingMapper } from "src/usecase/mapper/booking-mapper.service";
-import { deflateSync } from "zlib";
+import { deflateSync, inflateSync } from "zlib";
 
 @Injectable()
 export class MqttProducerService implements OnModuleDestroy {
@@ -31,8 +30,8 @@ export class MqttProducerService implements OnModuleDestroy {
             }
         });
         this.client.subscribe(this.TOPIC_NAME);
-        this.client.on('message', (topic, message) => {
-            console.log(`Topic: ${topic}, Message: ${Buffer.from(message.toString(), 'base64').toString()}`);
+        this.client.on('message', (topic, message) => {            
+            console.log(`Topic: ${topic}, Message: ${inflateSync(Buffer.from(message.toString(), 'base64'))}`);
         })
     }
     
