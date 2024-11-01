@@ -21,6 +21,7 @@ data class BookingDto(
     val id: String? = null,
     val from: LocalDate,
     val to: LocalDate,
-    val price: BigDecimal?
+    val price: BigDecimal?,
+    val hotelName: String?
 ) {
 }

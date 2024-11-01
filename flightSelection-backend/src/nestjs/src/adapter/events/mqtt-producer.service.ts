@@ -12,7 +12,7 @@ limitations under the License.
  */
 
 import { Injectable, OnModuleDestroy } from "@nestjs/common";
-import {connect, IClientOptions, MqttClient} from "mqtt";
+import {connect, IClientOptions, IClientPublishOptions, MqttClient} from "mqtt";
 import { Booking } from "src/domain/entity/booking";
 import { BookingMapper } from "src/usecase/mapper/booking-mapper.service";
 import { deflateSync, inflateSync } from "zlib";
@@ -29,10 +29,12 @@ export class MqttProducerService implements OnModuleDestroy {
                 console.log(err);
             }
         });
+        /* For local testing.
         this.client.subscribe(this.TOPIC_NAME);
         this.client.on('message', (topic, message) => {            
             console.log(`Topic: ${topic}, Message: ${inflateSync(Buffer.from(message.toString(), 'base64'))}`);
-        })
+        });
+        */
     }
     
     onModuleDestroy() {
@@ -43,6 +45,6 @@ export class MqttProducerService implements OnModuleDestroy {
         const bookingDto = this.bookingMapper.toDto(booking);
         bookingDto.deleted = deleted;
         const zippedBase64 = deflateSync(JSON.stringify(bookingDto)).toString('base64');
-        this.client.publish(this.TOPIC_NAME, zippedBase64);
+        this.client.publish(this.TOPIC_NAME, zippedBase64, {qos: 1} as IClientPublishOptions);
     }
 }

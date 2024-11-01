@@ -15,17 +15,37 @@ package de.xxx.hotelselection.adapter.config
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
+import org.eclipse.paho.mqttv5.client.IMqttClient
+import org.eclipse.paho.mqttv5.client.MqttClient
+import org.eclipse.paho.mqttv5.client.MqttConnectionOptions
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import java.util.*
 
 
 @Configuration
 class Application {
+    @Value("\${mqtt.url:mqtt://localhost}")
+    private lateinit var mqttUrl: String;
 
     @Bean
     fun createObjectMapper(): ObjectMapper? {
         val objectMapper = ObjectMapper()
         objectMapper.registerModule(JavaTimeModule()).registerModule(KotlinModule.Builder().build())
         return objectMapper
+    }
+
+    @Bean
+    fun createMqttClient(): IMqttClient {
+        val client = MqttClient(this.mqttUrl, UUID.randomUUID().toString())
+        val options = MqttConnectionOptions()
+        options.setAutomaticReconnect(true)
+        options.setConnectionTimeout(10)
+
+        if (!client.isConnected()) {
+            client.connect(options)
+        }
+        return client
     }
 }

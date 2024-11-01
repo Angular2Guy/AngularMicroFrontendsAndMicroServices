@@ -1,0 +1,74 @@
+/**
+ *    Copyright 2019 Sven Loesekann
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ */
+package de.xxx.hotelselection.adapter.events
+
+import com.fasterxml.jackson.databind.ObjectMapper
+import de.xxx.hotelselection.domain.model.entity.Booking
+import de.xxx.hotelselection.usecase.mapper.BookingMapper
+import jakarta.annotation.PostConstruct
+import org.eclipse.paho.mqttv5.client.IMqttClient
+import org.eclipse.paho.mqttv5.common.MqttMessage
+import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Component
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.util.*
+import java.util.zip.GZIPInputStream
+import java.util.zip.GZIPOutputStream
+
+
+@Component
+class MqttProducer(val mqttClient: IMqttClient, val objectMapper: ObjectMapper, val bookingMapper: BookingMapper) {
+    private val log = LoggerFactory.getLogger(javaClass)
+    private val TOPIC_NAME = "hotel-booking"
+
+    @PostConstruct
+    fun init() {
+        this.mqttClient.subscribe(this.TOPIC_NAME, 1, { topic, event -> log.info( this.gunzip(Base64.getDecoder().decode(event.payload)).toString())})
+    }
+
+    fun sendBooking(booking: Booking) {
+        val message = MqttMessage()
+        message.qos = 1
+        message.payload = Base64.getEncoder()
+            .encode(this.gzip(this.objectMapper.writeValueAsString(this.bookingMapper.toDto(booking))))
+        this.mqttClient.publish(this.TOPIC_NAME, message)
+    }
+
+    private fun gzip(value: String): ByteArray {
+        val os = ByteArrayOutputStream()
+        val iStream = ByteArrayInputStream(value.toByteArray())
+        val gzipOs = GZIPOutputStream(os)
+        var result: ByteArray
+        iStream.use {
+            gzipOs.use {
+                iStream.transferTo(gzipOs)
+                result = os.toByteArray()
+            }
+        }
+        return result
+    }
+
+    fun gunzip(value: ByteArray): ByteArray {
+        val inputStream = GZIPInputStream(ByteArrayInputStream(value))
+        val outputStream = ByteArrayOutputStream()
+        var result: ByteArray
+        inputStream.use {
+            outputStream.use {
+                inputStream.transferTo(outputStream)
+                result = outputStream.toByteArray()
+            }
+        }
+        return result
+    }
+}
