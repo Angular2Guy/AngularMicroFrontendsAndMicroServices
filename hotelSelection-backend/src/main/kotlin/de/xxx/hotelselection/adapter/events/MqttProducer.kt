@@ -66,26 +66,25 @@ class MqttProducer(val mqttClient: IMqttClient, val objectMapper: ObjectMapper, 
         val os = ByteArrayOutputStream()
         val iStream = ByteArrayInputStream(value.toByteArray())
         val gzipOs = GZIPOutputStream(os)
-        var result: ByteArray
         iStream.use {
             gzipOs.use {
                 iStream.transferTo(gzipOs)
-                result = os.toByteArray()
             }
         }
+        val result = os.toByteArray()
         return result
     }
 
     fun gunzip(value: ByteArray): ByteArray {
         val inputStream = GZIPInputStream(ByteArrayInputStream(value))
         val outputStream = ByteArrayOutputStream()
-        var result: ByteArray
         inputStream.use {
             outputStream.use {
                 inputStream.transferTo(outputStream)
-                result = outputStream.toByteArray()
+
             }
         }
+        val result = outputStream.toByteArray()
         return result
     }
 
@@ -98,7 +97,7 @@ class MqttProducer(val mqttClient: IMqttClient, val objectMapper: ObjectMapper, 
     }
 
     override fun messageArrived(topic: String?, event: MqttMessage?) {
-        log.info("Topic: ${topic}, Value: ${this.gunzip(Base64.getDecoder().decode(event?.payload)).toString()}")
+        log.info("Topic: ${topic}, Value: ${String(this.gunzip(Base64.getDecoder().decode(event?.payload)))}")
     }
 
     override fun deliveryComplete(p0: IMqttToken?) {
