@@ -22,6 +22,7 @@ data class BookingDto(
     val from: LocalDate,
     val to: LocalDate,
     val price: BigDecimal?,
-    val hotelName: String?
+    val hotelName: String?,
+    var deleted: Boolean = false
 ) {
 }

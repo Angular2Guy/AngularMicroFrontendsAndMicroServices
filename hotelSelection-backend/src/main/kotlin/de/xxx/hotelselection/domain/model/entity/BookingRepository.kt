@@ -18,4 +18,5 @@ interface BookingRepository {
     fun save(booking: Booking): Booking
     fun findByHotelId(id: UUID): Set<Booking>
     fun deleteBooking(id: UUID)
+    fun findById(id: UUID): Optional<Booking>
 }

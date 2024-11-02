@@ -30,4 +30,8 @@ class BookingRepositoryBean(val jpaBookingRepository: JpaBookingRepository): Boo
     override fun deleteBooking(id: UUID) {
         return this.jpaBookingRepository.deleteById(id)
     }
+
+    override fun findById(id: UUID): Optional<Booking> {
+        return this.jpaBookingRepository.findById(id)
+    }
 }

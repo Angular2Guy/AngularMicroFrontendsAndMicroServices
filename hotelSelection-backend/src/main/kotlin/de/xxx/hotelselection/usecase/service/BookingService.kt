@@ -12,15 +12,18 @@ limitations under the License.
  */
 package de.xxx.hotelselection.usecase.service
 
+import de.xxx.hotelselection.adapter.events.MqttProducer
 import de.xxx.hotelselection.domain.model.entity.Booking
 import de.xxx.hotelselection.domain.model.entity.BookingRepository
 import org.springframework.stereotype.Service
 import java.util.UUID
 
 @Service
-class BookingService(val bookingRepository: BookingRepository) {
+class BookingService(val bookingRepository: BookingRepository, val mqttProducer: MqttProducer) {
     fun saveBooking(booking: Booking): Booking {
-        return this.bookingRepository.save(booking)
+        val result = this.bookingRepository.save(booking)
+        this.mqttProducer.sendBooking(result)
+        return result
     }
 
     fun findByHotelId(hotelId: UUID): Set<Booking> {
@@ -28,7 +31,10 @@ class BookingService(val bookingRepository: BookingRepository) {
     }
 
     fun deleteBooking(bookingId: UUID): Boolean {
-        this.bookingRepository.deleteBooking(bookingId)
+        this.bookingRepository.findById(bookingId).ifPresent({
+            this.bookingRepository.deleteBooking(bookingId)
+            this.mqttProducer.sendBooking(it, true)
+        })
         return true
     }
 }

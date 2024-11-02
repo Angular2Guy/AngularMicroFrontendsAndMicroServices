@@ -52,11 +52,13 @@ class MqttProducer(val mqttClient: IMqttClient, val objectMapper: ObjectMapper, 
         this.mqttClient.unsubscribe(this.TOPIC_NAME)
     }
 
-    fun sendBooking(booking: Booking) {
+    fun sendBooking(booking: Booking, deleted: Boolean = false) {
+        val event = this.bookingMapper.toDto(booking)
+        event.deleted = deleted
         val message = MqttMessage()
         message.qos = 1
         message.payload = Base64.getEncoder()
-            .encode(this.gzip(this.objectMapper.writeValueAsString(this.bookingMapper.toDto(booking))))
+            .encode(this.gzip(this.objectMapper.writeValueAsString(event)))
         this.mqttClient.publish(this.TOPIC_NAME, message)
     }
 
