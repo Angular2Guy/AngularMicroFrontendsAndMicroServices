@@ -42,7 +42,8 @@ class MqttProducer(val mqttClient: IMqttClient, val objectMapper: ObjectMapper, 
     @EventListener(ApplicationStartedEvent::class)
     fun start() {
         this.mqttClient.setCallback(this)
-        this.mqttClient.subscribe(this.TOPIC_NAME, 1)
+        //For testing events
+        //this.mqttClient.subscribe(this.TOPIC_NAME, 1)
         //This library method gets stuck in a recursive loop -> Stackoverflow
         //this.mqttClient.subscribe(, { topic, event -> log.info("Topic: ${topic}, Value: ${this.gunzip(Base64.getDecoder().decode(event.payload)).toString()}") })
     }
