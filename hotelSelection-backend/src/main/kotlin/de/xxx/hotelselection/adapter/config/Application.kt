@@ -26,8 +26,12 @@ import java.util.*
 
 @Configuration
 class Application {
-    @Value("\${mqtt.url:mqtt://localhost}")
+    @Value("\${mqtt.url:tcp://localhost}")
     private lateinit var mqttUrl: String;
+    @Value("\${mqtt.username:artemis1}")
+    private lateinit var userName: String
+    @Value("\${mqtt.password:artemis1}")
+    private lateinit var password: String
 
     @Bean
     fun createObjectMapper(): ObjectMapper? {
@@ -41,7 +45,9 @@ class Application {
         val client = MqttClient(this.mqttUrl, UUID.randomUUID().toString())
         val options = MqttConnectionOptions()
         options.setAutomaticReconnect(true)
-        options.setConnectionTimeout(10)
+        options.connectionTimeout = 10
+        options.userName = this.userName
+        options.password = this.password.toByteArray()
 
         if (!client.isConnected()) {
             client.connect(options)

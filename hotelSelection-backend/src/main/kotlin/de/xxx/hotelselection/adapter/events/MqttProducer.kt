@@ -15,16 +15,18 @@ package de.xxx.hotelselection.adapter.events
 import com.fasterxml.jackson.databind.ObjectMapper
 import de.xxx.hotelselection.domain.model.entity.Booking
 import de.xxx.hotelselection.usecase.mapper.BookingMapper
-import jakarta.annotation.PostConstruct
 import org.eclipse.paho.mqttv5.client.IMqttClient
 import org.eclipse.paho.mqttv5.common.MqttMessage
 import org.slf4j.LoggerFactory
+import org.springframework.boot.context.event.ApplicationReadyEvent
+import org.springframework.boot.context.event.ApplicationStartedEvent
 import org.springframework.stereotype.Component
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
-import java.util.*
 import java.util.zip.GZIPInputStream
 import java.util.zip.GZIPOutputStream
+import org.springframework.context.event.EventListener;
+import java.util.*
 
 
 @Component
@@ -32,9 +34,9 @@ class MqttProducer(val mqttClient: IMqttClient, val objectMapper: ObjectMapper, 
     private val log = LoggerFactory.getLogger(javaClass)
     private val TOPIC_NAME = "hotel-booking"
 
-    @PostConstruct
-    fun init() {
-        this.mqttClient.subscribe(this.TOPIC_NAME, 1, { topic, event -> log.info( this.gunzip(Base64.getDecoder().decode(event.payload)).toString())})
+    @EventListener(ApplicationStartedEvent::class)
+    fun start() {
+        //this.mqttClient.subscribe(this.TOPIC_NAME, 1, { topic, event -> log.info("Topic: ${topic}, Value: ${this.gunzip(Base64.getDecoder().decode(event.payload)).toString()}") })
     }
 
     fun sendBooking(booking: Booking) {

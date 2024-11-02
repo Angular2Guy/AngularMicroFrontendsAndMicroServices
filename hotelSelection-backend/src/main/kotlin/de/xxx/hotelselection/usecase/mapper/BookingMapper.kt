@@ -28,7 +28,7 @@ class BookingMapper {
     }
 
     fun toDto(booking: Booking): BookingDto {
-        return BookingDto(booking.id.toString(), booking.from, booking.to, this.calcPrice(booking.from, booking.to, booking.hotel))
+        return BookingDto(booking.id.toString(), booking.from, booking.to, this.calcPrice(booking.from, booking.to, booking.hotel), booking.hotel.hotelName)
     }
 
     private fun calcPrice(from: LocalDate, to: LocalDate, hotel: Hotel): BigDecimal {
