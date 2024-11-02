@@ -15,28 +15,40 @@ package de.xxx.hotelselection.adapter.events
 import com.fasterxml.jackson.databind.ObjectMapper
 import de.xxx.hotelselection.domain.model.entity.Booking
 import de.xxx.hotelselection.usecase.mapper.BookingMapper
+import jakarta.annotation.PreDestroy
 import org.eclipse.paho.mqttv5.client.IMqttClient
+import org.eclipse.paho.mqttv5.client.IMqttToken
+import org.eclipse.paho.mqttv5.client.MqttCallback
+import org.eclipse.paho.mqttv5.client.MqttDisconnectResponse
+import org.eclipse.paho.mqttv5.common.MqttException
 import org.eclipse.paho.mqttv5.common.MqttMessage
+import org.eclipse.paho.mqttv5.common.packet.MqttProperties
 import org.slf4j.LoggerFactory
-import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.boot.context.event.ApplicationStartedEvent
+import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
+import java.util.*
 import java.util.zip.GZIPInputStream
 import java.util.zip.GZIPOutputStream
-import org.springframework.context.event.EventListener;
-import java.util.*
 
 
 @Component
-class MqttProducer(val mqttClient: IMqttClient, val objectMapper: ObjectMapper, val bookingMapper: BookingMapper) {
+class MqttProducer(val mqttClient: IMqttClient, val objectMapper: ObjectMapper, val bookingMapper: BookingMapper): MqttCallback {
     private val log = LoggerFactory.getLogger(javaClass)
     private val TOPIC_NAME = "hotel-booking"
 
     @EventListener(ApplicationStartedEvent::class)
     fun start() {
-        //this.mqttClient.subscribe(this.TOPIC_NAME, 1, { topic, event -> log.info("Topic: ${topic}, Value: ${this.gunzip(Base64.getDecoder().decode(event.payload)).toString()}") })
+        this.mqttClient.setCallback(this)
+        this.mqttClient.subscribe(this.TOPIC_NAME, 1)
+        //this.mqttClient.subscribe(, { topic, event -> log.info("Topic: ${topic}, Value: ${this.gunzip(Base64.getDecoder().decode(event.payload)).toString()}") })
+    }
+
+    @PreDestroy
+    fun stop() {
+        this.mqttClient.unsubscribe(this.TOPIC_NAME)
     }
 
     fun sendBooking(booking: Booking) {
@@ -72,5 +84,29 @@ class MqttProducer(val mqttClient: IMqttClient, val objectMapper: ObjectMapper, 
             }
         }
         return result
+    }
+
+    override fun disconnected(p0: MqttDisconnectResponse?) {
+        log.info("Topic disconnected: ${this.TOPIC_NAME}")
+    }
+
+    override fun mqttErrorOccurred(p0: MqttException?) {
+        log.info("Mqtt error: ${p0?.message}")
+    }
+
+    override fun messageArrived(topic: String?, event: MqttMessage?) {
+        log.info("Topic: ${topic}, Value: ${this.gunzip(Base64.getDecoder().decode(event?.payload)).toString()}")
+    }
+
+    override fun deliveryComplete(p0: IMqttToken?) {
+
+    }
+
+    override fun connectComplete(p0: Boolean, p1: String?) {
+
+    }
+
+    override fun authPacketArrived(p0: Int, p1: MqttProperties?) {
+
     }
 }
