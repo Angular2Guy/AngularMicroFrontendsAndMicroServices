@@ -12,4 +12,4 @@ plugins {
 }
 
 rootProject.name = "AngularMicroFrontendsAndMicroServices"
-include("flightSelection-frontend", "flightSelection-backend", "hotelSelection-frontend", "hotelSelection-backend", "payment-backend")
+include("flightSelection-frontend", "flightSelection-backend", "hotelSelection-frontend", "hotelSelection-backend", "payment-frontend", "payment-backend")

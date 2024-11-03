@@ -11,6 +11,9 @@ plugins {
     application
 }
 
+group = "de.xxx"
+version = "0.0.1-SNAPSHOT"
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
@@ -21,16 +24,6 @@ dependencies {
     implementation(libs.guava)
 }
 
-testing {
-    suites {
-        // Configure the built-in test suite
-        val test by getting(JvmTestSuite::class) {
-            // Use JUnit Jupiter test framework
-            useJUnitJupiter("5.10.2")
-        }
-    }
-}
-
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
@@ -38,7 +31,32 @@ java {
     }
 }
 
-application {
-    // Define the main class for the application.
-    mainClass = "org.example.App"
+task("cleanAngular") {
+    if(project.hasProperty("withAngular")) {
+        logger.info("Task cleanAngular")
+        delete("src/angular/node_modules")
+    }
+}
+
+task("buildAngular") {
+    if(project.hasProperty("withAngular")) {
+        exec {
+            logger.info("Task buildAngular - npm install")
+            workingDir ("src/angular")
+            if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
+                commandLine("npm.cmd", "install")
+            } else {
+                commandLine("npm", "install")
+            }
+        }
+        exec {
+            logger.info("Task buildAngular - npm run build")
+            workingDir("src/angular")
+            if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
+                commandLine("npm.cmd", "run", "build")
+            } else {
+                commandLine("npm", "run", "build")
+            }
+        }
+    }
 }
