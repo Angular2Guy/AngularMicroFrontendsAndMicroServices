@@ -30,12 +30,13 @@ public class Flight {
     private String fromCity;
     private String toCity;
     private BigDecimal price;
+    private Boolean paid = false;
     
     public Flight() {
     	
     }
     
-	public Flight(UUID id, LocalDate flightDate, String airline, String fromCity, String toCity, BigDecimal price) {
+	public Flight(UUID id, LocalDate flightDate, String airline, String fromCity, String toCity, BigDecimal price, Boolean paid) {
 		super();
 		this.id = id;
 		this.flightDate = flightDate;
@@ -43,6 +44,15 @@ public class Flight {
 		this.fromCity = fromCity;
 		this.toCity = toCity;
 		this.price = price;
+		this.paid = paid;
+	}
+
+	public Boolean getPaid() {
+		return paid;
+	}
+
+	public void setPaid(Boolean paid) {
+		this.paid = paid;
 	}
 
 	public UUID getId() {

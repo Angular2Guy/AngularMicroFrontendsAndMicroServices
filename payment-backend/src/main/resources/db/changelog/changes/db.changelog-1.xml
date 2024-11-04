@@ -21,6 +21,7 @@
             <column name="to_date" type="date"/>
             <column name="city" type="varchar(255)"/>
             <column name="price" type="number(10,3)"/>
+            <column name="paid" type="boolean"/>
         </createTable>
     </changeSet>
     <changeSet id="2" author="angular2guy">
@@ -48,6 +49,7 @@
             <column name="from_city" type="varchar(255)"/>
             <column name="to_city" type="varchar(255)"/>
             <column name="price" type="number(10,3)"/>
+            <column name="paid" type="boolean"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

@@ -18,10 +18,11 @@ public class Hotel {
 	private String hotelName;
 	private String city;
 	private BigDecimal price;
+	private Boolean paid = false;
 	
 	public Hotel() { }
 
-	public Hotel(UUID id, LocalDate fromDate, LocalDate toDate, String hotelName, String city, BigDecimal price) {
+	public Hotel(UUID id, LocalDate fromDate, LocalDate toDate, String hotelName, String city, BigDecimal price, Boolean paid) {
 		super();
 		this.id = id;
 		this.fromDate = fromDate;
@@ -29,6 +30,15 @@ public class Hotel {
 		this.hotelName = hotelName;
 		this.city = city;
 		this.price = price;
+		this.paid = paid;
+	}
+	
+	public Boolean getPaid() {
+		return paid;
+	}
+
+	public void setPaid(Boolean paid) {
+		this.paid = paid;
 	}
 
 	public UUID getId() {
