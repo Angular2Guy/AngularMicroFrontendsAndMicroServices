@@ -36,8 +36,8 @@ public class FlightRepositoryBean implements FlightRepository {
 	}
 	
 	@Override
-	public Iterable<Flight> findAll() {
-		return this.jpaFlightRepository.findAll();
+	public Iterable<Flight> findByPaid(boolean paid) {
+		return this.jpaFlightRepository.findByPaid(paid);
 	}
 	
 	@Override

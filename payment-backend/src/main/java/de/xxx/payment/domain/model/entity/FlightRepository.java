@@ -18,6 +18,6 @@ import java.util.UUID;
 public interface FlightRepository {
 	Flight save(Flight flight);
 	Optional<Flight> findById(UUID id);
-	Iterable<Flight> findAll();
+	Iterable<Flight> findByPaid(boolean paid);
 	void deleteById(UUID id);	
 }

@@ -36,8 +36,8 @@ public class HotelRepositoryBean implements HotelRepository {
 	}
 	
 	@Override
-	public Iterable<Hotel> findAll() {
-		return this.jpaHotelRepository.findAll();
+	public Iterable<Hotel> findByPaid(boolean paid) {
+		return this.jpaHotelRepository.findByPaid(paid);
 	}
 	
 	@Override

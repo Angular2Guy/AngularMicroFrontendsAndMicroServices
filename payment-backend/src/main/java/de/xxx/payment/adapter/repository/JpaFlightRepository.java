@@ -20,5 +20,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import de.xxx.payment.domain.model.entity.Flight;
 
 public interface JpaFlightRepository extends PagingAndSortingRepository<Flight,UUID>, CrudRepository<Flight, UUID> {
-
+	Iterable<Flight> findByPaid(boolean paid);
 }

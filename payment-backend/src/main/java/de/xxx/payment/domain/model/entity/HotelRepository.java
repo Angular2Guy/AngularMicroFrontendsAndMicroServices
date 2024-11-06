@@ -18,6 +18,6 @@ import java.util.UUID;
 public interface HotelRepository {
 	Hotel save(Hotel hotel);
 	Optional<Hotel> findById(UUID id);
-	Iterable<Hotel> findAll();
+	Iterable<Hotel> findByPaid(boolean paid);
 	void deleteById(UUID id);
 }

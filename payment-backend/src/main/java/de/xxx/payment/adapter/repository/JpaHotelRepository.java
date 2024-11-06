@@ -20,5 +20,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import de.xxx.payment.domain.model.entity.Hotel;
 
 public interface JpaHotelRepository extends PagingAndSortingRepository<Hotel,UUID>, CrudRepository<Hotel, UUID> {
-
+	Iterable<Hotel> findByPaid(boolean paid);
 }
