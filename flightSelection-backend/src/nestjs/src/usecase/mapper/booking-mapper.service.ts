@@ -14,6 +14,7 @@ import { Injectable } from "@nestjs/common";
 import { BookingDto } from "src/domain/dto/booking-dto";
 import { Booking } from "src/domain/entity/booking";
 import { FlightMapper } from "./flight-mapper.service";
+import { FlightEventDto } from "src/domain/dto/flight-event-dto";
 
 @Injectable()
 export class BookingMapper {
@@ -30,5 +31,9 @@ export class BookingMapper {
         entity.id = bookingDto.id;        
         }
         return entity;
+    }
+
+    public toFlightEventDto(booking: Booking): FlightEventDto {
+        return new FlightEventDto(booking.id, booking.flightDate, booking.flight.airline, booking.flight.fromCity, booking.flight.toCity, booking.flight.price);
     }
 }

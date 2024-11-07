@@ -39,7 +39,7 @@ export class BookingService {
   }
 
   deleteBooking(bookingId: string): Promise<boolean> {
-    return this.bookingRepository.findBy({id: bookingId} as FindOptionsWhere<Booking>).then(value => {
+    return this.bookingRepository.find({where: { id: bookingId}, relations: {flight: true}}).then(value => {
       if(!!value && !!value[0]) {
       this.mqttProducerService.sendBooking(value[0],true);
       }

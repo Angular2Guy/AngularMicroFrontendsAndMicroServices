@@ -15,7 +15,7 @@ import { Injectable, OnModuleDestroy } from "@nestjs/common";
 import {connect, IClientOptions, IClientPublishOptions, MqttClient} from "mqtt";
 import { Booking } from "src/domain/entity/booking";
 import { BookingMapper } from "src/usecase/mapper/booking-mapper.service";
-import { deflateSync, inflateSync } from "zlib";
+import { gunzip, gzip } from "zlib";
 
 @Injectable()
 export class MqttProducerService implements OnModuleDestroy {
@@ -32,7 +32,13 @@ export class MqttProducerService implements OnModuleDestroy {
         /* For local testing.
         this.client.subscribe(this.TOPIC_NAME);
         this.client.on('message', (topic, message) => {            
-            console.log(`Topic: ${topic}, Message: ${inflateSync(Buffer.from(message.toString(), 'base64'))}`);
+            gunzip(Buffer.from(message.toString(), 'base64'), (err, result) => {
+                if(!!err) {
+                     console.log(err);
+                }else {
+                console.log(`Topic: ${topic}, Message: ${result.toString()}`);
+                }
+            });
         });
         */
     }
@@ -42,9 +48,15 @@ export class MqttProducerService implements OnModuleDestroy {
     }
 
     sendBooking(booking: Booking, deleted: boolean = false): void {
-        const bookingDto = this.bookingMapper.toDto(booking);
-        bookingDto.deleted = deleted;
-        const zippedBase64 = deflateSync(JSON.stringify(bookingDto)).toString('base64');
-        this.client.publish(this.TOPIC_NAME, zippedBase64, {qos: 1} as IClientPublishOptions);
+        console.log(booking);
+        const flightEventDto = this.bookingMapper.toFlightEventDto(booking);
+        flightEventDto.deleted = deleted;
+        gzip(JSON.stringify(flightEventDto), (err, result) => {
+            if(!!err) {
+                console.log(err);
+            } else {
+                this.client.publish(this.TOPIC_NAME, result.toString('base64'), {qos: 1} as IClientPublishOptions);      
+            }
+        });
     }
 }
