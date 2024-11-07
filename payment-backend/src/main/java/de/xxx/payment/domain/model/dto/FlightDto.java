@@ -93,6 +93,10 @@ public class FlightDto {
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
 	}
-    
-    
+
+	@Override
+	public String toString() {
+		return "FlightDto [id=" + id + ", flightDate=" + flightDate + ", airline=" + airline + ", fromCity=" + fromCity
+				+ ", toCity=" + toCity + ", price=" + price + ", deleted=" + deleted + "]";
+	}    
 }

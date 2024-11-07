@@ -93,4 +93,10 @@ public class HotelDto {
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
 	}
+
+	@Override
+	public String toString() {
+		return "HotelDto [id=" + id + ", fromDate=" + fromDate + ", toDate=" + toDate + ", hotelName=" + hotelName
+				+ ", city=" + city + ", price=" + price + ", deleted=" + deleted + "]";
+	}
 }
