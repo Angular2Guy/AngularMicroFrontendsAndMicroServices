@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/hotelSelection-backend" />
             <option value="$PROJECT_DIR$/hotelSelection-frontend" />
             <option value="$PROJECT_DIR$/payment-backend" />
+            <option value="$PROJECT_DIR$/payment-frontend" />
           </set>
         </option>
       </GradleProjectSettings>

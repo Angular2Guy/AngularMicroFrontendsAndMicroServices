@@ -11,7 +11,7 @@
    limitations under the License.
  */
 import { Component } from '@angular/core';
-import {MatButtonModule} from '@angular/material/button'; 
+import {MatButtonModule} from '@angular/material/button';
 import { Router } from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
 
@@ -27,12 +27,12 @@ export class BookingComponent {
 
   constructor(private router: Router, private domSanitizer: DomSanitizer) { }
 
-  protected showFlights(): void {    
+  protected showFlights(): void {
     this.iframeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl('http://localhost:3000/');
   }
 
   protected showHotels(): void {
-    this.iframeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/');
+    this.iframeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl('http://localhost:8088/');
   }
 
   protected showPayment(): void {
