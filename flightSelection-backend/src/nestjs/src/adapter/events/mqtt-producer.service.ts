@@ -47,8 +47,7 @@ export class MqttProducerService implements OnModuleDestroy {
         this.client.end();
     }
 
-    sendBooking(booking: Booking, deleted: boolean = false): void {
-        console.log(booking);
+    sendBooking(booking: Booking, deleted: boolean = false): void {        
         const flightEventDto = this.bookingMapper.toFlightEventDto(booking);
         flightEventDto.deleted = deleted;
         gzip(JSON.stringify(flightEventDto), (err, result) => {

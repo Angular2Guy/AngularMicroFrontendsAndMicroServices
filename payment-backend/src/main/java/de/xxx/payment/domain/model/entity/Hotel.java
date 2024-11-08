@@ -88,6 +88,10 @@ public class Hotel {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Hotel [id=" + id + ", fromDate=" + fromDate + ", toDate=" + toDate + ", hotelName=" + hotelName
+				+ ", city=" + city + ", price=" + price + ", paid=" + paid + "]";
+	}
 }

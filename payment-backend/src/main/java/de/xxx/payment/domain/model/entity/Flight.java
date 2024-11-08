@@ -102,6 +102,10 @@ public class Flight {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Flight [id=" + id + ", flightDate=" + flightDate + ", airline=" + airline + ", fromCity=" + fromCity
+				+ ", toCity=" + toCity + ", price=" + price + ", paid=" + paid + "]";
+	}	
 }

@@ -35,6 +35,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.xxx.payment.domain.model.dto.FlightDto;
 import de.xxx.payment.domain.model.dto.HotelDto;
+import de.xxx.payment.usecase.mapper.FlightMapper;
+import de.xxx.payment.usecase.mapper.HotelMapper;
 import jakarta.annotation.PreDestroy;
 
 @Component
@@ -44,10 +46,14 @@ public class MqttReceiver implements MqttCallback {
 	private static final String FLIGHT_TOPIC_NAME = "flight-booking";
 	private final ObjectMapper objectMapper;
 	private final IMqttClient mqttClient;
+	private final FlightMapper flightMapper;
+	private final HotelMapper hotelMapper;
 
-	public MqttReceiver(IMqttClient mqttClient, ObjectMapper objectMapper) {
+	public MqttReceiver(IMqttClient mqttClient, ObjectMapper objectMapper, FlightMapper flightMapper, HotelMapper hotelMapper) {
 		this.objectMapper = objectMapper;
 		this.mqttClient = mqttClient;
+		this.flightMapper = flightMapper;
+		this.hotelMapper = hotelMapper;
 	}
 
 	@EventListener(ApplicationStartedEvent.class)
@@ -99,12 +105,12 @@ public class MqttReceiver implements MqttCallback {
 //		LOG.info(String.format("Topic: %s, value: %s", topic, jsonStr));
 		switch(topic) {
 		case HOTEL_TOPIC_NAME -> {
-			var hotelDto = this.objectMapper.readValue(jsonStr, HotelDto.class);
-			LOG.info(String.format("Topic: %s, value: %s", topic, hotelDto.toString()));
+			var entity = this.hotelMapper.toEntity(this.objectMapper.readValue(jsonStr, HotelDto.class), false);
+			LOG.info(String.format("Topic: %s, value: %s", topic, entity.toString()));
 		}
-		case FLIGHT_TOPIC_NAME -> {
-			var flightDto  = this.objectMapper.readValue(jsonStr, FlightDto.class);
-			LOG.info(String.format("Topic: %s, value: %s", topic, flightDto.toString()));
+		case FLIGHT_TOPIC_NAME -> {			
+			var entity = this.flightMapper.toEntity(this.objectMapper.readValue(jsonStr, FlightDto.class), false);
+			LOG.info(String.format("Topic: %s, value: %s", topic, entity.toString()));
 		}
 		}		
 	}
