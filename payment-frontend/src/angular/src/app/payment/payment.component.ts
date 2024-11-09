@@ -10,15 +10,28 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HotelService } from '../service/hotel.service';
+import { FlightService } from '../service/flight.service';
+import { Flight } from '../model/flight';
+import { Hotel } from '../model/hotel';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [],
+  imports: [JsonPipe],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.scss'
 })
-export class PaymentComponent {
-
+export class PaymentComponent implements OnInit {
+	protected flights: Flight[] = [];
+	protected hotels: Hotel[] = [];
+	
+	constructor(private hotelService: HotelService, private flightService: FlightService) { }
+    
+	ngOnInit(): void {
+      this.flightService.getFlights().subscribe(result => this.flights = result);
+	  this.hotelService.getHotels().subscribe(result => this.hotels = result)
+    }
 }

@@ -12,7 +12,6 @@ limitations under the License.
  */
 package de.xxx.payment.adapter.repository;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
