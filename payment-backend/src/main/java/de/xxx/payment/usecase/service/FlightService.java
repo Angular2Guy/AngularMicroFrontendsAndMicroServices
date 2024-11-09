@@ -13,6 +13,7 @@ limitations under the License.
 package de.xxx.payment.usecase.service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -40,8 +41,15 @@ public class FlightService {
 		return StreamSupport.stream(this.flightRepository.findByPaid(false).spliterator(), false)
 				.collect(Collectors.toList());
 	}
-	
+
 	public void cancel(UUID id) {
 		this.flightRepository.deleteById(id);
+	}
+
+	public Collection<Flight> pay(List<UUID> ids) {
+		return StreamSupport.stream(this.flightRepository.findAllById(ids).spliterator(), false).map(myFlight -> {
+			myFlight.setPaid(true);
+			return myFlight;
+		}).map(myFlight -> this.flightRepository.save(myFlight)).toList();
 	}
 }

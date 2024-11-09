@@ -12,6 +12,7 @@ limitations under the License.
  */
 package de.xxx.payment.domain.model.entity;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,5 +20,6 @@ public interface FlightRepository {
 	Flight save(Flight flight);
 	Optional<Flight> findById(UUID id);
 	Iterable<Flight> findByPaid(boolean paid);
+	Iterable<Flight> findAllById(List<UUID> ids);
 	void deleteById(UUID id);	
 }

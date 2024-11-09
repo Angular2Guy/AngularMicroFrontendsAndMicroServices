@@ -13,8 +13,12 @@ limitations under the License.
 package de.xxx.payment.adapter.controller;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,5 +41,10 @@ public class FlightController {
 	public Collection<FlightDto> getOpenFlights() {
 		return this.flightService.findUnpaidFlights().stream().map(myFlight -> this.flightMapper.toDto(myFlight, false))
 				.toList();
+	}
+	
+	@PostMapping("/pay")
+	public List<FlightDto> postPayFlights(@RequestBody List<UUID> ids) {		
+		return this.flightService.pay(ids).stream().map(myFlight -> this.flightMapper.toDto(myFlight, true)).toList();				
 	}
 }

@@ -12,6 +12,7 @@ limitations under the License.
  */
 package de.xxx.payment.domain.model.entity;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,5 +20,6 @@ public interface HotelRepository {
 	Hotel save(Hotel hotel);
 	Optional<Hotel> findById(UUID id);
 	Iterable<Hotel> findByPaid(boolean paid);
+	Iterable<Hotel> findAllById(List<UUID> ids);
 	void deleteById(UUID id);
 }

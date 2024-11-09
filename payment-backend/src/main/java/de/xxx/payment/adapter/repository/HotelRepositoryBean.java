@@ -12,6 +12,7 @@ limitations under the License.
  */
 package de.xxx.payment.adapter.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -43,5 +44,9 @@ public class HotelRepositoryBean implements HotelRepository {
 	@Override
 	public void deleteById(UUID id) {
 		this.jpaHotelRepository.deleteById(id);
+	}
+	
+	public Iterable<Hotel> findAllById(List<UUID> ids) {
+		return this.jpaHotelRepository.findAllById(ids);
 	}
 }

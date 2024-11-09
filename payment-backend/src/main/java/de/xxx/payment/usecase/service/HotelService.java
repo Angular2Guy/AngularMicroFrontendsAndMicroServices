@@ -13,6 +13,7 @@ limitations under the License.
 package de.xxx.payment.usecase.service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -40,8 +41,15 @@ public class HotelService {
 		return StreamSupport.stream(this.hotelRepository.findByPaid(false).spliterator(), false)
 				.collect(Collectors.toList());
 	}
-	
-	public void cancel(UUID id ) {
+
+	public void cancel(UUID id) {
 		this.hotelRepository.deleteById(id);
+	}
+
+	public Collection<Hotel> pay(List<UUID> ids) {
+		return StreamSupport.stream(this.hotelRepository.findAllById(ids).spliterator(), false).map(myHotel -> {
+			myHotel.setPaid(true);
+			return myHotel;
+		}).map(myHotel -> this.hotelRepository.save(myHotel)).toList();
 	}
 }

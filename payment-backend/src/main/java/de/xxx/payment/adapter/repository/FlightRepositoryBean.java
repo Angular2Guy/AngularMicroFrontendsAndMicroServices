@@ -12,6 +12,8 @@ limitations under the License.
  */
 package de.xxx.payment.adapter.repository;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -40,6 +42,11 @@ public class FlightRepositoryBean implements FlightRepository {
 		return this.jpaFlightRepository.findByPaid(paid);
 	}
 	
+	@Override
+	public Iterable<Flight> findAllById(List<UUID> ids) {
+		return this.jpaFlightRepository.findAllById(ids);
+	}
+
 	@Override
 	public void deleteById(UUID id) {
 		this.jpaFlightRepository.deleteById(id);
