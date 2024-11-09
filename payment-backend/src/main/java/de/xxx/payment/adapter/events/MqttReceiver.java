@@ -31,12 +31,16 @@ import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.xxx.payment.domain.model.dto.FlightDto;
 import de.xxx.payment.domain.model.dto.HotelDto;
 import de.xxx.payment.usecase.mapper.FlightMapper;
 import de.xxx.payment.usecase.mapper.HotelMapper;
+import de.xxx.payment.usecase.service.FlightService;
+import de.xxx.payment.usecase.service.HotelService;
 import jakarta.annotation.PreDestroy;
 
 @Component
@@ -48,12 +52,17 @@ public class MqttReceiver implements MqttCallback {
 	private final IMqttClient mqttClient;
 	private final FlightMapper flightMapper;
 	private final HotelMapper hotelMapper;
+	private final FlightService flightService;
+	private final HotelService hotelService;
 
-	public MqttReceiver(IMqttClient mqttClient, ObjectMapper objectMapper, FlightMapper flightMapper, HotelMapper hotelMapper) {
+	public MqttReceiver(IMqttClient mqttClient, ObjectMapper objectMapper, FlightMapper flightMapper,
+			HotelMapper hotelMapper, FlightService flightService, HotelService hotelService) {
 		this.objectMapper = objectMapper;
 		this.mqttClient = mqttClient;
 		this.flightMapper = flightMapper;
 		this.hotelMapper = hotelMapper;
+		this.flightService = flightService;
+		this.hotelService = hotelService;
 	}
 
 	@EventListener(ApplicationStartedEvent.class)
@@ -103,16 +112,36 @@ public class MqttReceiver implements MqttCallback {
 	public void messageArrived(String topic, MqttMessage message) throws Exception {
 		var jsonStr = new String(this.gunzip(Base64.getDecoder().decode(message.getPayload())));
 //		LOG.info(String.format("Topic: %s, value: %s", topic, jsonStr));
-		switch(topic) {
+		switch (topic) {
 		case HOTEL_TOPIC_NAME -> {
-			var entity = this.hotelMapper.toEntity(this.objectMapper.readValue(jsonStr, HotelDto.class), false);
-			LOG.info(String.format("Topic: %s, value: %s", topic, entity.toString()));
+			handleHotelEvent(topic, jsonStr);
 		}
-		case FLIGHT_TOPIC_NAME -> {			
-			var entity = this.flightMapper.toEntity(this.objectMapper.readValue(jsonStr, FlightDto.class), false);
-			LOG.info(String.format("Topic: %s, value: %s", topic, entity.toString()));
+		case FLIGHT_TOPIC_NAME -> {
+			handleFlightEvent(topic, jsonStr);
 		}
-		}		
+		}
+	}
+
+	private void handleFlightEvent(String topic, String jsonStr) throws JsonProcessingException, JsonMappingException {
+		var dto = this.objectMapper.readValue(jsonStr, FlightDto.class);
+		var entity = this.flightMapper.toEntity(dto, false);
+		if(!dto.deleted()) {
+			entity = this.flightService.book(entity);
+		} else {
+			this.flightService.cancel(entity.getId());
+		}
+		LOG.info(String.format("Topic: %s, value: %s", topic, entity.toString()));
+	}
+
+	private void handleHotelEvent(String topic, String jsonStr) throws JsonProcessingException, JsonMappingException {
+		var dto = this.objectMapper.readValue(jsonStr, HotelDto.class);
+		var entity = this.hotelMapper.toEntity(dto, false);
+		if (!dto.deleted()) {
+			entity = this.hotelService.book(entity);
+		} else {
+			this.hotelService.cancel(entity.getId());
+		}
+		LOG.info(String.format("Topic: %s, value: %s", topic, entity.toString()));
 	}
 
 	@Override
