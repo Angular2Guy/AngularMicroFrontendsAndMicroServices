@@ -34,4 +34,6 @@ export class PaymentComponent implements OnInit {
       this.flightService.getFlights().subscribe(result => this.flights = result);
 	  this.hotelService.getHotels().subscribe(result => this.hotels = result)
     }
+	
+	
 }

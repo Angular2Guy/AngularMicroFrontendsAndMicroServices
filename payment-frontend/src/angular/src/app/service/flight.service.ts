@@ -24,4 +24,8 @@ export class FlightService {
   getFlights(): Observable<Flight[]> {
 	return this.httpClient.get<Flight[]>('/rest/flight/open');
   }
+  
+  postPayFlights(ids: string[]): Observable<Flight[]> {
+	return this.httpClient.post<string[]>('/rest/flight/pay', ids);
+  }
 }

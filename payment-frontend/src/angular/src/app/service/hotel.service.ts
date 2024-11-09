@@ -24,4 +24,8 @@ export class HotelService {
   getHotels(): Observable<Hotel[]> {
 	return this.httpClient.get<Hotel[]>('/rest/hotel/open');
   }
+  
+  postPayHotels(ids: string[]): Observable<Hotel> {
+	return this.httpClient.post('/rest/hotel/pay', ids);
+  }
 }
