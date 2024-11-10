@@ -69,8 +69,7 @@ public class MqttReceiver implements MqttCallback {
 	public void start() {
 		this.mqttClient.setCallback(this);
 		try {
-			this.mqttClient.subscribe(HOTEL_TOPIC_NAME, 1);
-			this.mqttClient.subscribe(FLIGHT_TOPIC_NAME, 1);
+			this.mqttClient.subscribe(new String[] { HOTEL_TOPIC_NAME, FLIGHT_TOPIC_NAME}, new int[] {1,1});
 		} catch (MqttException e) {
 			LOG.error("Mqtt error: ", e);
 		}

@@ -15,6 +15,8 @@ package de.xxx.payment.domain.model.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public record HotelDto(String id, LocalDate fromDate, LocalDate toDate, String hotelName, String city, BigDecimal price,
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record HotelDto(String id, @JsonProperty("from") LocalDate fromDate, @JsonProperty("to") LocalDate toDate, String hotelName, String city, BigDecimal price,
 		Boolean deleted) {
 }
