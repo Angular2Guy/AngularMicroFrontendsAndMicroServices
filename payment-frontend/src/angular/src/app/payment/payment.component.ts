@@ -18,6 +18,7 @@ import { Hotel } from '../model/hotel';
 import { JsonPipe } from '@angular/common';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -30,7 +31,7 @@ export class PaymentComponent implements OnInit {
 	protected flights: Flight[] = [];
 	protected hotels: Hotel[] = [];
 	
-	constructor(private hotelService: HotelService, private flightService: FlightService) { }
+	constructor(private hotelService: HotelService, private flightService: FlightService, private router: Router) { }
     
 	ngOnInit(): void {
       this.flightService.getFlights().subscribe(result => this.flights = result);
@@ -39,5 +40,9 @@ export class PaymentComponent implements OnInit {
 	
 	pay(): void {
 		console.log('pay');
+	}
+	
+	cancel(): void {
+		this.router.navigate(['/booking'])
 	}
 }

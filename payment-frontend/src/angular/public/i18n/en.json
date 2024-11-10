@@ -4,6 +4,7 @@
 "to": "To",
 "price": "Price",
 "pay": "pay",
+"cancel": "Cancel",
 "flight": {
 	"date": "Date",	
 	"airline": "Airline"	
