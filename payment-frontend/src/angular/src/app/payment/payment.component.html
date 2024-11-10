@@ -1,5 +1,6 @@
 <h2>{{"heading" | transloco}}</h2>
 <div>
+<h3>{{"flight.heading" | transloco}}</h3>
 @for(flight of flights;track flight) {
 <div>
 	<span>{{"flight.date" | transloco}}: {{flight.flightDate}} </span>
@@ -9,6 +10,7 @@
 	<span>{{"price" | transloco}}: {{ flight.price }} </span>
 </div>
 }
+<h3>{{"hotel.heading" | transloco}}</h3>
 @for(hotel of hotels; track hotel) {
 <div>
 <span>{{"hotel.name" | transloco}}: {{hotel.hotelName}} </span>

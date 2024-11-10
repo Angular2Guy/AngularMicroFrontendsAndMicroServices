@@ -6,10 +6,12 @@
 "pay": "pay",
 "cancel": "Cancel",
 "flight": {
+	"heading": "Flight bookings",
 	"date": "Date",	
 	"airline": "Airline"	
 },
 "hotel": {
+	"heading": "Hotel bookings",
 	"name": "Name",
 	"city": "City"
 }
