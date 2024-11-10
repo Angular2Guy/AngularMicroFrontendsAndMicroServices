@@ -11,5 +11,11 @@
    limitations under the License.
  */
 export interface Hotel {
-	
+	id: string,
+	fromDate: string,
+	toDate: string,
+	hotelName: string,
+	city: string,
+	price: string,
+	deleted: boolean
 }

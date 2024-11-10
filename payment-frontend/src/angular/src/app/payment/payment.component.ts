@@ -16,11 +16,13 @@ import { FlightService } from '../service/flight.service';
 import { Flight } from '../model/flight';
 import { Hotel } from '../model/hotel';
 import { JsonPipe } from '@angular/common';
+import { TranslocoPipe } from '@jsverse/transloco';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [JsonPipe],
+  imports: [JsonPipe,TranslocoPipe,MatButtonModule],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.scss'
 })
@@ -35,5 +37,7 @@ export class PaymentComponent implements OnInit {
 	  this.hotelService.getHotels().subscribe(result => this.hotels = result)
     }
 	
-	
+	pay(): void {
+		console.log('pay');
+	}
 }

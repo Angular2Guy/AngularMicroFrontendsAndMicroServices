@@ -1,1 +1,15 @@
-{ }
+{
+"heading": "Bezahlen",
+"from": "From",
+"to": "To",
+"price": "Price",
+"pay": "bezahlen",
+"flight": {
+	"date": "Date",	
+	"airline": "Airline"	
+},
+"hotel": {
+	"name": "Name",
+	"city": "City"
+}
+}

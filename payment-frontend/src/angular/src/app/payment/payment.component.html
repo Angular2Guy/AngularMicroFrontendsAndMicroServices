@@ -1,7 +1,22 @@
-<h2>Payment</h2>
+<h2>{{"heading" | transloco}}</h2>
 <div>
-{{ flights | json }}
+@for(flight of flights;track flight) {
+<div>
+	<span>{{"flight.date" | transloco}}: {{flight.flightDate}} </span>
+	<span>{{"from" | transloco}}: {{ flight.fromCity }} </span>
+	<span>{{"to" | transloco}}: {{ flight.toCity }} </span>
+	<span>{{"flight.airline" | transloco}}: {{ flight.airline }} </span>
+	<span>{{"price" | transloco}}: {{ flight.price }} </span>
 </div>
+}
+@for(hotel of hotels; track hotel) {
 <div>
-{{ hotels | json }}
+<span>{{"hotel.name" | transloco}}: {{hotel.hotelName}} </span>
+<span>{{"from" | transloco}}: {{hotel.fromDate}} </span>
+<span>{{"to" | transloco}}: {{hotel.toDate}} </span>
+<span>{{"hotel.city" | transloco}}: {{hotel.city}} </span>
+<span>{{"price" | transloco}}: {{hotel.price}} </span>
+</div>
+}
+ <button mat-raised-button (click)="pay()">{{"pay" | transloco}}</button>
 </div>

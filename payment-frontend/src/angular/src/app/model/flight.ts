@@ -11,5 +11,11 @@
    limitations under the License.
  */
 export interface Flight {
-	
+	id: string,
+	flightDate: string,
+	airline: string,
+	fromCity: string,
+	toCity: string,
+	price: number,
+	deleted: boolean
 } 

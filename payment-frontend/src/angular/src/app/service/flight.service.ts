@@ -26,6 +26,6 @@ export class FlightService {
   }
   
   postPayFlights(ids: string[]): Observable<Flight[]> {
-	return this.httpClient.post<string[]>('/rest/flight/pay', ids);
+	return this.httpClient.post<Flight[]>('/rest/flight/pay', ids);
   }
 }
