@@ -16,9 +16,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.stereotype.Repository;
+
 import de.xxx.payment.domain.model.entity.Flight;
 import de.xxx.payment.domain.model.entity.FlightRepository;
 
+@Repository
 public class FlightRepositoryBean implements FlightRepository {
 	private final JpaFlightRepository jpaFlightRepository;
 	

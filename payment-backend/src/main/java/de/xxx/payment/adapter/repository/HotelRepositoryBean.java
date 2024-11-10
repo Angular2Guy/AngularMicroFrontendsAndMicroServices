@@ -16,9 +16,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.stereotype.Repository;
+
 import de.xxx.payment.domain.model.entity.Hotel;
 import de.xxx.payment.domain.model.entity.HotelRepository;
 
+@Repository
 public class HotelRepositoryBean implements HotelRepository {
 	private final JpaHotelRepository jpaHotelRepository;
 	
