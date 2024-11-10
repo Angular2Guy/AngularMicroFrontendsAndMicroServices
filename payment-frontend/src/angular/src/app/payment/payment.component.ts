@@ -39,7 +39,8 @@ export class PaymentComponent implements OnInit {
     }
 	
 	pay(): void {
-		console.log('pay');
+		this.flightService.postPayFlights(this.flights.map(myFlight => myFlight.id)).subscribe(myFlights => this.flights = myFlights.filter(value => !value.deleted));
+		this.hotelService.postPayHotels(this.hotels.map(myHotel => myHotel.id)).subscribe(myHotels => this.hotels = myHotels.filter(value => !value.deleted));
 	}
 	
 	cancel(): void {
