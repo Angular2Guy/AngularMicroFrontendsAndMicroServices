@@ -54,7 +54,7 @@ public class Application {
 			options.setConnectionTimeout(10);
 			options.setUserName(this.userName);
 			options.setPassword(this.password.getBytes());
-			if (!client.isConnected()) {
+			if (!client.isConnected() && !this.userName.contains("test")) {
 				client.connect(options);
 			}
 		} catch (MqttException e) {

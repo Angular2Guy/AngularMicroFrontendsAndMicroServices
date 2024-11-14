@@ -67,20 +67,24 @@ public class MqttReceiver implements MqttCallback {
 
 	@EventListener(ApplicationStartedEvent.class)
 	public void start() {
+		if(this.mqttClient.isConnected()) {
 		this.mqttClient.setCallback(this);
 		try {
 			this.mqttClient.subscribe(new String[] { HOTEL_TOPIC_NAME, FLIGHT_TOPIC_NAME}, new int[] {1,1});
 		} catch (MqttException e) {
 			LOG.error("Mqtt error: ", e);
 		}
+		}
 	}
 
 	@PreDestroy
 	public void stop() {
+		if(this.mqttClient.isConnected()) {
 		try {
 			this.mqttClient.disconnect();
 		} catch (MqttException e) {
 			LOG.error("Mqtt error: ", e);
+		}
 		}
 	}
 
