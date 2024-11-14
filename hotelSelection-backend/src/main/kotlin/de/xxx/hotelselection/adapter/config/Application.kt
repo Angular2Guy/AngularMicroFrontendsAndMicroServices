@@ -49,7 +49,7 @@ class Application {
         options.userName = this.userName
         options.password = this.password.toByteArray()
 
-        if (!client.isConnected()) {
+        if (!client.isConnected() && !this.userName.contains("test")) {
             client.connect(options)
         }
         return client

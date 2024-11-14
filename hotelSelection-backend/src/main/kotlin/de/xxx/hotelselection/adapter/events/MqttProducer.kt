@@ -41,16 +41,20 @@ class MqttProducer(val mqttClient: IMqttClient, val objectMapper: ObjectMapper, 
 
     @EventListener(ApplicationStartedEvent::class)
     fun start() {
-        this.mqttClient.setCallback(this)
-        //For testing events
-        //this.mqttClient.subscribe(this.TOPIC_NAME, 1)
-        //This library method gets stuck in a recursive loop -> Stackoverflow
-        //this.mqttClient.subscribe(, { topic, event -> log.info("Topic: ${topic}, Value: ${this.gunzip(Base64.getDecoder().decode(event.payload)).toString()}") })
+        if(this.mqttClient.isConnected) {
+            this.mqttClient.setCallback(this)
+            //For testing events
+            //this.mqttClient.subscribe(this.TOPIC_NAME, 1)
+            //This library method gets stuck in a recursive loop -> Stackoverflow
+            //this.mqttClient.subscribe(, { topic, event -> log.info("Topic: ${topic}, Value: ${this.gunzip(Base64.getDecoder().decode(event.payload)).toString()}") })
+        }
     }
 
     @PreDestroy
     fun stop() {
-        this.mqttClient.unsubscribe(this.TOPIC_NAME)
+        if(this.mqttClient.isConnected) {
+            this.mqttClient.unsubscribe(this.TOPIC_NAME)
+        }
     }
 
     fun sendBooking(booking: Booking, deleted: Boolean = false) {
