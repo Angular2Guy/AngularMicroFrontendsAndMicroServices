@@ -21,24 +21,32 @@ dependencies {
     implementation(libs.guava)
 }
 
-testing {
-    suites {
-        // Configure the built-in test suite
-        val test by getting(JvmTestSuite::class) {
-            // Use JUnit Jupiter test framework
-            useJUnitJupiter("5.10.2")
+task("cleanNestJs") {
+    if(project.hasProperty("withNestJs")) {
+        logger.info("Task cleanAngular")
+        delete("src/angular/node_modules")
+    }
+}
+
+task("buildNestJs") {
+    if (project.hasProperty("withNestJs")) {
+        exec {
+            logger.info("Task buildNestJs - npm install")
+            workingDir("src/nestjs")
+            if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
+                commandLine("npm.cmd", "install")
+            } else {
+                commandLine("npm", "install")
+            }
+        }
+        exec {
+            logger.info("Task buildNestJs - npm run build")
+            workingDir("src/nestjs")
+            if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
+                commandLine("npm.cmd", "run", "build")
+            } else {
+                commandLine("npm", "run", "build")
+            }
         }
     }
-}
-
-// Apply a specific Java toolchain to ease working on different environments.
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
-}
-
-application {
-    // Define the main class for the application.
-    mainClass = "org.example.App"
 }

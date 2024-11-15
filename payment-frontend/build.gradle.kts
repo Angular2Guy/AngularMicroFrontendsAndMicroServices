@@ -43,7 +43,7 @@ task("buildAngular") {
         exec {
             logger.info("Task buildAngular - npm install")
             workingDir ("src/angular")
-            if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
+            if (System.getProperty("os.name").uppercase().contains("WINDOWS")){
                 commandLine("npm.cmd", "install")
             } else {
                 commandLine("npm", "install")
@@ -52,7 +52,7 @@ task("buildAngular") {
         exec {
             logger.info("Task buildAngular - npm run build")
             workingDir("src/angular")
-            if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
+            if (System.getProperty("os.name").uppercase().contains("WINDOWS")){
                 commandLine("npm.cmd", "run", "build")
             } else {
                 commandLine("npm", "run", "build")
