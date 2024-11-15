@@ -55,6 +55,10 @@ kotlin {
 	}
 }
 
+tasks.bootJar {
+	archiveFileName.set("hotelSelection.jar")
+}
+
 tasks.withType<Test> {
 	useJUnitPlatform()
 }

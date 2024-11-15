@@ -45,6 +45,10 @@ dependencies {
 	testImplementation("com.h2database:h2:2.3.232")
 }
 
+tasks.bootJar {
+	archiveFileName.set("payment.jar")
+}
+
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
