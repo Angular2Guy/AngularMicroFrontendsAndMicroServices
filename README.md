@@ -4,6 +4,8 @@ Author: Sven Loesekann
 
 Technologies: Angular, Angular-Cli, Angular-Material, Typescript, Spring Boot, NestJs, TypeOrm, Liquibase, Jpa, Gradle, Java, Kotlin, Postgresql, Mqtt, ActiveMQ Artemis
 
+[![CodeQL](https://github.com/Angular2Guy/AngularMicroFrontendsAndMicroServices/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Angular2Guy/AngularMicroFrontendsAndMicroServices/actions/workflows/codeql-analysis.yml)
+
 ## Mission Statement
 The project shows howto build a collection of Microservices with their own Angular Microfrontends. The Microfrontends are the integrated in the shell application to give the user the impression of a single frontend. That enables the independend development of the Microservices by different teams with a user friendly modular integrated frontend -> no frontend monolith. 
 
