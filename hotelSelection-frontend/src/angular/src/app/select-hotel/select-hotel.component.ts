@@ -23,11 +23,10 @@ import { TranslocoPipe } from '@jsverse/transloco';
 enum ControlName {City = "city", Hotel="hotel"}
 
 @Component({
-  selector: 'app-select-hotel',
-  standalone: true,
-  imports: [ReactiveFormsModule,MatSelectModule,MatButtonModule,TranslocoPipe],
-  templateUrl: './select-hotel.component.html',
-  styleUrl: './select-hotel.component.scss'
+    selector: 'app-select-hotel',
+    imports: [ReactiveFormsModule, MatSelectModule, MatButtonModule, TranslocoPipe],
+    templateUrl: './select-hotel.component.html',
+    styleUrl: './select-hotel.component.scss'
 })
 export class SelectHotelComponent implements OnInit {  
   protected formGroup = new FormGroup({

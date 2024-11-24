@@ -38,12 +38,11 @@ interface HotelBooking {
 enum ControlName { From = 'from', To = 'to' };
 
 @Component({
-  selector: 'app-book-hotel',
-  standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatDatepickerModule, JsonPipe, MatButtonModule, DatePipe, MatIconModule, MatInputModule, TranslocoPipe, TranslocoLocaleModule],
-  providers: [provideNativeDateAdapter()],
-  templateUrl: './book-hotel.component.html',
-  styleUrl: './book-hotel.component.scss'
+    selector: 'app-book-hotel',
+    imports: [ReactiveFormsModule, MatFormFieldModule, MatDatepickerModule, JsonPipe, MatButtonModule, DatePipe, MatIconModule, MatInputModule, TranslocoPipe, TranslocoLocaleModule],
+    providers: [provideNativeDateAdapter()],
+    templateUrl: './book-hotel.component.html',
+    styleUrl: './book-hotel.component.scss'
 })
 export class BookHotelComponent implements OnInit {
   protected selHotel: Hotel | null = null;
