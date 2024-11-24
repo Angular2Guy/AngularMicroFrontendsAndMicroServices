@@ -23,11 +23,10 @@ import { TranslocoPipe } from '@jsverse/transloco';
 enum ControlName {FromTo = "fromTo"}
 
 @Component({
-  selector: 'app-select-flight',
-  standalone: true,
-  imports: [ReactiveFormsModule,MatSelectModule,MatButtonModule,JsonPipe, TranslocoPipe],
-  templateUrl: './select-flight.component.html',
-  styleUrl: './select-flight.component.scss'
+    selector: 'app-select-flight',
+    imports: [ReactiveFormsModule, MatSelectModule, MatButtonModule, JsonPipe, TranslocoPipe],
+    templateUrl: './select-flight.component.html',
+    styleUrl: './select-flight.component.scss'
 })
 export class SelectFlightComponent implements OnInit{
   protected formGroup = new FormGroup({

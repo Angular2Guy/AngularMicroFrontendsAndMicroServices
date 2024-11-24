@@ -31,11 +31,10 @@ import { TranslocoLocaleModule } from '@jsverse/transloco-locale';
 enum ControlName {Day = 'day'};
 
 @Component({
-  selector: 'app-book-flight',
-  standalone: true,
-  imports: [ReactiveFormsModule,MatFormFieldModule, MatDatepickerModule, JsonPipe,MatButtonModule, DatePipe,MatIconModule,MatInputModule, TranslocoPipe, TranslocoLocaleModule],
-  templateUrl: './book-flight.component.html',
-  styleUrl: './book-flight.component.scss'
+    selector: 'app-book-flight',
+    imports: [ReactiveFormsModule, MatFormFieldModule, MatDatepickerModule, JsonPipe, MatButtonModule, DatePipe, MatIconModule, MatInputModule, TranslocoPipe, TranslocoLocaleModule],
+    templateUrl: './book-flight.component.html',
+    styleUrl: './book-flight.component.scss'
 })
 export class BookFlightComponent implements OnInit {
   protected selFlight: Flight | null = null;
