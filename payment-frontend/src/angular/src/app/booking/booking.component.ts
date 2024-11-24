@@ -16,11 +16,10 @@ import { Router } from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-booking',
-  standalone: true,
-  imports: [MatButtonModule],
-  templateUrl: './booking.component.html',
-  styleUrl: './booking.component.scss'
+    selector: 'app-booking',
+    imports: [MatButtonModule],
+    templateUrl: './booking.component.html',
+    styleUrl: './booking.component.scss'
 })
 export class BookingComponent {
   protected iframeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl('http://localhost:3000/');

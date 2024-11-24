@@ -21,11 +21,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-payment',
-  standalone: true,
-  imports: [JsonPipe,TranslocoPipe,MatButtonModule],
-  templateUrl: './payment.component.html',
-  styleUrl: './payment.component.scss'
+    selector: 'app-payment',
+    imports: [JsonPipe, TranslocoPipe, MatButtonModule],
+    templateUrl: './payment.component.html',
+    styleUrl: './payment.component.scss'
 })
 export class PaymentComponent implements OnInit {
 	protected flights: Flight[] = [];
