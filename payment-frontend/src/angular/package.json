@@ -54,7 +54,7 @@
 	"mkdirp": "^1.0.4",
 	"prettier": "^3.0.0",
 	"replace-in-file": "^8.2.0",
-	"rimraf": "^4.0.2",	
+	"rimraf": "^5.0.2",	
 	"webpack-bundle-analyzer": "^4.5.0"
   }
 }
