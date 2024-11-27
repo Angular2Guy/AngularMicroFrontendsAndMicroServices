@@ -12,7 +12,7 @@ limitations under the License.
  */
 plugins {
 	java
-	id("org.springframework.boot") version "3.3.5"
+	id("org.springframework.boot") version "3.4.0"
 	id("io.spring.dependency-management") version "1.1.6"
 }
 
@@ -35,8 +35,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
-	implementation("net.javacrumbs.shedlock:shedlock-spring:5.2.0")
-	implementation("net.javacrumbs.shedlock:shedlock-provider-jdbc-template:5.2.0")
+	implementation("net.javacrumbs.shedlock:shedlock-spring:6.0.1")
+	implementation("net.javacrumbs.shedlock:shedlock-provider-jdbc-template:6.0.1")
 	implementation("org.liquibase:liquibase-core")
 	implementation("org.eclipse.paho:org.eclipse.paho.mqttv5.client:1.2.5")
 	runtimeOnly("org.postgresql:postgresql")
