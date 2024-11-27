@@ -22,5 +22,5 @@ class Hotel(
     val hotelName: String,
     val city: String,
     val price: BigDecimal,
-    @OneToMany(mappedBy = "hotel") var bookings: Set<Booking>
+    @OneToMany(mappedBy = "hotel", targetEntity = Booking::class) var bookings: Set<Booking> = mutableSetOf()
 ) {}
