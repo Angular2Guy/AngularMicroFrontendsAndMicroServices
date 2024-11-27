@@ -13,7 +13,7 @@ limitations under the License.
 plugins {
 	kotlin("jvm") version "1.9.25"
 	kotlin("plugin.spring") version "1.9.25"
-	id("org.springframework.boot") version "3.3.4"
+	id("org.springframework.boot") version "3.4.0"
 	id("io.spring.dependency-management") version "1.1.6"
 	kotlin("plugin.jpa") version "1.9.25"
 }
@@ -39,8 +39,8 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.liquibase:liquibase-core")
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
-	implementation("net.javacrumbs.shedlock:shedlock-spring:5.2.0")
-	implementation("net.javacrumbs.shedlock:shedlock-provider-jdbc-template:5.2.0")
+	implementation("net.javacrumbs.shedlock:shedlock-spring:6.0.1")
+	implementation("net.javacrumbs.shedlock:shedlock-provider-jdbc-template:6.0.1")
 	implementation("org.eclipse.paho:org.eclipse.paho.mqttv5.client:1.2.5")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -53,6 +53,12 @@ kotlin {
 	compilerOptions {
 		freeCompilerArgs.addAll("-Xjsr305=strict")
 	}
+}
+
+allOpen {
+	annotation("jakarta.persistence.Entity")
+	annotation("jakarta.persistence.MappedSuperclass")
+	annotation("jakarta.persistence.Embeddable")
 }
 
 tasks.bootJar {
