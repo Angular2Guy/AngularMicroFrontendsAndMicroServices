@@ -11,3 +11,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
  */
  @use "material-icons/iconfont/material-icons.scss";
+
+ .dialog-backdrop {
+    backdrop-filter: blur(5px);
+    opacity: 1;
+    background: rgba(0,0,0,0.5);
+   }

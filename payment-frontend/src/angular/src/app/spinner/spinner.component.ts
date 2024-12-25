@@ -10,9 +10,15 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
- .app-container {
-  height: calc(100vh - 130px);
-  width: 100%;
-  border: none;
- }
- 
+import { Component } from '@angular/core';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
+
+@Component({
+  selector: 'app-spinner',
+  imports: [MatProgressSpinnerModule],
+  templateUrl: './spinner.component.html',
+  styleUrl: './spinner.component.scss'
+})
+export class SpinnerComponent {
+
+}

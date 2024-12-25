@@ -10,9 +10,10 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
- .app-container {
-  height: calc(100vh - 130px);
-  width: 100%;
-  border: none;
- }
- 
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;   
+    height: 100%; 
+    width: 100%;
+} 
