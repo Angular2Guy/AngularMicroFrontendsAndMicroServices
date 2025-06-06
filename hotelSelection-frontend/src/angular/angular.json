@@ -15,7 +15,7 @@
 		"prefix": "app",
 		"architect": {
 		  "build": {
-			"builder": "@angular-devkit/build-angular:application",
+			"builder": "@angular/build:application",
 			"options": {
 			  "outputPath": "dist/hotel-selection",
 			  "index": "src/index.html",
@@ -65,7 +65,7 @@
 			"defaultConfiguration": "production"
 		  },
 		  "serve": {
-			"builder": "@angular-devkit/build-angular:dev-server",
+			"builder": "@angular/build:dev-server",
 			"options": {
 				"proxyConfig": "proxy.conf.js"
 			  },
@@ -80,7 +80,7 @@
 			"defaultConfiguration": "development"
 		  },
 		  "test": {
-			"builder": "@angular-devkit/build-angular:karma",
+			"builder": "@angular/build:karma",
 			"options": {
 			  "polyfills": [
 				"zone.js",
@@ -105,5 +105,31 @@
 	},
 	"cli": {
 	  "analytics": "7395c14c-b3b1-4de8-a682-252d4f3e4e53"
-	}
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "type": "component"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
+    }
+  }
   }
