@@ -30,7 +30,7 @@ task("cleanNestJs") {
 
 task("buildNestJs") {
     if (project.hasProperty("withNestJs")) {
-        exec {
+        providers.exec {
             logger.info("Task buildNestJs - npm install")
             workingDir("src/nestjs")
             if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
@@ -38,8 +38,8 @@ task("buildNestJs") {
             } else {
                 commandLine("npm", "install")
             }
-        }
-        exec {
+        }.result.get()
+        providers.exec {
             logger.info("Task buildNestJs - npm run build")
             workingDir("src/nestjs")
             if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
@@ -47,6 +47,6 @@ task("buildNestJs") {
             } else {
                 commandLine("npm", "run", "build")
             }
-        }
+        }.result.get()
     }
 }
