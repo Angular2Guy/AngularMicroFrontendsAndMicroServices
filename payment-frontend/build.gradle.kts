@@ -42,7 +42,7 @@ task("buildAngular") {
     if(project.hasProperty("withAngular")) {
         providers.exec {
             logger.info("Task buildAngular - npm install")
-            workingDir ("src/angular")
+            workingDir ("$projectDir/src/angular")
             if (System.getProperty("os.name").uppercase().contains("WINDOWS")){
                 commandLine("npm.cmd", "install")
             } else {
@@ -51,7 +51,7 @@ task("buildAngular") {
         }.result.get()
         providers.exec {
             logger.info("Task buildAngular - npm run build")
-            workingDir("src/angular")
+            workingDir("$projectDir/src/angular")
             if (System.getProperty("os.name").uppercase().contains("WINDOWS")){
                 commandLine("npm.cmd", "run", "build")
             } else {

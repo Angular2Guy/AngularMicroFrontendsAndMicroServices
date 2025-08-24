@@ -30,18 +30,18 @@ task("cleanNestJs") {
 
 task("buildNestJs") {
     if (project.hasProperty("withNestJs")) {
-        execOperations.exec {
+        providers.exec {
             logger.info("Task buildNestJs - npm install")
-            workingDir("src/nestjs")
+            workingDir("$projectDir/src/nestjs")
             if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
                 commandLine("npm.cmd", "install")
             } else {
                 commandLine("npm", "install")
             }
         }.result.get()
-        execOperations.exec {
+        providers.exec {
             logger.info("Task buildNestJs - npm run build")
-            workingDir("src/nestjs")
+            workingDir("$projectDir/src/nestjs")
             if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
                 commandLine("npm.cmd", "run", "build")
             } else {
