@@ -40,7 +40,7 @@ task("cleanAngular") {
 
 task("buildAngular") {
     if(project.hasProperty("withAngular")) {
-        exec {
+        providers.exec {
             logger.info("Task buildAngular - npm install")
             workingDir ("src/angular")
             if (System.getProperty("os.name").uppercase().contains("WINDOWS")){
@@ -49,7 +49,7 @@ task("buildAngular") {
                 commandLine("npm", "install")
             }
         }
-        exec {
+        providers.exec {
             logger.info("Task buildAngular - npm run build")
             workingDir("src/angular")
             if (System.getProperty("os.name").uppercase().contains("WINDOWS")){
