@@ -48,7 +48,7 @@ task("buildAngular") {
             } else {
                 commandLine("npm", "install")
             }
-        }
+        }.result.get()
         providers.exec {
             logger.info("Task buildAngular - npm run build")
             workingDir("src/angular")
@@ -57,6 +57,6 @@ task("buildAngular") {
             } else {
                 commandLine("npm", "run", "build")
             }
-        }
+        }.result.get()
     }
 }
