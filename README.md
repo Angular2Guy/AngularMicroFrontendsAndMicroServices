@@ -38,7 +38,7 @@ For development was the Eclipse ide used.
 All Microservices use the Clean Architecture with the Rings Adapter, Usecase, Domain to structure the code. The Dtos for the Rest controllers and the Mqtt clients are decoupled by Mappers to be able to change interfaces and database tables independently. The dependency management is done by injection. The communication between microservices is done with MQTT and Apache Artemis.
 
 ## Run the System
-- Build the system with: 
+- Build the system with Jdk 24 due to missing Kotlin Compiler support for Jdk 25(The bytecode of all Jars can be run on Jdk 25): 
 
 ./gradlew clean build -PwithAngular=true -PwithNestJs=true
 
