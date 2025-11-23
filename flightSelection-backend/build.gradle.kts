@@ -17,36 +17,58 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":flightSelection-frontend"))
     // This dependency is used by the application.
-    implementation(libs.guava)
+    implementation(libs.guava)    
 }
 
-task("cleanNestJs") {
-    if(project.hasProperty("withNestJs")) {
-        logger.info("Task cleanAngular")
-        delete("src/angular/node_modules")
-    }
+tasks.register("cleanNestJs") {
+    onlyIf { project.hasProperty("withNestJs") }    
+    doLast {
+        delete("src/nestjs/node_modules")
+        delete("src/nestjs/dist")
+    }    
 }
 
-task("buildNestJs") {
-    if (project.hasProperty("withNestJs")) {
-        providers.exec {
-            logger.info("Task buildNestJs - npm install")
-            workingDir("$projectDir/src/nestjs")
-            if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
-                commandLine("npm.cmd", "install")
-            } else {
-                commandLine("npm", "install")
-            }
-        }.result.get()
-        providers.exec {
-            logger.info("Task buildNestJs - npm run build")
-            workingDir("$projectDir/src/nestjs")
-            if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
-                commandLine("npm.cmd", "run", "build")
-            } else {
-                commandLine("npm", "run", "build")
-            }
-        }.result.get()
+tasks.register<Exec>("installNestJs") {
+    onlyIf { project.hasProperty("withNestJs") }
+    logger.info("Task buildNestJs - npm install")
+    workingDir("src/nestjs")
+    if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
+        commandLine("npm.cmd", "install")
+    } else {
+        commandLine("npm", "install")
     }
+    dependsOn(tasks.named("cleanNestJs"))
+}
+
+tasks.register<Exec>("buildNestJs") {
+   onlyIf { project.hasProperty("withNestJs") }
+    logger.info("Task buildNestJs - npm run build")
+    workingDir("src/nestjs")    
+    if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
+        commandLine("npm.cmd", "run", "build")
+    } else {
+        commandLine("npm", "run", "build")
+    }
+    dependsOn(tasks.named("cleanNestJs"), tasks.named("installNestJs"))
+}
+
+tasks.named("build") {
+    dependsOn(tasks.named("buildNestJs"))
+}
+
+// Ensure backend tasks wait for frontend
+
+tasks.named("processResources") {
+	dependsOn(":flightSelection-frontend:buildAngular")
+}
+
+tasks.named("classes") {
+	dependsOn(":flightSelection-frontend:buildAngular")
+}
+
+// The application plugin doesn't provide a `bootJar` task; use `jar` instead
+tasks.named("jar") {
+    dependsOn(":flightSelection-frontend:buildAngular")
 }
