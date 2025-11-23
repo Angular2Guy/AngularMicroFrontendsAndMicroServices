@@ -12,7 +12,6 @@ limitations under the License.
  */
 package de.xxx.hotelselection.adapter.events
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import de.xxx.hotelselection.domain.model.entity.Booking
 import de.xxx.hotelselection.usecase.mapper.BookingMapper
 import jakarta.annotation.PreDestroy
@@ -27,6 +26,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.boot.context.event.ApplicationStartedEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
+import tools.jackson.databind.json.JsonMapper
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -35,7 +35,7 @@ import java.util.zip.GZIPOutputStream
 
 
 @Component
-class MqttProducer(val mqttClient: IMqttClient, val objectMapper: ObjectMapper, val bookingMapper: BookingMapper): MqttCallback {
+class MqttProducer(val mqttClient: IMqttClient, val objectMapper: JsonMapper, val bookingMapper: BookingMapper): MqttCallback {
     private val log = LoggerFactory.getLogger(javaClass)
     private val TOPIC_NAME = "hotel-booking"
 

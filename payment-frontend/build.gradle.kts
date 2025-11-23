@@ -88,11 +88,6 @@ tasks.register<Exec>("testAngular") {
         }
     }
     dependsOn(tasks.named("npmInstall"))
-    doFirst {
-        // `commandLine` is a list; join for logging
-        val cmd = commandLine.joinToString(" ")
-        println("Running $cmd")
-    }
 }
 
 tasks.register("buildAngular") {
