@@ -24,9 +24,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
 @Configuration
 public class Application {
 	private static final Logger LOG = LoggerFactory.getLogger(Application.class);
@@ -36,13 +33,6 @@ public class Application {
 	private String userName;
 	@Value("${mqtt.password:artemis1}")
 	private String password;
-
-	@Bean
-	public ObjectMapper createObjectMapper() {
-		var objectMapper = new ObjectMapper();
-		objectMapper.registerModule(new JavaTimeModule());
-		return objectMapper;
-	}
 	
 	@Bean
 	public IMqttClient createMqttClient() {

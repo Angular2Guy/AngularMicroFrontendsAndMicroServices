@@ -30,10 +30,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 import de.xxx.payment.domain.model.dto.FlightDto;
 import de.xxx.payment.domain.model.dto.HotelDto;
@@ -48,14 +45,14 @@ public class MqttReceiver implements MqttCallback {
 	private static final Logger LOG = LoggerFactory.getLogger(MqttReceiver.class);
 	private static final String HOTEL_TOPIC_NAME = "hotel-booking";
 	private static final String FLIGHT_TOPIC_NAME = "flight-booking";
-	private final ObjectMapper objectMapper;
+	private final JsonMapper objectMapper;
 	private final IMqttClient mqttClient;
 	private final FlightMapper flightMapper;
 	private final HotelMapper hotelMapper;
 	private final FlightService flightService;
 	private final HotelService hotelService;
 
-	public MqttReceiver(IMqttClient mqttClient, ObjectMapper objectMapper, FlightMapper flightMapper,
+	public MqttReceiver(IMqttClient mqttClient, JsonMapper objectMapper, FlightMapper flightMapper,
 			HotelMapper hotelMapper, FlightService flightService, HotelService hotelService) {
 		this.objectMapper = objectMapper;
 		this.mqttClient = mqttClient;
@@ -125,7 +122,7 @@ public class MqttReceiver implements MqttCallback {
 		}
 	}
 
-	private void handleFlightEvent(String topic, String jsonStr) throws JsonProcessingException, JsonMappingException {
+	private void handleFlightEvent(String topic, String jsonStr) {
 		var dto = this.objectMapper.readValue(jsonStr, FlightDto.class);
 		var entity = this.flightMapper.toEntity(dto, false);
 		if(!dto.deleted()) {
@@ -136,7 +133,7 @@ public class MqttReceiver implements MqttCallback {
 		LOG.info(String.format("Topic: %s, value: %s", topic, entity.toString()));
 	}
 
-	private void handleHotelEvent(String topic, String jsonStr) throws JsonProcessingException, JsonMappingException {
+	private void handleHotelEvent(String topic, String jsonStr) {
 		var dto = this.objectMapper.readValue(jsonStr, HotelDto.class);
 		var entity = this.hotelMapper.toEntity(dto, false);
 		if (!dto.deleted()) {

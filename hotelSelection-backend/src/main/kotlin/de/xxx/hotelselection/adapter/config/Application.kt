@@ -12,9 +12,6 @@ limitations under the License.
  */
 package de.xxx.hotelselection.adapter.config
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.eclipse.paho.mqttv5.client.IMqttClient
 import org.eclipse.paho.mqttv5.client.MqttClient
 import org.eclipse.paho.mqttv5.client.MqttConnectionOptions
@@ -32,13 +29,6 @@ class Application {
     private lateinit var userName: String
     @Value("\${mqtt.password:artemis1}")
     private lateinit var password: String
-
-    @Bean
-    fun createObjectMapper(): ObjectMapper? {
-        val objectMapper = ObjectMapper()
-        objectMapper.registerModule(JavaTimeModule()).registerModule(KotlinModule.Builder().build())
-        return objectMapper
-    }
 
     @Bean
     fun createMqttClient(): IMqttClient {

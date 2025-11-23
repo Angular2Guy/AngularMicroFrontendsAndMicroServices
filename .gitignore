@@ -5,3 +5,8 @@
 build
 /hotelSelection-backend/src/main/resources/static/
 /flightSelection-backend/src/main/resources/static/
+/.idea/compiler.xml
+/.idea/gradle.xml
+/.idea/kotlinc.xml
+/.idea/misc.xml
+/.idea/vcs.xml
