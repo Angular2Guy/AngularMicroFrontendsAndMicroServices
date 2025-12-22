@@ -8,6 +8,7 @@ Technologies: Angular, Angular-Cli, Angular-Material, Typescript, Spring Boot, N
 
 ## Articles
 * [Microfrontends in a Microservice Architecture](https://angular2guy.wordpress.com/2024/11/16/microfrontends-in-a-microservice-architecture/)
+* [Java Microservices(SCS) vs. Spring Modulith](https://angular2guy.wordpress.com/2025/12/22/java-microservicesscs-vs-spring-modulith/)
 
 ## Mission Statement
 The project shows howto build a collection of Microservices with their own Angular Microfrontends. The Microfrontends are the integrated in the shell application to give the user the impression of a single frontend. That enables the independend development of the Microservices by different teams with a user friendly modular integrated frontend -> no frontend monolith. 
