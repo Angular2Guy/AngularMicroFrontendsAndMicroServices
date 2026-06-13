@@ -6,9 +6,12 @@
  * This project uses @Incubating APIs which are subject to change.
  */
 
+import com.github.gradle.node.npm.task.NpmTask
+
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+    id("com.github.node-gradle.node") version "7.1.0"
 }
 
 repositories {
@@ -22,6 +25,13 @@ dependencies {
     implementation(libs.guava)    
 }
 
+node {
+    version = "22.16.0"
+    npmVersion = "10.9.2"
+    download = true
+    nodeProjectDir = file("${project.projectDir}/src/nestjs")
+}
+
 tasks.register("cleanNestJs") {
     onlyIf { project.hasProperty("withNestJs") }    
     doLast {
@@ -30,28 +40,17 @@ tasks.register("cleanNestJs") {
     }    
 }
 
-tasks.register<Exec>("installNestJs") {
+tasks.register<NpmTask>("installNestJs") {
     onlyIf { project.hasProperty("withNestJs") }
-    logger.info("Task buildNestJs - npm install")
-    workingDir("src/nestjs")
-    if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
-        commandLine("npm.cmd", "install")
-    } else {
-        commandLine("npm", "install")
-    }
-    dependsOn(tasks.named("cleanNestJs"))
+    args.set(listOf("install"))
+    dependsOn("nodeSetup", "npmSetup")
+    dependsOn("cleanNestJs")
 }
 
-tasks.register<Exec>("buildNestJs") {
-   onlyIf { project.hasProperty("withNestJs") }
-    logger.info("Task buildNestJs - npm run build")
-    workingDir("src/nestjs")    
-    if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
-        commandLine("npm.cmd", "run", "build")
-    } else {
-        commandLine("npm", "run", "build")
-    }
-    dependsOn(tasks.named("cleanNestJs"), tasks.named("installNestJs"))
+tasks.register<NpmTask>("buildNestJs") {
+    onlyIf { project.hasProperty("withNestJs") }
+    args.set(listOf("run", "build"))
+    dependsOn("cleanNestJs", "installNestJs")
 }
 
 tasks.named("build") {
