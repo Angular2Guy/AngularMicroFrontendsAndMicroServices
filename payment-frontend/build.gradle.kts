@@ -6,9 +6,12 @@
  * This project uses @Incubating APIs which are subject to change.
  */
 
+import com.github.gradle.node.npm.task.NpmTask
+
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+    id("com.github.node-gradle.node") version "7.1.0"
 }
 
 group = "de.xxx"
@@ -29,6 +32,13 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(24)
     }
+}
+
+node {
+    version = "22.16.0"
+    npmVersion = "10.9.2" // Gewünschte NPM Version
+    download = true // Lädt Node/NPM automatisch herunter
+    nodeProjectDir = file("${project.projectDir}/src/angular")
 }
 
 tasks.register("cleanAngular") {
@@ -53,45 +63,36 @@ tasks.register("createDist") {
     }
 }
 
-tasks.register<Exec>("npmInstall") {
+tasks.register<NpmTask>("npmInstallCustom") {
     onlyIf { project.hasProperty("withAngular") }
-    workingDir = file("src/angular")
-    if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
-        commandLine("npm.cmd", "install")
-    } else {
-        commandLine("npm", "install")
-    }
-    dependsOn(tasks.named("cleanAngular"))
+
+    args.set(listOf("install"))
+
+    dependsOn("nodeSetup", "npmSetup")
+    dependsOn("cleanAngular")
 }
 
-tasks.register<Exec>("npmBuild") {
-    onlyIf { project.hasProperty("withAngular") }
-    workingDir = file("src/angular")
-    if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
-        commandLine("npm.cmd", "run", "build")
-    } else {
-        commandLine("npm", "run", "build")
+tasks.register<NpmTask>("buildAngular") {
+    onlyIf {
+        project.hasProperty("withAngular")
     }
-    dependsOn(tasks.named("npmInstall"), tasks.named("cleanDist"), tasks.named("createDist"))
+
+    args.set(listOf("run", "build"))
+
+    dependsOn("npmInstall", "cleanDist", "createDist")
 }
 
-tasks.register<Exec>("testAngular") {
-    onlyIf { project.hasProperty("withAngular") }
-    workingDir = file("src/angular")
-    if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
-        commandLine("npm.cmd", "run", "test")
-    } else {
-        if (project.hasProperty("useChromium")) {
-            commandLine("npm", "run", "test-chromium")
-        } else {
-            commandLine("npm", "run", "test")
-        }
+tasks.register<NpmTask>("testAngular") {
+    onlyIf {
+        project.hasProperty("withAngular")
     }
-    dependsOn(tasks.named("npmInstall"))
-}
+    if (project.hasProperty("useChromium")) {
+        args.set(listOf("run", "test-chromium"))
+    } else {
+        args.set(listOf("run", "test"))
+    }
 
-tasks.register("buildAngular") {
-    dependsOn(tasks.named("npmBuild"), tasks.named("testAngular"))
+    dependsOn("npmBuild")
 }
 
 // Make sure the main build task depends on buildAngular

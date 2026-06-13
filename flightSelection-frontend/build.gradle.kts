@@ -10,9 +10,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
+
+import com.github.gradle.node.npm.task.NpmTask
+
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+    id("com.github.node-gradle.node") version "7.1.0"
 }
 
 group = "de.xxx"
@@ -33,6 +37,13 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(24)
     }
+}
+
+node {
+    version = "22.16.0"
+    npmVersion = "10.9.2"
+    download = true
+    nodeProjectDir = file("${project.projectDir}/src/angular")
 }
 
 tasks.register("cleanAngular") {
@@ -57,41 +68,27 @@ tasks.register("createDist") {
     }
 }
 
-tasks.register<Exec>("npmInstall") {
+tasks.register<NpmTask>("npmInstallCustom") {
     onlyIf { project.hasProperty("withAngular") }
-    workingDir = file("src/angular")
-    if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
-        commandLine("npm.cmd", "install")
-    } else {
-        commandLine("npm", "install")
-    }
-    dependsOn(tasks.named("cleanAngular"))
+    args.set(listOf("install"))
+    dependsOn("nodeSetup", "npmSetup")
+    dependsOn("cleanAngular")
 }
 
-tasks.register<Exec>("npmBuild") {
+tasks.register<NpmTask>("npmBuild") {
     onlyIf { project.hasProperty("withAngular") }
-    workingDir = file("src/angular")
-    if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
-        commandLine("npm.cmd", "run", "build")
-    } else {
-        commandLine("npm", "run", "build")
-    }
-    dependsOn(tasks.named("npmInstall"), tasks.named("cleanDist"), tasks.named("createDist"))
+    args.set(listOf("run", "build"))
+    dependsOn("npmInstallCustom", "cleanDist", "createDist")
 }
 
-tasks.register<Exec>("testAngular") {
+tasks.register<NpmTask>("testAngular") {
     onlyIf { project.hasProperty("withAngular") }
-    workingDir = file("src/angular")
-    if (System.getProperty("os.name").uppercase().contains("WINDOWS")) {
-        commandLine("npm.cmd", "run", "test")
+    if (project.hasProperty("useChromium")) {
+        args.set(listOf("run", "test-chromium"))
     } else {
-        if (project.hasProperty("useChromium")) {
-            commandLine("npm", "run", "test-chromium")
-        } else {
-            commandLine("npm", "run", "test")
-        }
+        args.set(listOf("run", "test"))
     }
-    dependsOn(tasks.named("npmInstall"))
+    dependsOn("npmBuild")
 }
 
 tasks.register("buildAngular") {
