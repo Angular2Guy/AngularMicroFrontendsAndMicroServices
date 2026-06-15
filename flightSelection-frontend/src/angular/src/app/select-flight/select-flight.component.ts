@@ -10,39 +10,56 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FlightService } from '../services/flight.service';
 import { Flight } from '../model/flight';
 import { JsonPipe } from '@angular/common';
-import {FormGroup, FormControl, ReactiveFormsModule} from '@angular/forms';
-import {MatSelectModule} from '@angular/material/select'; 
-import {MatButtonModule} from '@angular/material/button';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 
-enum ControlName {FromTo = "fromTo"}
+enum ControlName {
+  FromTo = 'fromTo',
+}
 
 @Component({
-    selector: 'app-select-flight',
-    imports: [ReactiveFormsModule, MatSelectModule, MatButtonModule, JsonPipe, TranslocoPipe],
-    templateUrl: './select-flight.component.html',
-    styleUrl: './select-flight.component.scss'
+  selector: 'app-select-flight',
+  imports: [
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatButtonModule,
+    JsonPipe,
+    TranslocoPipe,
+  ],
+  templateUrl: './select-flight.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './select-flight.component.scss',
 })
-export class SelectFlightComponent implements OnInit{
+export class SelectFlightComponent implements OnInit {
   protected formGroup = new FormGroup({
-    [ControlName.FromTo]: new FormControl('')    
+    [ControlName.FromTo]: new FormControl(''),
   });
   protected flights: Flight[] = [];
   protected ControlName = ControlName;
 
-  constructor(private flightService: FlightService, private router: Router) { }
-  
+  constructor(
+    private flightService: FlightService,
+    private router: Router,
+  ) {}
+
   ngOnInit(): void {
-    this.flightService.getAllFlights().subscribe(result => this.flights = result);
+    this.flightService
+      .getAllFlights()
+      .subscribe((result) => (this.flights = result));
   }
 
   bookFlight(): void {
     console.log(this.formGroup.controls[ControlName.FromTo].value);
-    this.router.navigate(['bookflight', this.formGroup.controls[ControlName.FromTo].value])
+    this.router.navigate([
+      'bookflight',
+      this.formGroup.controls[ControlName.FromTo].value,
+    ]);
   }
 }
