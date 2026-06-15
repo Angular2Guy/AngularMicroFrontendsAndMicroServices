@@ -35,8 +35,8 @@ java {
 }
 
 node {
-    version = "22.16.0"
-    npmVersion = "10.9.2" // Gewünschte NPM Version
+    version = "24.16.0"
+    npmVersion = "11.13.0"
     download = true // Lädt Node/NPM automatisch herunter
     nodeProjectDir = file("${project.projectDir}/src/angular")
 }
