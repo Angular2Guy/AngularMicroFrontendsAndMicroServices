@@ -10,7 +10,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HotelService } from '../service/hotel.service';
 import { FlightService } from '../service/flight.service';
 import { Flight } from '../model/flight';
@@ -21,28 +21,45 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-payment',
-    imports: [JsonPipe, TranslocoPipe, MatButtonModule],
-    templateUrl: './payment.component.html',
-    styleUrl: './payment.component.scss'
+  selector: 'app-payment',
+  imports: [JsonPipe, TranslocoPipe, MatButtonModule],
+  templateUrl: './payment.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './payment.component.scss',
 })
 export class PaymentComponent implements OnInit {
-	protected flights: Flight[] = [];
-	protected hotels: Hotel[] = [];
-	
-	constructor(private hotelService: HotelService, private flightService: FlightService, private router: Router) { }
-    
-	ngOnInit(): void {
-      this.flightService.getFlights().subscribe(result => this.flights = result);
-	  this.hotelService.getHotels().subscribe(result => this.hotels = result)
-    }
-	
-	pay(): void {
-		this.flightService.postPayFlights(this.flights.map(myFlight => myFlight.id)).subscribe(myFlights => this.flights = myFlights.filter(value => !value.deleted));
-		this.hotelService.postPayHotels(this.hotels.map(myHotel => myHotel.id)).subscribe(myHotels => this.hotels = myHotels.filter(value => !value.deleted));
-	}
-	
-	cancel(): void {
-		this.router.navigate(['/booking'])
-	}
+  protected flights: Flight[] = [];
+  protected hotels: Hotel[] = [];
+
+  constructor(
+    private hotelService: HotelService,
+    private flightService: FlightService,
+    private router: Router,
+  ) {}
+
+  ngOnInit(): void {
+    this.flightService
+      .getFlights()
+      .subscribe((result) => (this.flights = result));
+    this.hotelService.getHotels().subscribe((result) => (this.hotels = result));
+  }
+
+  pay(): void {
+    this.flightService
+      .postPayFlights(this.flights.map((myFlight) => myFlight.id))
+      .subscribe(
+        (myFlights) =>
+          (this.flights = myFlights.filter((value) => !value.deleted)),
+      );
+    this.hotelService
+      .postPayHotels(this.hotels.map((myHotel) => myHotel.id))
+      .subscribe(
+        (myHotels) =>
+          (this.hotels = myHotels.filter((value) => !value.deleted)),
+      );
+  }
+
+  cancel(): void {
+    this.router.navigate(['/booking']);
+  }
 }

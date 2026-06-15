@@ -10,15 +10,14 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-import { Component } from '@angular/core';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-spinner',
   imports: [MatProgressSpinnerModule],
   templateUrl: './spinner.component.html',
-  styleUrl: './spinner.component.scss'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './spinner.component.scss',
 })
-export class SpinnerComponent {
-
-}
+export class SpinnerComponent {}
