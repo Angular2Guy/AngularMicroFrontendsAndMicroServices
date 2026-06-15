@@ -10,7 +10,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -35,14 +35,29 @@ interface HotelBooking {
   price?: number;
 }
 
-enum ControlName { From = 'from', To = 'to' };
+enum ControlName {
+  From = 'from',
+  To = 'to',
+}
 
 @Component({
-    selector: 'app-book-hotel',
-    imports: [ReactiveFormsModule, MatFormFieldModule, MatDatepickerModule, JsonPipe, MatButtonModule, DatePipe, MatIconModule, MatInputModule, TranslocoPipe, TranslocoLocaleModule],
-    providers: [provideNativeDateAdapter()],
-    templateUrl: './book-hotel.component.html',
-    styleUrl: './book-hotel.component.scss'
+  selector: 'app-book-hotel',
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    JsonPipe,
+    MatButtonModule,
+    DatePipe,
+    MatIconModule,
+    MatInputModule,
+    TranslocoPipe,
+    TranslocoLocaleModule,
+  ],
+  providers: [provideNativeDateAdapter()],
+  templateUrl: './book-hotel.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './book-hotel.component.scss',
 })
 export class BookHotelComponent implements OnInit {
   protected selHotel: Hotel | null = null;
@@ -53,23 +68,60 @@ export class BookHotelComponent implements OnInit {
   });
   protected ControlName = ControlName;
 
-  constructor(private hotelService: HotelService, private bookingService: BookingService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(
+    private hotelService: HotelService,
+    private bookingService: BookingService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
-    this.hotelService.getHotel(this.activatedRoute.snapshot.params['id']).subscribe(result => this.selHotel = result);
-    this.readBookings(this.activatedRoute.snapshot.params['id']).subscribe(result => this.bookings = result);
+    this.hotelService
+      .getHotel(this.activatedRoute.snapshot.params['id'])
+      .subscribe((result) => (this.selHotel = result));
+    this.readBookings(this.activatedRoute.snapshot.params['id']).subscribe(
+      (result) => (this.bookings = result),
+    );
   }
 
   private readBookings(id: string): Observable<HotelBooking[]> {
-    return this.bookingService.getBookings(id).pipe(map(myValue => myValue.map(value => ({ id: value.id, from: new Date(value.from), to: new Date(value.to), price: !!value.price ? value.price : 0 } as HotelBooking))));
+    return this.bookingService
+      .getBookings(id)
+      .pipe(
+        map((myValue) =>
+          myValue.map(
+            (value) =>
+              ({
+                id: value.id,
+                from: new Date(value.from),
+                to: new Date(value.to),
+                price: !!value.price ? value.price : 0,
+              }) as HotelBooking,
+          ),
+        ),
+      );
   }
 
   protected bookHotel(): void {
-    !!this.selHotel?.id && this.formGroup.valid && this.bookingService.postBooking(this.selHotel?.id || '', { id: null, from: this.formGroup.controls[ControlName.From]?.value?.toISOString(), to: this.formGroup.controls[ControlName.To]?.value?.toISOString(), price: 0 } as Booking).pipe(mergeMap(() => this.readBookings(this.selHotel?.id || ''))).subscribe(result => this.bookings = result)
+    !!this.selHotel?.id &&
+      this.formGroup.valid &&
+      this.bookingService
+        .postBooking(this.selHotel?.id || '', {
+          id: null,
+          from: this.formGroup.controls[ControlName.From]?.value?.toISOString(),
+          to: this.formGroup.controls[ControlName.To]?.value?.toISOString(),
+          price: 0,
+        } as Booking)
+        .pipe(mergeMap(() => this.readBookings(this.selHotel?.id || '')))
+        .subscribe((result) => (this.bookings = result));
   }
 
   protected deleteBooking(booking: HotelBooking): void {
-    !!booking.id && this.bookingService.deleteBooking(booking.id).pipe(mergeMap(() => this.readBookings(this.selHotel?.id || ''))).subscribe(result => this.bookings = result);
+    !!booking.id &&
+      this.bookingService
+        .deleteBooking(booking.id)
+        .pipe(mergeMap(() => this.readBookings(this.selHotel?.id || '')))
+        .subscribe((result) => (this.bookings = result));
   }
 
   protected cancel(): void {
